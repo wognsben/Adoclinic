@@ -12,7 +12,7 @@ export function SkinAnalysis() {
     };
     
     cycle(); // Start immediately
-    const interval = setInterval(cycle, 16000); // Full cycle every 16s (6s scan + 10s result)
+    const interval = setInterval(cycle, 16000); // Full cycle every 16s
     return () => clearInterval(interval);
   }, []);
 
@@ -108,13 +108,17 @@ export function SkinAnalysis() {
                     </div>
                  </div>
                  
-                 <div className="w-full h-14 bg-white/5 backdrop-blur-2xl rounded-2xl flex items-center px-4 gap-4 border border-white/10 shadow-2xl ring-1 ring-white/5 group hover:bg-white/10 transition-colors duration-500 cursor-pointer">
+                 <div 
+                    onClick={() => {
+                        window.dispatchEvent(new CustomEvent('highlight-consultation'));
+                    }}
+                    className="w-full h-14 bg-white/5 backdrop-blur-2xl rounded-2xl flex items-center px-4 gap-4 border border-white/10 shadow-2xl ring-1 ring-white/5 group hover:bg-white/10 transition-colors duration-500 cursor-pointer">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-teal-400 to-emerald-500 flex items-center justify-center opacity-90 shrink-0 group-hover:scale-110 transition-transform">
                          <div className="w-4 h-4 text-black">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 2a4 4 0 0 0-4 4v8a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4z"></path></svg>
                          </div>
                     </div>
-                    <div className="w-full text-white/50 text-sm font-light tracking-wide group-hover:text-white/80 transition-colors">무엇이든 물어보세요...</div>
+                    <div className="w-full text-white/50 text-sm font-light tracking-wide group-hover:text-white/80 transition-colors">1:1 프라이빗 상담 연결</div>
                  </div>
              </div>
           </div>
@@ -123,6 +127,7 @@ export function SkinAnalysis() {
           <AnimatePresence>
             {isScanning && (
                 <motion.div 
+                    key="scan-line-effect"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -145,9 +150,16 @@ export function SkinAnalysis() {
       {/* ---------------------------------------------------------- */}
       {/* This layer sits ON TOP of the tablet and has NO overflow-hidden */}
       <div className="absolute inset-0 z-50 pointer-events-none">
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             {!isScanning && (
-                <>
+                <motion.div 
+                    key="results-container"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="absolute inset-0"
+                >
                     {/* Card 1: Diagnosis (Cheek - Skin Texture Analysis) */}
                     <PremiumCard 
                         x={32} y={48} 
@@ -177,7 +189,7 @@ export function SkinAnalysis() {
                         align="right"
                         delay={0.5}
                     />
-                </>
+                </motion.div>
             )}
           </AnimatePresence>
       </div>
@@ -188,16 +200,18 @@ export function SkinAnalysis() {
   );
 }
 
-function PremiumCard({ x, y, title, subtitle, desc, align = 'left', delay }) {
+// Wrap with React.memo to prevent unnecessary re-renders
+const PremiumCard = React.memo(function PremiumCard({ x, y, title, subtitle, desc, align = 'left', delay }) {
     return (
-        <div className="absolute" style={{ top: `${y}%`, left: `${x}%` }}>
+        <div className="absolute" style={{ top: `${y}%`, left: `${x}%`, zIndex: 50 }}>
             {/* 1. The Dot (Must be exactly on the face position) */}
             <motion.div 
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 exit={{ scale: 0 }}
                 transition={{ delay: delay, type: "spring", stiffness: 300, damping: 20 }}
-                className="relative flex items-center justify-center w-4 h-4 -translate-x-1/2 -translate-y-1/2" // Center the dot on the x,y coordinate
+                className="relative flex items-center justify-center w-4 h-4 -translate-x-1/2 -translate-y-1/2"
+                style={{ willChange: 'transform' }} // Optimization: Hardware acceleration
             >
                 <div className="w-1.5 h-1.5 bg-white rounded-full z-10 box-content border border-teal-500/50 shadow-[0_0_10px_rgba(255,255,255,1)]"></div>
                 <div className="absolute inset-0 bg-teal-400/30 rounded-full animate-ping"></div>
@@ -211,7 +225,11 @@ function PremiumCard({ x, y, title, subtitle, desc, align = 'left', delay }) {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ delay: delay + 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }} 
                 className={`absolute top-0 flex items-center ${align === 'left' ? 'left-8' : 'right-8 flex-row-reverse'}`}
-                style={{ transform: 'translateY(-50%)' }} // Vertically center relative to the dot
+                style={{ 
+                    transform: 'translateY(-50%)', // Vertically center relative to the dot
+                    willChange: 'transform, opacity', // Optimization: Hardware acceleration
+                    backfaceVisibility: 'hidden' // Optimization: Prevent flickering
+                }} 
             >
                 {/* Connecting Line */}
                 <svg 
@@ -222,14 +240,14 @@ function PremiumCard({ x, y, title, subtitle, desc, align = 'left', delay }) {
                 >
                     <motion.path 
                         d="M0 1H48" 
-                        stroke="url(#lineGradient)" 
+                        stroke={`url(#lineGradient-${title})`} 
                         strokeWidth="1"
                         initial={{ pathLength: 0 }}
                         animate={{ pathLength: 1 }}
                         transition={{ delay: delay + 0.1, duration: 0.4 }}
                     />
                     <defs>
-                        <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+                        <linearGradient id={`lineGradient-${title}`} x1="0" y1="0" x2="1" y2="0">
                             <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
                             <stop offset="100%" stopColor="rgba(255,255,255,0.6)" />
                         </linearGradient>
@@ -237,16 +255,18 @@ function PremiumCard({ x, y, title, subtitle, desc, align = 'left', delay }) {
                 </svg>
 
                 {/* Glass Card Content */}
-                {/* min-w-[200px] ensures it's wide enough. whitespace-nowrap prevents unexpected wrapping */}
                 <div className={`
                     relative 
-                    bg-black/40 backdrop-blur-xl 
-                    border border-white/20 
+                    bg-[#1a1a1a]/90 backdrop-blur-xl 
+                    border border-white/10 
                     rounded-xl p-5 min-w-[220px]
-                    shadow-[0_8px_32px_0_rgba(0,0,0,0.5)]
+                    shadow-[0_8px_32px_0_rgba(0,0,0,0.8)]
                     ${align === 'right' ? 'text-right' : 'text-left'}
-                    group hover:bg-black/50 transition-colors duration-300
-                `}>
+                    group hover:bg-[#1a1a1a] transition-colors duration-300
+                `}
+                style={{ 
+                    transform: 'translateZ(0)', // Force GPU layer creation
+                }}>
                     {/* Shimmer */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] animate-[shimmer_3s_infinite]"></div>
 
@@ -257,4 +277,4 @@ function PremiumCard({ x, y, title, subtitle, desc, align = 'left', delay }) {
             </motion.div>
         </div>
     );
-}
+});

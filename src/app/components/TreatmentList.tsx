@@ -38,22 +38,24 @@ export function TreatmentList() {
   const [activeCategory, setActiveCategory] = useState<string>('injection');
 
   return (
-    <section className="w-full bg-[#Fdfbf9] py-24 md:py-32 relative">
+    <section className="w-full relative py-24 md:py-32">
+      {/* Background is handled globally by App.tsx (Warm Stone) */}
+      
       <div className="max-w-[1600px] mx-auto px-6">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-[#1A1A1A] pb-8">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-20 border-b border-[#1c1917]/10 pb-8">
           <div>
-            <h2 className="text-4xl md:text-6xl font-serif text-[#1A1A1A] mb-4">
+            <h2 className="text-4xl md:text-6xl font-serif text-[#1c1917] mb-4">
               Treatments
             </h2>
-            <p className="text-[#525252] text-sm tracking-wider uppercase">
+            <p className="text-[#57534E] text-sm tracking-wider uppercase">
               Curated by ADO Clinic
             </p>
           </div>
           <div className="hidden md:block text-right">
-             <p className="text-xs text-[#8C8C8C] mb-1">* 모든 시술은 VAT 별도입니다.</p>
-             <p className="text-xs text-[#8C8C8C]">* 개인별 맞춤 상담 후 시술이 진행됩니다.</p>
+             <p className="text-xs text-[#A8A29E] mb-1">* 모든 시술은 VAT 별도입니다.</p>
+             <p className="text-xs text-[#A8A29E]">* 개인별 맞춤 상담 후 시술이 진행됩니다.</p>
           </div>
         </div>
 
@@ -61,30 +63,30 @@ export function TreatmentList() {
           
           {/* Category Sidebar */}
           <div className="md:w-1/4 flex flex-col gap-2">
-            {categories.map((cat) => (
+            {categories.map((cat, idx) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`text-left py-4 px-2 border-b transition-all duration-300 group ${
+                className={`text-left py-5 px-3 border-b transition-all duration-500 group relative overflow-hidden ${
                   activeCategory === cat.id 
-                    ? 'border-[#991B1B] text-[#1A1A1A]' 
-                    : 'border-[#D1D5DB] text-[#8C8C8C] hover:text-[#525252]'
+                    ? 'border-[#991B1B] text-[#1c1917]' 
+                    : 'border-[#E7E5E4] text-[#A8A29E] hover:text-[#57534E]'
                 }`}
               >
-                <span className={`text-xs block mb-1 uppercase tracking-widest ${activeCategory === cat.id ? 'text-[#991B1B]' : ''}`}>
-                  0{categories.indexOf(cat) + 1}
+                <span className={`text-xs block mb-2 uppercase tracking-widest transition-colors duration-300 ${activeCategory === cat.id ? 'text-[#991B1B]' : ''}`}>
+                  0{idx + 1}
                 </span>
-                <span className="text-xl md:text-2xl font-serif italic block group-hover:translate-x-2 transition-transform">
+                <span className="text-xl md:text-3xl font-serif italic block group-hover:translate-x-2 transition-transform duration-500">
                   {cat.title}
                 </span>
-                <span className="text-xs text-[#525252] mt-1 block">
+                <span className="text-xs text-[#78716C] mt-2 block opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   {cat.subtitle}
                 </span>
               </button>
             ))}
           </div>
 
-          {/* Treatment Items (Minimal List) */}
+          {/* Treatment Items (Gallery Cards) */}
           <div className="md:w-3/4 min-h-[500px]">
             <AnimatePresence mode="wait">
               <motion.div
@@ -92,33 +94,36 @@ export function TreatmentList() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-                className="grid grid-cols-1 gap-6"
+                transition={{ duration: 0.5, ease: [0.32, 0, 0.67, 0] }}
+                className="grid grid-cols-1 gap-4"
               >
                 {categories.find(c => c.id === activeCategory)?.items.map((item, idx) => (
                   <div 
                     key={idx} 
-                    className="group relative bg-white border border-[#E5E5E5] p-8 md:p-10 hover:border-[#738F86] hover:shadow-lg transition-all duration-500 cursor-pointer overflow-hidden"
+                    className="group relative p-8 md:p-10 transition-all duration-500 cursor-pointer overflow-hidden border border-transparent hover:border-[#D6D3D1] rounded-[32px]"
+                    // Tone-on-tone background: Default is transparent, Hover is slightly lighter stone
                   >
-                    {/* Background Celadon Hover Effect */}
-                    <div className="absolute inset-0 bg-[#E8EFED] opacity-0 group-hover:opacity-30 transition-opacity duration-500" />
+                    {/* Background Layer (Glassy Stone) */}
+                    <div className="absolute inset-0 bg-[#EBE9E4] opacity-0 group-hover:opacity-40 transition-opacity duration-500" />
                     
                     <div className="relative z-10 flex flex-col md:flex-row justify-between md:items-center gap-4">
                       <div>
-                        <h4 className="text-xl md:text-2xl font-medium text-[#1A1A1A] mb-2 group-hover:text-[#2F4F4F] transition-colors">
+                        <h4 className="text-xl md:text-2xl font-serif text-[#1c1917] mb-2 group-hover:text-[#2F4F4F] transition-colors">
                           {item.name}
                         </h4>
-                        <p className="text-[#525252] font-light text-sm md:text-base max-w-lg">
+                        <p className="text-[#57534E] font-light text-sm md:text-base max-w-lg leading-relaxed">
                           {item.desc}
                         </p>
                       </div>
                       
-                      <div className="flex items-center justify-between md:justify-end gap-8 w-full md:w-auto mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 border-[#F5F5F3]">
-                        <span className="font-mono text-lg text-[#1A1A1A] group-hover:font-medium">
-                          {item.price} <span className="text-xs text-[#8C8C8C]">KRW</span>
+                      <div className="flex items-center justify-between md:justify-end gap-10 w-full md:w-auto mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 border-[#E7E5E4]">
+                        <span className="font-mono text-lg text-[#44403C] group-hover:font-medium tracking-wide">
+                          {item.price} <span className="text-[10px] text-[#A8A29E] tracking-widest">KRW</span>
                         </span>
-                        <div className="w-10 h-10 rounded-full border border-[#D1D5DB] flex items-center justify-center group-hover:bg-[#2F4F4F] group-hover:border-[#2F4F4F] transition-colors">
-                           <ArrowRight className="w-4 h-4 text-[#8C8C8C] group-hover:text-white" />
+                        
+                        {/* Minimal Arrow Button */}
+                        <div className="w-12 h-12 rounded-full border border-[#D6D3D1] flex items-center justify-center group-hover:bg-[#1c1917] group-hover:border-[#1c1917] transition-all duration-300">
+                           <ArrowRight className="w-4 h-4 text-[#78716C] group-hover:text-[#F4F3F0]" />
                         </div>
                       </div>
                     </div>
@@ -128,19 +133,6 @@ export function TreatmentList() {
             </AnimatePresence>
           </div>
         </div>
-
-        {/* Search Bar (Optional Utility) */}
-        <div className="mt-20 pt-8 border-t border-[#E5E5E5] flex justify-end">
-           <div className="relative w-full md:w-96">
-              <input 
-                type="text" 
-                placeholder="검색어를 입력하세요 (예: 보톡스)" 
-                className="w-full bg-transparent border-b border-[#8C8C8C] py-2 text-sm focus:outline-none focus:border-[#991B1B] transition-colors placeholder:text-[#D1D5DB]"
-              />
-              <ArrowRight className="absolute right-0 top-2 w-4 h-4 text-[#8C8C8C]" />
-           </div>
-        </div>
-
       </div>
     </section>
   );

@@ -4,10 +4,10 @@ import { AcademicGallery } from './AcademicGallery';
 
 export function MedicalStaff() {
   const histories = [
-    { year: '2023', title: 'Grand Master of K-Aesthetics', desc: '필러/보톡스 시술 부문 대상 수상' },
-    { year: '2021', title: 'Key Opinion Leader (KOL)', desc: '글로벌 에스테틱 브랜드 공식 트레이너 선정' },
-    { year: '2019', title: 'Director of Dermatology', desc: '서울대학교병원 피부과 임상 자문의' },
     { year: '2015', title: 'Medical License', desc: '서울대학교 의과대학 졸업' },
+    { year: '2019', title: 'Director of Dermatology', desc: '서울대학교병원 피부과 임상 자문의' },
+    { year: '2021', title: 'Key Opinion Leader (KOL)', desc: '글로벌 에스테틱 브랜드 공식 트레이너 선정' },
+    { year: '2023', title: 'Grand Master of K-Aesthetics', desc: '필러/보톡스 시술 부문 대상 수상' },
   ];
 
   return (
@@ -19,7 +19,7 @@ export function MedicalStaff() {
           <div className="relative h-full">
             {/* Sticky Container: Moves inside the tall parent column */}
             <div className="sticky top-0 h-screen flex flex-col py-12">
-              <div className="relative w-full flex-1 overflow-hidden bg-[#E5E5E5] rounded-sm shadow-xl">
+              <div className="relative w-full flex-1 overflow-hidden bg-[#E5E5E5] rounded-[40px] shadow-xl">
                 
                 {/* 3D Infinite Scroll Gallery */}
                 <div className="absolute inset-0 w-full h-full z-0">
@@ -98,9 +98,9 @@ export function MedicalStaff() {
               <div>
                 <p className="text-xs tracking-[0.2em] text-[#8C8C8C] mb-4 uppercase flex items-center gap-3">
                    <span className="w-8 h-[1px] bg-[#8C8C8C]"></span>
-                   Academic Activities
+                   Global Leadership
                 </p>
-                <h3 className="text-3xl font-serif">Global Key Opinion Leader</h3>
+                <h3 className="text-3xl font-serif">Pioneering Medical Artistry</h3>
               </div>
               <p className="text-[#666] font-light max-w-md text-sm md:text-base leading-relaxed">
                 끊임없는 연구와 글로벌 강연 활동을 통해<br/> 
@@ -109,25 +109,25 @@ export function MedicalStaff() {
            </div>
            
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-             <div className="aspect-[4/3] bg-[#D1D5DB] relative overflow-hidden group rounded-sm">
+             <div className="aspect-[4/3] bg-[#D1D5DB] relative overflow-hidden group rounded-[32px]">
                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10" />
-               <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1080&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Conference 1" />
+               <img src="https://images.unsplash.com/photo-1674049406179-d7bf2c263e71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXJtYXRvbG9neSUyMGxhc2VyJTIwdHJlYXRtZW50JTIwY2xpbmljJTIwbHV4dXJ5JTIwYWVzdGhldGljJTIwcHJvY2VkdXJlJTIwY2xvc2UlMjB1cHxlbnwxfHx8fDE3NjgxNDU1NjJ8MA&ixlib=rb-4.1.0&q=80&w=1080" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Treatment 1" />
                <div className="absolute bottom-6 left-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-white text-sm bg-black/50 px-3 py-1 backdrop-blur-sm">2023 AMWC Monaco</span>
+                  <span className="text-white text-sm bg-black/50 px-3 py-1 backdrop-blur-sm rounded-full">Laser Treatment</span>
                </div>
              </div>
-             <div className="aspect-[4/3] bg-[#D1D5DB] relative overflow-hidden group rounded-sm">
+             <div className="aspect-[4/3] bg-[#D1D5DB] relative overflow-hidden group rounded-[32px]">
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10" />
-                <img src="https://images.unsplash.com/photo-1576091160550-2187d80aeffd?q=80&w=1080&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Conference 2" />
+                <img src="https://images.unsplash.com/photo-1670201202784-ec638a82bca8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYWNpYWwlMjBza2luJTIwY2FyZSUyMHRyZWF0bWVudCUyMGx1eHVyeSUyMGNsaW5pYyUyMGRvY3RvciUyMGNvbnN1bHRpbmclMjBwYXRpZW50fGVufDF8fHx8MTc2ODE0NTU2N3ww&ixlib=rb-4.1.0&q=80&w=1080" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Treatment 2" />
                 <div className="absolute bottom-6 left-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-white text-sm bg-black/50 px-3 py-1 backdrop-blur-sm">2022 IMCAS Paris</span>
+                  <span className="text-white text-sm bg-black/50 px-3 py-1 backdrop-blur-sm rounded-full">1:1 Consultation</span>
                </div>
              </div>
-             <div className="aspect-[4/3] bg-[#D1D5DB] relative overflow-hidden group rounded-sm hidden lg:block">
+             <div className="aspect-[4/3] bg-[#D1D5DB] relative overflow-hidden group rounded-[32px] hidden lg:block">
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10" />
-                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1080&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Conference 3" />
+                <img src="https://images.unsplash.com/photo-1669930605340-801a0be1f5a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwYWVzdGhldGljJTIwY2xpbmljJTIwaW50ZXJpb3IlMjBtb2Rlcm4lMjBoaWdoJTIwZW5kJTIwZXF1aXBtZW50fGVufDF8fHx8MTc2ODE0NTU3MXww&ixlib=rb-4.1.0&q=80&w=1080" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Treatment 3" />
                 <div className="absolute bottom-6 left-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-white text-sm bg-black/50 px-3 py-1 backdrop-blur-sm">2021 KAPS Seminar</span>
+                  <span className="text-white text-sm bg-black/50 px-3 py-1 backdrop-blur-sm rounded-full">Private Facility</span>
                </div>
              </div>
            </div>

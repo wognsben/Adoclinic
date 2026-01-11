@@ -210,7 +210,8 @@ export function BeforeAfter() {
             ref={(el) => slidesRef.current[i] = el}
             className={`absolute inset-0 w-full h-full flex items-center justify-center p-0 md:p-12 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
           >
-            <div className="w-full h-full md:w-[90%] md:h-[90%] overflow-hidden shadow-2xl relative">
+            {/* Added rounded-[40px] */}
+            <div className="w-full h-full md:w-[90%] md:h-[90%] overflow-hidden shadow-2xl relative rounded-[40px]">
               {/* Using Compare Slider instead of static image */}
               <CompareSlider 
                 title={item.title}
@@ -241,7 +242,8 @@ export function BeforeAfter() {
         </div>
 
         {/* Controls Container (Glassmorphism) */}
-        <div className="bg-white/80 backdrop-blur-md border border-[#1A1A1A]/5 rounded-2xl p-6 w-[90%] max-w-2xl shadow-xl pointer-events-auto">
+        {/* Changed rounded-2xl to rounded-[40px] */}
+        <div className="bg-white/80 backdrop-blur-md border border-[#1A1A1A]/5 rounded-[40px] p-6 w-[90%] max-w-2xl shadow-xl pointer-events-auto">
           
           {/* Navigation & Counter */}
           <div className="flex items-center justify-between mb-6 text-[#1A1A1A]">
@@ -280,7 +282,8 @@ export function BeforeAfter() {
                 key={i}
                 onClick={() => goTo(i)}
                 onMouseEnter={() => updateDragLines(i)}
-                className={`relative h-16 flex-1 min-w-0 transition-all duration-300 overflow-hidden group ${i === currentIdx ? 'flex-[2]' : 'opacity-50 hover:opacity-80'}`}
+                // Added rounded-xl
+                className={`relative h-16 flex-1 min-w-0 transition-all duration-300 overflow-hidden group rounded-xl ${i === currentIdx ? 'flex-[2]' : 'opacity-50 hover:opacity-80'}`}
               >
                 <img 
                   src={item.img} 

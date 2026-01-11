@@ -9,28 +9,28 @@ const standards = [
     title: "Signature Design", 
     korTitle: "1:1 맞춤 디자인",
     desc: "단순히 찍어내는 시술이 아닙니다. 골격과 근육의 움직임, 피부 두께까지 정밀 진단하여 당신만을 위한 최적의 디자인을 설계합니다.",
-    image: "https://images.unsplash.com/photo-1629909613638-0e4a1fad8f81?q=80&w=1200&auto=format&fit=crop" // Doctor Consultation/Design
+    image: "https://images.unsplash.com/photo-1622399591207-269e63936861?q=80&w=1200&auto=format&fit=crop" // Doctor Consultation/Design
   },
   { 
     id: "02", 
     title: "High-End Device", 
     korTitle: "하이엔드 장비",
     desc: "강남 최상위 라인업의 리프팅/레이저 장비를 보유하고 있습니다. 끊임없는 장비 투자는 더 강력하고 안전한 결과를 약속합니다.",
-    image: "https://images.unsplash.com/photo-1620159074131-6c50abad16b6?q=80&w=1200&auto=format&fit=crop" // Laser Device Detail
+    image: "https://images.unsplash.com/photo-1630129116059-7b0ff953202e?q=80&w=1200&auto=format&fit=crop" // Laser Device Detail
   },
   { 
     id: "03", 
     title: "Authentic Safety", 
     korTitle: "정품 정량 원칙",
     desc: "모든 시술 제품은 눈앞에서 개봉합니다. FDA, KFDA 승인을 받은 프리미엄 정품만을 정량 그대로 사용하는 것은 의료진의 자존심입니다.",
-    image: "https://images.unsplash.com/photo-1552311348-edee41a6b482?q=80&w=1200&auto=format&fit=crop" // Medical Ampoule/Product
+    image: "https://images.unsplash.com/photo-1550572017-4b7a301b9d81?q=80&w=1200&auto=format&fit=crop" // Medical Ampoule/Product
   },
   { 
     id: "04", 
     title: "Private Suite", 
     korTitle: "프라이빗 1인실",
     desc: "모든 과정은 철저히 분리된 1인 VIP 룸에서 진행됩니다. 다른 고객과 마주치지 않는 프라이빗한 동선으로 당신의 편안함을 보장합니다.",
-    image: "https://images.unsplash.com/photo-1735013531564-a419dc5f31ea?q=80&w=1200&auto=format&fit=crop" // Luxury Clinic Room
+    image: "https://images.unsplash.com/photo-1700142360825-d21edc53c8db?q=80&w=1200&auto=format&fit=crop" // Luxury Clinic Room
   }
 ];
 
@@ -44,12 +44,12 @@ export function StandardGrid() {
         {/* Title Section - Medical Identity Restored */}
         <div className="mb-24 md:mb-32 flex flex-col items-start border-l-2 border-[#1A1A1A] pl-8">
           <span className="text-[#5E7A70] text-xs font-bold tracking-[0.3em] uppercase mb-4">Medical Philosophy</span>
-          <h2 className="text-5xl md:text-7xl font-serif text-[#1A1A1A] leading-[1.1] mb-4">
-            The Standard<br/>
-            of Gangnam
+          <h2 className="text-5xl md:text-7xl font-serif text-[#1A1A1A] leading-[1.2] mb-4 break-keep">
+            강남 하이엔드 미학의<br/>
+            새로운 기준
           </h2>
           <p className="text-[#555] text-lg font-light tracking-wide mt-2">
-            High-End Medical Aesthetic.
+            변치 않는 아름다움의 본질을 설계합니다.
           </p>
         </div>
 
@@ -57,7 +57,8 @@ export function StandardGrid() {
           
           {/* Left: Medical Visuals (Sticky) */}
           <div className="hidden lg:block w-5/12 h-[600px] relative sticky top-24">
-            <div className="w-full h-full relative overflow-hidden bg-[#E5E5E5]">
+            {/* Added rounded-[40px] */}
+            <div className="w-full h-full relative overflow-hidden bg-[#E5E5E5] rounded-[40px]">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeIdx}
@@ -110,7 +111,7 @@ export function StandardGrid() {
                 </div>
 
                 {/* Mobile Image */}
-                <div className="lg:hidden mt-6 overflow-hidden h-[0px] group-hover:h-[200px] transition-all duration-500">
+                <div className="lg:hidden mt-6 overflow-hidden h-[0px] group-hover:h-[200px] transition-all duration-500 rounded-2xl">
                    <img src={item.image} className="w-full h-full object-cover" alt={item.title} />
                    <div className="mt-2 text-xs font-bold text-[#5E7A70]">{item.korTitle}</div>
                 </div>

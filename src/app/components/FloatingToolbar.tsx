@@ -38,33 +38,87 @@ const Icons = {
   )
 };
 
-export function FloatingToolbar() {
+interface FloatingToolbarProps {
+  onOpenConsultation?: () => void;
+}
+
+export function FloatingToolbar({ onOpenConsultation }: FloatingToolbarProps) {
+  const [highlight, setHighlight] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleHighlight = () => {
+      setHighlight(true);
+      setTimeout(() => setHighlight(false), 3000);
+    };
+    window.addEventListener('highlight-consultation', handleHighlight);
+    return () => window.removeEventListener('highlight-consultation', handleHighlight);
+  }, []);
+
   const tools = [
-    { name: "예약", icon: Icons.NaverBooking, color: "hover:bg-[#03C75A]" },
+    { 
+      name: highlight ? "예약 클릭" : "예약", 
+      icon: Icons.NaverBooking, 
+      color: "hover:bg-[#03C75A]", 
+      action: onOpenConsultation,
+      isTarget: true 
+    },
     { name: "Insta", icon: Icons.Instagram, color: "hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500" },
     { name: "Threads", icon: Icons.Threads, color: "hover:bg-black" },
-    { name: "Kakao", icon: Icons.Kakao, color: "hover:bg-[#FEE500] hover:text-black" },
+    { 
+      name: highlight ? "상담 클릭" : "Kakao", 
+      icon: Icons.Kakao, 
+      color: "hover:bg-[#FEE500] hover:text-black",
+      isTarget: true
+    },
     { name: "Blog", icon: Icons.NaverBlog, color: "hover:bg-[#2DB400]" },
   ];
 
+  const scrollToTop = () => {
+    // Scroll to the main content area (skipping Hero) to avoid re-triggering intro animations
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+      mainContent.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Fallback if ID is missing
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <div className="fixed right-0 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-1 p-2">
+    <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-4">
       {tools.map((item, idx) => (
         <motion.button
           key={idx}
+          onClick={item.action}
           initial={{ x: 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ delay: 1 + idx * 0.1 }}
-          className={`group relative w-12 h-12 bg-[#1A1A1A]/90 backdrop-blur-md flex items-center justify-center text-white/90 shadow-lg transition-all duration-300 ${item.color}`}
+          className={`group relative w-12 h-12 rounded-full bg-white/90 backdrop-blur-md border border-stone-200 flex items-center justify-center text-stone-800 shadow-xl transition-all duration-300 hover:scale-110 ${item.color} hover:text-white hover:border-transparent ${highlight && item.isTarget ? 'ring-4 ring-offset-2 ring-teal-400 scale-110 !bg-teal-50 !border-teal-400' : ''}`}
         >
           <item.icon />
           
           {/* Tooltip Label */}
-          <span className="absolute right-full mr-2 px-2 py-1 bg-black/80 text-white text-[10px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity rounded">
+          <span className={`absolute right-full mr-4 px-3 py-1 bg-[#1A1A1A] text-white text-[10px] font-bold tracking-wider whitespace-nowrap transition-opacity rounded-full shadow-lg ${highlight && item.isTarget ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
             {item.name}
           </span>
         </motion.button>
       ))}
+
+      {/* Top Button */}
+      <motion.button
+        onClick={scrollToTop}
+        initial={{ x: 50, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="group relative w-12 h-12 rounded-full bg-[#1A1A1A] flex items-center justify-center text-white shadow-xl transition-all duration-300 hover:bg-[#738F86] hover:scale-110 mt-4"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+          <path d="m18 15-6-6-6 6"/>
+        </svg>
+        <span className="absolute right-full mr-4 px-3 py-1 bg-[#1A1A1A] text-white text-[10px] font-bold tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity rounded-full shadow-lg">
+          TOP
+        </span>
+      </motion.button>
     </div>
   );
 }

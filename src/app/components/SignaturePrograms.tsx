@@ -9,7 +9,7 @@ const programs = [
     subtitle: "Immediate Brightening & Tightening",
     desc: "통증 없이 즉각적인 리프팅과 화이트닝을 동시에. 강남 VIP들이 선택한 다운타임 없는 프리미엄 리프팅.",
     tags: ["Lifting", "Brightening", "No Pain"],
-    image: "https://images.unsplash.com/photo-1706065264583-55f1a8549769?q=80&w=1200&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1569259330179-ef650d87beee?q=80&w=1200&auto=format&fit=crop"
   },
   {
     id: "02",
@@ -17,7 +17,7 @@ const programs = [
     subtitle: "Face Line Reshaping",
     desc: "뼈를 깎지 않고 완성하는 완벽한 얼굴 라인. 튠페이스와 울쎄라의 황금 조합으로 무너진 턱선을 복원합니다.",
     tags: ["Contouring", "V-Line", "Custom"],
-    image: "https://images.unsplash.com/photo-1701163802894-99fa45f1c83e?q=80&w=1200&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1631596577204-53ad0d6e6978?q=80&w=1200&auto=format&fit=crop"
   },
   {
     id: "03",
@@ -25,7 +25,7 @@ const programs = [
     subtitle: "Deep Hydration & Glow",
     desc: "피부 깊은 곳부터 차오르는 수분감. 쥬베룩과 리쥬란의 최적 배합으로 건조함과 잔주름을 한번에 해결합니다.",
     tags: ["Anti-Aging", "Hydration", "Glow"],
-    image: "https://images.unsplash.com/photo-1609009630912-f16dcf3e03a6?q=80&w=1200&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1655361166052-a65fa7633820?q=80&w=1200&auto=format&fit=crop"
   }
 ];
 
@@ -68,7 +68,8 @@ export function SignaturePrograms() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {programs.map((item, idx) => (
             <div key={idx} className="group cursor-pointer">
-              <div className="relative w-full aspect-[3/4] overflow-hidden mb-6">
+              {/* Added rounded-[32px] for soft look */}
+              <div className="relative w-full aspect-[3/4] overflow-hidden mb-6 rounded-[32px] shadow-sm">
                 <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors z-10" />
                 <img 
                   src={item.image} 

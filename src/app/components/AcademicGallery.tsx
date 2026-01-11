@@ -74,7 +74,20 @@ const fragment = `
     );
     vec3 color = texture2D(tMap, uv).rgb;
     
-    gl_FragColor = vec4(color, 1.0);
+    // Rounded Corners Calculation
+    float aspect = uPlaneSize.x / uPlaneSize.y;
+    vec2 center = vUv - 0.5;
+    center.x *= aspect;
+    
+    vec2 size = vec2(0.5 * aspect, 0.5);
+    float radius = 0.05; // Adjust radius here (0.05 = soft round)
+    
+    vec2 d = abs(center) - size + radius;
+    float dist = length(max(d, 0.0)) - radius;
+    
+    float alpha = 1.0 - smoothstep(-0.01, 0.01, dist);
+    
+    gl_FragColor = vec4(color, alpha);
   }
 `;
 
@@ -103,6 +116,7 @@ class Media {
     this.program = new Program(this.gl, {
       depthTest: false,
       depthWrite: false,
+      transparent: true, // Enable transparency for rounded corners
       fragment,
       vertex,
       uniforms: {
@@ -229,12 +243,12 @@ export function AcademicGallery() {
     viewport: { width: 0, height: 0 },
     direction: 'down',
     images: [
-      "https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1000&auto=format&fit=crop", // Portrait
-      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=1000&auto=format&fit=crop", // Clinic 
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1000&auto=format&fit=crop", // Consultation
-      "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=1000&auto=format&fit=crop", // Medical
-      "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1000&auto=format&fit=crop", // Modern
-      "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=1000&auto=format&fit=crop", // Detail
+      "https://images.unsplash.com/photo-1601839777132-b3f4e455c369?q=80&w=1000&auto=format&fit=crop", // Consultation
+      "https://images.unsplash.com/photo-1738854336436-4f65bac3bba0?q=80&w=1000&auto=format&fit=crop", // Laser Treatment
+      "https://images.unsplash.com/photo-1677568554453-ae5baf28da6c?q=80&w=1000&auto=format&fit=crop", // Clinic Interior
+      "https://images.unsplash.com/photo-1630129116059-7b0ff953202e?q=80&w=1000&auto=format&fit=crop", // Device
+      "https://images.unsplash.com/photo-1610300011228-aa944f03af23?q=80&w=1000&auto=format&fit=crop", // Ampoule
+      "https://images.unsplash.com/photo-1727386244869-82858f2a7f91?q=80&w=1000&auto=format&fit=crop", // Surgeon Hands
     ]
   });
 
