@@ -11,13 +11,13 @@ export function MedicalStaff() {
   ];
 
   return (
-    <section className="min-h-screen bg-[#F5F5F3] text-[#1C1C1C] py-20 px-6 md:px-12 lg:px-24 border-t border-[#D1D5DB] overflow-hidden">
+    <section className="min-h-screen bg-[#F5F5F3] text-[#1C1C1C] py-20 px-6 md:px-12 lg:px-24 border-t border-[#D1D5DB]">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           
           {/* Left Column: Doctor Profile with 3D Gallery */}
-          <div className="relative">
-            {/* Sticky Container: Occupies full viewport height */}
+          <div className="relative h-full">
+            {/* Sticky Container: Moves inside the tall parent column */}
             <div className="sticky top-0 h-screen flex flex-col py-12">
               <div className="relative w-full flex-1 overflow-hidden bg-[#E5E5E5] rounded-sm shadow-xl">
                 

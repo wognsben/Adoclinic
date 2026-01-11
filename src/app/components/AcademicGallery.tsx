@@ -305,11 +305,13 @@ export function AcademicGallery() {
 
     // 7. Update Loop
     const update = () => {
+      // Sync 3D scroll with Window Scroll
+      // Drastically reduced factor to 0.015 for an extremely slow, luxurious float
+      const scrollFactor = 0.015; 
+      s.scroll.target = window.scrollY * scrollFactor;
+
       s.scroll.current = lerp(s.scroll.current, s.scroll.target, s.scroll.ease);
       
-      // Auto-scroll logic if user isn't interacting (optional)
-      // s.scroll.target += 0.02; 
-
       if (s.scroll.current > s.scroll.last) {
         s.direction = 'up';
       } else {
@@ -328,65 +330,14 @@ export function AcademicGallery() {
     reqRef.current = requestAnimationFrame(update);
 
     // 8. Event Listeners
-    const onWheel = (e) => {
-      // Only capture wheel if hovering container
-      // But for better UX, maybe we bind it to container mouse enter/leave?
-      // For now, let's assume global scroll affects this gallery too, 
-      // OR we just listen to wheel on the container.
-      
-      // Since it's an "infinite gallery", usually it reacts to its own scroll area.
-      // Let's bind to the container.
-    };
+    // Removed wheel/touch listeners to sync purely with page scroll
     
-    // We will attach wheel listener to the container div
-    const containerEl = containerRef.current;
-    
-    const handleWheel = (e) => {
-      const normalized = NormalizeWheel(e);
-      const speed = normalized.pixelY;
-      // Reduced sensitivity for a "heavier", more premium feel (0.01 -> 0.005)
-      s.scroll.target += speed * 0.005; 
-      
-      // Prevent page scroll when interacting with gallery?
-      // e.preventDefault(); 
-    };
-
-    // Touch events for mobile
-    let touchStart = 0;
-    let touchIsDown = false;
-
-    const onTouchDown = (e) => {
-      touchIsDown = true;
-      touchStart = e.touches ? e.touches[0].clientY : e.clientY;
-    };
-
-    const onTouchMove = (e) => {
-      if (!touchIsDown) return;
-      const y = e.touches ? e.touches[0].clientY : e.clientY;
-      // Reduced touch sensitivity as well
-      const distance = (touchStart - y) * 0.05;
-      s.scroll.target += distance;
-      touchStart = y;
-    };
-
-    const onTouchUp = () => {
-      touchIsDown = false;
-    };
-
-    window.addEventListener('resize', onResize);
-    containerEl.addEventListener('wheel', handleWheel, { passive: false });
-    containerEl.addEventListener('touchstart', onTouchDown);
-    containerEl.addEventListener('touchmove', onTouchMove);
-    containerEl.addEventListener('touchend', onTouchUp);
+    const onResizeWrapper = () => onResize();
+    window.addEventListener('resize', onResizeWrapper);
 
     return () => {
-      window.removeEventListener('resize', onResize);
-      containerEl.removeEventListener('wheel', handleWheel);
-      containerEl.removeEventListener('touchstart', onTouchDown);
-      containerEl.removeEventListener('touchmove', onTouchMove);
-      containerEl.removeEventListener('touchend', onTouchUp);
+      window.removeEventListener('resize', onResizeWrapper);
       cancelAnimationFrame(reqRef.current);
-      // Cleanup OGL resources if needed
     };
   }, []);
 

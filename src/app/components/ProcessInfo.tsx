@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { SkinAnalysis } from './SkinAnalysis';
 
 export function ProcessInfo() {
   const steps = [
@@ -81,17 +82,15 @@ export function ProcessInfo() {
           ))}
         </div>
 
-        {/* Abstract Object Image */}
-        <div className="mt-40 flex justify-center">
-           <div className="relative w-64 md:w-96 aspect-[3/4] overflow-hidden rounded-t-full border border-[#E5E5E5]">
-              <img 
-                src="https://images.unsplash.com/photo-1746635426808-12529239545e?q=80&w=600&auto=format&fit=crop" 
-                alt="Art Object" 
-                className="w-full h-full object-cover grayscale opacity-80 hover:scale-105 transition-transform duration-1000"
-              />
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center w-full">
-                 <p className="text-[10px] tracking-[0.3em] uppercase text-[#1A1A1A]">Object 01 : Purity</p>
-              </div>
+        {/* Abstract Object Image -> Replaced with Interactive Skin Analysis Mockup */}
+        <div className="mt-40 flex flex-col items-center w-full">
+           <div className="relative transform hover:scale-105 transition-transform duration-700 w-full flex justify-center">
+              <SkinAnalysis />
+           </div>
+           
+           <div className="mt-12 text-center">
+              <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2">Object 01 : Smart Diagnosis</p>
+              <p className="text-[#8C8C8C] font-serif italic text-lg">"당신의 피부를 읽다"</p>
            </div>
         </div>
 
