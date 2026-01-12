@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { Renderer, Camera, Transform, Plane, Mesh, Program, Texture } from 'ogl';
-import NormalizeWheel from 'normalize-wheel';
 
 // --- Shaders ---
 
@@ -8,51 +7,20 @@ const vertex = `
   precision highp float;
   attribute vec3 position;
   attribute vec2 uv;
-  attribute vec3 normal;
   uniform mat4 modelViewMatrix;
   uniform mat4 projectionMatrix;
-  uniform float uPosition;
-  uniform float uTime;
   uniform float uSpeed;
-  uniform vec3 distortionAxis;
-  uniform vec3 rotationAxis;
-  uniform float uDistortion;
   varying vec2 vUv;
-  varying vec3 vNormal;
-
-  float PI = 3.141592653589793238;
-
-  mat4 rotationMatrix(vec3 axis, float angle) {
-      axis = normalize(axis);
-      float s = sin(angle);
-      float c = cos(angle);
-      float oc = 1.0 - c;
-      return mat4(oc * axis.x * axis.x + c,           oc * axis.x * axis.y - axis.z * s,  oc * axis.z * axis.x + axis.y * s,  0.0,
-                  oc * axis.x * axis.y + axis.z * s,  oc * axis.y * axis.y + c,           oc * axis.y * axis.z - axis.x * s,  0.0,
-                  oc * axis.z * axis.x - axis.y * s,  oc * axis.y * axis.z + axis.x * s,  oc * axis.z * axis.z + c,           0.0,
-                  0.0,                                0.0,                                0.0,                                1.0);
-  }
-
-  vec3 rotate(vec3 v, vec3 axis, float angle) {
-    mat4 m = rotationMatrix(axis, angle);
-    return (m * vec4(v, 1.0)).xyz;
-  }
-
-  float qinticInOut(float t) {
-    return t < 0.5
-      ? +16.0 * pow(t, 5.0)
-      : -0.5 * abs(pow(2.0 * t - 2.0, 5.0)) + 1.0;
-  }
 
   void main() {
     vUv = uv;
-    float norm = 0.5;
-    vec3 newpos = position;
-    float offset = (dot(distortionAxis, position) + norm / 2.) / norm;
-    float localprogress = clamp((fract(uPosition * 5.0 * 0.01) - 0.01 * uDistortion * offset) / (1. - 0.01 * uDistortion), 0., 2.);
-    localprogress = qinticInOut(localprogress) * PI;
-    newpos = rotate(newpos, rotationAxis, localprogress);
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(newpos, 1.0);
+    vec3 p = position;
+    
+    // Horizontal distortion based on speed
+    // Bends the plane slightly along Z axis when moving fast
+    p.z = (sin(p.x * 4.0 + 1.57) * abs(uSpeed) * 0.002); // Subtle curve
+    
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
   }
 `;
 
@@ -64,6 +32,7 @@ const fragment = `
   varying vec2 vUv;
 
   void main() {
+    // Cover-fit logic
     vec2 ratio = vec2(
       min((uPlaneSize.x / uPlaneSize.y) / (uImageSize.x / uImageSize.y), 1.0),
       min((uPlaneSize.y / uPlaneSize.x) / (uImageSize.y / uImageSize.x), 1.0)
@@ -72,26 +41,13 @@ const fragment = `
       vUv.x * ratio.x + (1.0 - ratio.x) * 0.5,
       vUv.y * ratio.y + (1.0 - ratio.y) * 0.5
     );
-    vec3 color = texture2D(tMap, uv).rgb;
     
-    // Rounded Corners Calculation
-    float aspect = uPlaneSize.x / uPlaneSize.y;
-    vec2 center = vUv - 0.5;
-    center.x *= aspect;
-    
-    vec2 size = vec2(0.5 * aspect, 0.5);
-    float radius = 0.05; // Adjust radius here (0.05 = soft round)
-    
-    vec2 d = abs(center) - size + radius;
-    float dist = length(max(d, 0.0)) - radius;
-    
-    float alpha = 1.0 - smoothstep(-0.01, 0.01, dist);
-    
-    gl_FragColor = vec4(color, alpha);
+    vec4 color = texture2D(tMap, uv);
+    gl_FragColor = color;
   }
 `;
 
-// --- Media Class (Internal) ---
+// --- Media Class ---
 
 class Media {
   constructor({ gl, geometry, scene, renderer, screen, viewport, image, length, index }) {
@@ -116,20 +72,14 @@ class Media {
     this.program = new Program(this.gl, {
       depthTest: false,
       depthWrite: false,
-      transparent: true, // Enable transparency for rounded corners
-      fragment,
       vertex,
+      fragment,
       uniforms: {
         tMap: { value: texture },
-        uPosition: { value: 0 },
         uPlaneSize: { value: [0, 0] },
         uImageSize: { value: [0, 0] },
         uSpeed: { value: 0 },
-        rotationAxis: { value: [0, 1, 0] },
-        distortionAxis: { value: [1, 1, 0] },
-        uDistortion: { value: 3 },
         uViewportSize: { value: [this.viewport.width, this.viewport.height] },
-        uTime: { value: 0 },
       },
       cullFace: false,
     });
@@ -152,19 +102,31 @@ class Media {
   }
 
   setScale() {
-    // Plane Size relative to viewport
-    // Adjust these values to change the size of the 3D planes
-    // const x = 320; 
-    // const y = 240; 
-    
-    // Responsive sizing - Increased sizes for better visibility
+    // Responsive sizing logic
+    // We want larger images for horizontal gallery
     const isMobile = this.screen.width < 768;
-    const x = isMobile ? this.screen.width * 0.85 : 500; // Increased width
-    const y = isMobile ? this.screen.width * 0.65 : 380; // Increased height
+    
+    // Width relative to viewport width (e.g., 40% of screen width on desktop)
+    // Height relative to viewport height
+    
+    // OGL/Three.js units are based on camera distance (z=20, fov=45 -> viewport height approx 16.5)
+    // We calculate scale based on viewport size
+    
+    const widthPercentage = isMobile ? 0.7 : 0.35; // 70% mobile, 35% desktop
+    const aspectRatio = 1.4; // 4:3ish landscape
+    
+    this.plane.scale.x = this.viewport.width * widthPercentage;
+    this.plane.scale.y = this.plane.scale.x / aspectRatio;
 
-    this.plane.scale.x = (this.viewport.width * x) / this.screen.width;
-    this.plane.scale.y = (this.viewport.height * y) / this.screen.height;
     this.plane.program.uniforms.uPlaneSize.value = [this.plane.scale.x, this.plane.scale.y];
+    
+    // Gap between images
+    this.padding = this.viewport.width * 0.05; // 5% gap
+    this.width = this.plane.scale.x + this.padding;
+    this.widthTotal = this.width * this.length;
+    
+    // Initial X position
+    this.x = this.width * this.index;
   }
 
   onResize({ screen, viewport } = {}) {
@@ -174,53 +136,35 @@ class Media {
       this.plane.program.uniforms.uViewportSize.value = [this.viewport.width, this.viewport.height];
     }
     this.setScale();
-    
-    // Spacing
-    this.padding = 0.5; 
-    this.height = this.plane.scale.y + this.padding;
-    this.heightTotal = this.height * this.length;
-    this.y = this.height * this.index;
   }
 
   update(scroll, direction) {
-    this.plane.position.y = this.y - scroll.current - this.extra;
+    // Horizontal position calculation
+    // scroll.current increases as we drag left (positive scroll) or right (negative)
+    // We subtract scroll to move items left when scrolling "forward"
+    this.plane.position.x = this.x - scroll.current - this.extra;
     
-    // Infinite Scroll Logic
-    const planeOffset = this.plane.scale.y / 2;
-    const viewportOffset = this.viewport.height; // Visible area
+    // Infinite Scroll Logic (Horizontal)
+    const planeOffset = this.plane.scale.x / 2;
+    const viewportOffset = this.viewport.width * 0.6; // Boundary check buffer
 
-    this.isBefore = this.plane.position.y + planeOffset < -viewportOffset;
-    this.isAfter = this.plane.position.y - planeOffset > viewportOffset;
+    this.isBefore = this.plane.position.x + planeOffset < -viewportOffset;
+    this.isAfter = this.plane.position.x - planeOffset > viewportOffset;
 
-    if (direction === 'up' && this.isBefore) {
-      this.extra -= this.heightTotal;
+    // Reposition loop
+    if (direction === 'right' && this.isBefore) {
+      this.extra -= this.widthTotal;
       this.isBefore = false;
       this.isAfter = false;
     }
-    if (direction === 'down' && this.isAfter) {
-      this.extra += this.heightTotal;
+    if (direction === 'left' && this.isAfter) {
+      this.extra += this.widthTotal;
       this.isBefore = false;
       this.isAfter = false;
     }
 
-    // Map position for rotation effect
-    // 5 to 15 seems to be the range used in the shader logic for fract()
-    // We map viewport Y (-H to H) to shader progress (5 to 15)
-    const position = this.map(this.plane.position.y, -this.viewport.height, this.viewport.height, 5, 15);
-    this.program.uniforms.uPosition.value = position;
-    
-    this.program.uniforms.uTime.value += 0.04;
-    this.program.uniforms.uSpeed.value = scroll.current;
+    this.plane.program.uniforms.uSpeed.value = scroll.current;
   }
-
-  map(value, min1, max1, min2, max2) {
-    return min2 + (max2 - min2) * (value - min1) / (max1 - min1);
-  }
-}
-
-// --- Helper Functions ---
-function lerp(p1, p2, t) {
-  return p1 + (p2 - p1) * t;
 }
 
 // --- Main Component ---
@@ -230,7 +174,6 @@ export function AcademicGallery() {
   const containerRef = useRef(null);
   const reqRef = useRef(null);
   
-  // State refs for animation loop
   const state = useRef({
     renderer: null,
     gl: null,
@@ -241,14 +184,17 @@ export function AcademicGallery() {
     scroll: { ease: 0.05, current: 0, target: 0, last: 0 },
     screen: { width: 0, height: 0 },
     viewport: { width: 0, height: 0 },
-    direction: 'down',
+    direction: 'right', // 'right' means content moves left (scroll value increases)
+    isDragging: false,
+    startX: 0,
+    scrollStart: 0,
     images: [
-      "https://images.unsplash.com/photo-1601839777132-b3f4e455c369?q=80&w=1000&auto=format&fit=crop", // Consultation
-      "https://images.unsplash.com/photo-1738854336436-4f65bac3bba0?q=80&w=1000&auto=format&fit=crop", // Laser Treatment
-      "https://images.unsplash.com/photo-1677568554453-ae5baf28da6c?q=80&w=1000&auto=format&fit=crop", // Clinic Interior
-      "https://images.unsplash.com/photo-1630129116059-7b0ff953202e?q=80&w=1000&auto=format&fit=crop", // Device
-      "https://images.unsplash.com/photo-1610300011228-aa944f03af23?q=80&w=1000&auto=format&fit=crop", // Ampoule
-      "https://images.unsplash.com/photo-1727386244869-82858f2a7f91?q=80&w=1000&auto=format&fit=crop", // Surgeon Hands
+      "https://images.unsplash.com/photo-1544531696-60195e297837?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbnRlcm5hdGlvbmFsJTIwY29uZmVyZW5jZXxlbnwxfHx8fDE3NjgxNDU1NjJ8MA&ixlib=rb-4.1.0&q=80&w=1080", // Conference
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwc2VtaW5hcnxlbnwxfHx8fDE3NjgxNDU1Njd8MA&ixlib=rb-4.1.0&q=80&w=1080", // Seminar
+      "https://images.unsplash.com/photo-1517048676732-d65bc937f952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25mZXJlbmNlJTIwc3BlYWtlcnxlbnwxfHx8fDE3NjgxNDU1NzF8MA&ixlib=rb-4.1.0&q=80&w=1080", // Speaker
+      "https://images.unsplash.com/photo-1581056771107-24ca5f033842?q=80&w=1000&auto=format&fit=crop", // Research
+      "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?q=80&w=1000&auto=format&fit=crop", // Lab
+      "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=1000&auto=format&fit=crop", // Medical Tech
     ]
   });
 
@@ -257,7 +203,7 @@ export function AcademicGallery() {
 
     const s = state.current;
 
-    // 1. Setup Renderer
+    // 1. Renderer
     s.renderer = new Renderer({
       canvas: canvasRef.current,
       alpha: true,
@@ -265,29 +211,27 @@ export function AcademicGallery() {
       dpr: Math.min(window.devicePixelRatio, 2),
     });
     s.gl = s.renderer.gl;
+    s.gl.clearColor(0, 0, 0, 0);
 
-    // 2. Setup Camera
+    // 2. Camera
     s.camera = new Camera(s.gl);
     s.camera.fov = 45;
     s.camera.position.z = 20;
 
-    // 3. Setup Scene
+    // 3. Scene
     s.scene = new Transform();
 
-    // 4. Setup Geometry
+    // 4. Geometry
     s.planeGeometry = new Plane(s.gl, {
-      heightSegments: 20, // Increased for smoother distortion
-      widthSegments: 20,
+      heightSegments: 10, 
+      widthSegments: 20, // More segments for X-axis distortion
     });
 
-    // 5. Initial Resize
+    // 5. Resize Handler
     const onResize = () => {
-      // Use container size instead of window size
       const rect = containerRef.current.getBoundingClientRect();
       s.screen = { width: rect.width, height: rect.height };
-      
       s.renderer.setSize(s.screen.width, s.screen.height);
-      
       s.camera.perspective({ aspect: s.gl.canvas.width / s.gl.canvas.height });
 
       const fov = s.camera.fov * (Math.PI / 180);
@@ -300,9 +244,9 @@ export function AcademicGallery() {
         s.medias.forEach(media => media.onResize({ screen: s.screen, viewport: s.viewport }));
       }
     };
-    
+
     // 6. Create Medias
-    onResize(); // Calc viewport first
+    onResize();
     s.medias = s.images.map((image, index) => {
       return new Media({
         gl: s.gl,
@@ -317,19 +261,20 @@ export function AcademicGallery() {
       });
     });
 
-    // 7. Update Loop
+    // 7. Loop
     const update = () => {
-      // Sync 3D scroll with Window Scroll
-      // Drastically reduced factor to 0.015 for an extremely slow, luxurious float
-      const scrollFactor = 0.015; 
-      s.scroll.target = window.scrollY * scrollFactor;
+      // Auto scroll
+      if (!s.isDragging) {
+         s.scroll.target += 0.05; // Slow auto scroll speed
+      }
 
       s.scroll.current = lerp(s.scroll.current, s.scroll.target, s.scroll.ease);
-      
+
+      // Determine direction
       if (s.scroll.current > s.scroll.last) {
-        s.direction = 'up';
+        s.direction = 'right'; // Content moves left
       } else {
-        s.direction = 'down';
+        s.direction = 'left'; // Content moves right
       }
 
       if (s.medias) {
@@ -343,27 +288,61 @@ export function AcademicGallery() {
     };
     reqRef.current = requestAnimationFrame(update);
 
-    // 8. Event Listeners
-    // Removed wheel/touch listeners to sync purely with page scroll
+    // 8. Resize Listener
+    window.addEventListener('resize', onResize);
+
+    // 9. Touch/Drag Events for Interaction
+    const canvas = canvasRef.current;
     
-    const onResizeWrapper = () => onResize();
-    window.addEventListener('resize', onResizeWrapper);
+    const onTouchDown = (e) => {
+      s.isDragging = true;
+      s.startX = e.touches ? e.touches[0].clientX : e.clientX;
+      s.scrollStart = s.scroll.current;
+    };
+
+    const onTouchMove = (e) => {
+      if (!s.isDragging) return;
+      const x = e.touches ? e.touches[0].clientX : e.clientX;
+      const dist = (s.startX - x) * 0.05; // Sensitivity
+      s.scroll.target = s.scrollStart + dist;
+    };
+
+    const onTouchUp = () => {
+      s.isDragging = false;
+    };
+
+    canvas.addEventListener('mousedown', onTouchDown);
+    canvas.addEventListener('mousemove', onTouchMove);
+    canvas.addEventListener('mouseup', onTouchUp);
+    canvas.addEventListener('mouseleave', onTouchUp);
+
+    canvas.addEventListener('touchstart', onTouchDown);
+    canvas.addEventListener('touchmove', onTouchMove);
+    canvas.addEventListener('touchend', onTouchUp);
 
     return () => {
-      window.removeEventListener('resize', onResizeWrapper);
+      window.removeEventListener('resize', onResize);
+      
+      canvas.removeEventListener('mousedown', onTouchDown);
+      canvas.removeEventListener('mousemove', onTouchMove);
+      canvas.removeEventListener('mouseup', onTouchUp);
+      canvas.removeEventListener('mouseleave', onTouchUp);
+
+      canvas.removeEventListener('touchstart', onTouchDown);
+      canvas.removeEventListener('touchmove', onTouchMove);
+      canvas.removeEventListener('touchend', onTouchUp);
+      
       cancelAnimationFrame(reqRef.current);
     };
   }, []);
 
   return (
-    <div className="relative w-full h-full bg-[#F5F5F3] overflow-hidden" ref={containerRef}>
-      <canvas ref={canvasRef} className="block w-full h-full outline-none" />
-      
-      {/* Overlay Text */}
-      <div className="absolute top-10 right-10 pointer-events-none mix-blend-difference text-white opacity-50 hidden md:block">
-        <p className="text-xs uppercase tracking-widest border-b border-white pb-2 mb-2">Academic Archive</p>
-        <p className="text-[10px] font-mono">SCROLL TO EXPLORE</p>
-      </div>
+    <div ref={containerRef} className="w-full h-full cursor-grab active:cursor-grabbing">
+      <canvas ref={canvasRef} className="block w-full h-full" />
     </div>
   );
+}
+
+function lerp(p1, p2, t) {
+  return p1 + (p2 - p1) * t;
 }
