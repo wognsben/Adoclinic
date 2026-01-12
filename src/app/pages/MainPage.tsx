@@ -3,6 +3,7 @@ import { Hero } from '../components/Hero';
 import { BrandPhilosophy } from '../components/BrandPhilosophy';
 import { MedicalStaff } from '../components/MedicalStaff';
 import { SkinAnalysis } from '../components/SkinAnalysis';
+import { InteriorSection } from '../components/InteriorSection';
 
 interface MainPageProps {
   setIntroCompleted: (completed: boolean) => void;
@@ -38,6 +39,9 @@ export function MainPage({ setIntroCompleted, onOpenConsultation }: MainPageProp
         <BrandPhilosophy />
 
         <MedicalStaff />
+
+        {/* Interior Section - Footer 위 */}
+        <InteriorSection />
       </div>
     </>
   );

@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MagneticButton } from './ui/MagneticButton';
 import { ArrowUpRight } from 'lucide-react';
+import HeroGL from './HeroGL';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +15,7 @@ export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroComple
   const mainBgRef = useRef<HTMLDivElement>(null);
   const introTextRef = useRef<HTMLDivElement>(null);
   const mainContentRef = useRef<HTMLDivElement>(null);
-  const hasCompletedRef = useRef(false); // 한번 완료되면 다시 돌아가지 않음
+  const hasCompletedRef = useRef(false);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -22,15 +23,14 @@ export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroComple
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=150%", // Scroll distance
+          end: "+=150%", 
           pin: true,
-          scrub: 1.5, // Smooth scrubbing
+          scrub: 1.5, 
           onLeave: () => {
             setIntroCompleted(true);
-            hasCompletedRef.current = true; // 완료 플래그 설정
+            hasCompletedRef.current = true; 
           },
           onEnterBack: () => {
-            // 한��� 완료되면 다시 돌아가지 않음
             if (!hasCompletedRef.current) {
               setIntroCompleted(false);
             }
@@ -38,65 +38,66 @@ export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroComple
         }
       });
 
-      // 1. Intro Text fades out quickly
-      tl.to(introTextRef.current, { opacity: 0, scale: 0.9, duration: 0.2 });
+      // 1. Intro Text fades out
+      tl.to(introTextRef.current, { opacity: 0, scale: 0.95, duration: 0.5 });
 
-      // 2. Portal Scale Up (Tunnel Effect)
-      // The portal expands to reveal the main background behind it
+      // 2. The entire GL Background (Portal) fades out/scales up to reveal the content
       tl.to(portalRef.current, {
-        scale: 40, 
         opacity: 0,
-        ease: "power3.inOut",
-        duration: 2
-      }, 0); // Start at same time
+        scale: 1.1, // Subtle scale
+        ease: "power2.inOut",
+        duration: 1.5,
+        pointerEvents: "none" // Disable interaction after scroll
+      }, 0.2); 
 
       // 3. Main Background & Content Reveal
-      // Subtle scale down from 1.1 to 1 for a "settling in" feel
       tl.fromTo(mainBgRef.current, {
-        scale: 1.2,
-        filter: "blur(10px) brightness(0.5)"
+        scale: 1.1,
+        opacity: 0,
+        filter: "blur(10px)"
       }, {
         scale: 1,
-        filter: "blur(0px) brightness(1)",
+        opacity: 1,
+        filter: "blur(0px)",
         ease: "power2.out",
-        duration: 2
+        duration: 1.5
       }, 0.2);
       
-      // 4. Main Content Animation (Text & Button)
+      // 4. Main Content Animation
       tl.fromTo(mainContentRef.current, {
         opacity: 0,
-        y: 50
+        y: 30
       }, {
         opacity: 1,
         y: 0,
         ease: "power2.out",
         duration: 1
-      }, 1.5); // Start late
+      }, 1.0);
 
     }, containerRef);
     return () => ctx.revert();
   }, [setIntroCompleted]);
 
   return (
-    <div ref={containerRef} className="relative w-full h-screen overflow-hidden bg-black">
+    <div ref={containerRef} className="relative w-full h-screen overflow-hidden bg-[#0c1210]">
       
       {/* ========================================================= */}
       {/* 2. DESTINATION: Main Hero Content (Revealed after scroll) */}
       {/* ========================================================= */}
       <div 
         ref={mainBgRef}
-        className="absolute inset-0 w-full h-full overflow-hidden bg-[#EAEFE9]" // Light celadon base
+        className="absolute inset-0 w-full h-full overflow-hidden bg-[#E6E4E0]" // Warm Stone Base
       >
-        {/* Background Image: Celadon/Mint Gallery Space */}
+        {/* Background Image: Gallery Space */}
         <div 
-            className="absolute inset-0 w-full h-full bg-cover bg-center"
+            className="absolute inset-0 w-full h-full bg-cover bg-center opacity-90"
             style={{ 
-              backgroundImage: `url('https://images.unsplash.com/photo-1679834841135-b73991e3941d?q=80&w=2000&auto=format&fit=crop')`,
+              backgroundImage: `url('https://images.unsplash.com/photo-1620641788421-7f1c918e7899?q=80&w=2000&auto=format&fit=crop')`, // Stone/Marble texture or Gallery
               backgroundPosition: 'center center',
             }}
         />
-        {/* Celadon Tint Overlay */}
-        <div className="absolute inset-0 bg-[#5E7A70] mix-blend-multiply opacity-20" />
+        {/* Deep Green Tint Overlay */}
+        <div className="absolute inset-0 bg-[#0a2f1c] mix-blend-multiply opacity-30" />
         
         {/* Main Content Area */}
         <div 
@@ -105,69 +106,65 @@ export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroComple
         >
             {/* Title Group */}
             <div className="mb-12">
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 drop-shadow-sm tracking-tight">
-                    ADO Clinic <span className="font-light opacity-70">—</span> <br/>
-                    The Point
+                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-[#1c1917] mb-6 tracking-tight">
+                    ADO Clinic <span className="font-light opacity-50 text-3xl align-top">Est. 2024</span>
                 </h1>
                 
-                {/* Rounded Box Description */}
-                <div className="bg-black/40 backdrop-blur-md p-8 rounded-3xl border border-white/10 max-w-2xl">
-                    <p className="text-white text-lg md:text-2xl font-light leading-relaxed">
-                        모든 아름다움은<br/>
-                        <span className="font-semibold text-white/90">마지막 한 점</span>, 아도에서 더해질때 비로소 완성됩니다.
+                {/* Description */}
+                <div className="border-l-2 border-[#1c1917]/20 pl-8 max-w-2xl">
+                    <p className="text-[#44403c] text-lg md:text-2xl font-light leading-relaxed font-serif">
+                        시간이 흘러도 변치 않는<br/>
+                        <span className="font-semibold text-[#1c1917]">견고한 아름다움</span>을 조각합니다.
                     </p>
                 </div>
             </div>
 
-            {/* CTA Button (Magnetic) */}
-            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 md:left-auto md:right-32 md:translate-x-0">
+            {/* CTA Button */}
+            <div className="absolute bottom-12 left-6 md:left-auto md:right-32">
                 <MagneticButton 
                     onClick={() => navigate('/contact')}
-                    className="group bg-[#991B1B] text-white rounded-full px-10 py-5 text-sm font-bold tracking-[0.2em] hover:bg-[#7F1D1D] shadow-2xl overflow-hidden"
+                    className="group bg-[#0f392b] text-[#e7e5e4] rounded-none px-12 py-6 text-sm font-medium tracking-[0.2em] hover:bg-[#144736] transition-all duration-500"
                 >
-                    <span className="relative z-10 flex items-center gap-3">
-                        CONTACT US
-                        <span className="opacity-70 font-normal border-l border-white/30 pl-3">상담신청</span>
-                        <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                    <span className="flex items-center gap-4">
+                        PRIVATE CONSULTATION
+                        <ArrowUpRight className="w-4 h-4 opacity-70 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </span>
-                    {/* Hover Fill Effect */}
-                    <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300 rounded-full" />
                 </MagneticButton>
             </div>
         </div>
       </div>
 
       {/* ========================================================= */}
-      {/* 1. ENTRANCE: The Tunnel/Portal (Visible initially)        */}
+      {/* 1. ENTRANCE: Stage 1 (Interactive WebGL Background)       */}
       {/* ========================================================= */}
       <div 
         ref={portalRef}
-        className="absolute inset-0 z-20 flex items-center justify-center bg-[#050505]"
+        className="absolute inset-0 z-20 flex items-center justify-center w-full h-full bg-[#051811]"
       >
-        {/* The "Light at the end of the tunnel" */}
-        <div className="relative w-[300px] h-[400px] bg-white overflow-hidden shadow-[0_0_50px_rgba(94,122,112,0.5)] rounded-full">
-           <img 
-            src="https://images.unsplash.com/photo-1679834841135-b73991e3941d?q=80&w=500&auto=format&fit=crop"
-            alt="Portal View"
-            className="w-full h-full object-cover opacity-80 scale-150"
-           />
-           <div className="absolute inset-0 bg-[#5E7A70]/30 mix-blend-overlay"></div>
-        </div>
-      </div>
-
-      {/* Intro Text (Fades out immediately on scroll) */}
-      <div 
-        ref={introTextRef}
-        className="absolute inset-0 z-30 flex flex-col items-center justify-center text-white pointer-events-none"
-      >
-        <div className="flex flex-col items-center mix-blend-difference">
-            <span className="text-xs tracking-[0.5em] mb-4 uppercase text-[#5E7A70]">The Beginning</span>
-            <h2 className="text-4xl md:text-6xl font-serif tracking-widest text-white">ADO</h2>
-        </div>
+        {/* High-End 3D WebGL Background */}
+        <HeroGL />
         
-        <div className="absolute bottom-12 flex flex-col items-center gap-2 animate-bounce opacity-50">
-            <span className="text-[10px] tracking-widest uppercase">Scroll to Enter</span>
-            <div className="w-[1px] h-8 bg-white"></div>
+        {/* Floating Text Overlay (Stage 1) */}
+        <div 
+            ref={introTextRef}
+            className="absolute inset-0 z-30 flex flex-col items-center justify-center pointer-events-none"
+        >
+            <div className="flex flex-col items-center text-center mix-blend-overlay">
+                <span className="text-xs md:text-sm tracking-[0.6em] mb-8 text-[#e5e5e5] uppercase opacity-80">
+                    High-End Aesthetic Gallery
+                </span>
+                <h2 className="text-6xl md:text-8xl lg:text-9xl font-serif text-[#f5f5f4] tracking-wider opacity-90">
+                    ADO
+                </h2>
+                <span className="mt-4 text-sm md:text-lg text-[#d6d3d1] font-light tracking-[0.3em] opacity-70">
+                    CLINIC & GALLERY
+                </span>
+            </div>
+            
+            <div className="absolute bottom-12 flex flex-col items-center gap-4 opacity-40">
+                <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-white to-transparent"></div>
+                <span className="text-[10px] tracking-widest uppercase text-white/60">Scroll to Explore</span>
+            </div>
         </div>
       </div>
 
