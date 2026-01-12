@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { SkinAnalysis } from './SkinAnalysis';
 
 export function ProcessInfo() {
   const steps = [
@@ -82,18 +81,12 @@ export function ProcessInfo() {
           ))}
         </div>
 
-        {/* Abstract Object Image -> Replaced with Interactive Skin Analysis Mockup */}
-        <div className="mt-40 flex flex-col items-center w-full">
-           <div className="relative transform hover:scale-105 transition-transform duration-700 w-full flex justify-center">
-              <SkinAnalysis />
-           </div>
-           
-           <div className="mt-12 text-center">
-              <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2">Object 01 : Smart Diagnosis</p>
-              <p className="text-[#8C8C8C] font-serif italic text-lg">"당신의 피부를 읽다"</p>
-           </div>
-        </div>
-
+      </div>
+      
+      {/* Gallery Caption */}
+      <div className="w-full bg-[#Fdfbf9] py-16 text-center border-t border-[#1A1A1A]/10">
+        <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2">Object 04.5 : The Process</p>
+        <p className="text-[#8C8C8C] font-serif italic text-lg">"본질에서 완성으로"</p>
       </div>
     </section>
   );

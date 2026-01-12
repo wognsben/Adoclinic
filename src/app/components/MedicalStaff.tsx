@@ -4,10 +4,11 @@ import { AcademicGallery } from './AcademicGallery';
 
 export function MedicalStaff() {
   const histories = [
-    { year: '2015', title: 'Medical License', desc: '서울대학교 의과대학 졸업' },
+    { year: '2015', title: 'Medical License', desc: '서울대학교 의과대학 졸업, 피부과 전문의 취득' },
     { year: '2019', title: 'Director of Dermatology', desc: '서울대학교병원 피부과 임상 자문의' },
-    { year: '2021', title: 'Key Opinion Leader (KOL)', desc: '글로벌 에스테틱 브랜드 공식 트레이너 선정' },
-    { year: '2023', title: 'Grand Master of K-Aesthetics', desc: '필러/보톡스 시술 부문 대상 수상' },
+    { year: '2021', title: 'Key Opinion Leader (KOL)', desc: '글로벌 에스테틱 브랜드 공식 트레이너 선정, 연 1,200건 시술 집도' },
+    { year: '2023', title: 'Grand Master of K-Aesthetics', desc: '필러/보톡스 시술 부문 대상 수상, 누적 리프팅 시술 5,000건 돌파' },
+    { year: '2024', title: 'International Speaker', desc: 'IMCAS Paris 초청 연사, SCI급 논문 8편 게재 (Impact Factor: 4.2)' },
   ];
 
   return (
@@ -91,9 +92,37 @@ export function MedicalStaff() {
             </div>
           </div>
         </div>
-        
-        {/* Academic Activities (Separated Section) */}
+
         <div className="mt-32 pt-20 border-t border-[#D1D5DB]">
+           {/* Expertise Metrics - Premium Grid */}
+           <div className="mb-20">
+             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+               {/* Metric 1 */}
+               <div className="bg-gradient-to-br from-white to-[#F5F5F3] border border-[#D1D5DB] rounded-[24px] p-6 md:p-8 hover:shadow-lg transition-shadow duration-300">
+                 <div className="text-4xl md:text-5xl font-serif text-[#991B1B] mb-2 leading-none">5,000<span className="text-2xl text-[#8C8C8C]">+</span></div>
+                 <p className="text-xs font-bold tracking-widest text-[#8C8C8C] uppercase">리프팅 시술</p>
+               </div>
+               
+               {/* Metric 2 */}
+               <div className="bg-gradient-to-br from-white to-[#F5F5F3] border border-[#D1D5DB] rounded-[24px] p-6 md:p-8 hover:shadow-lg transition-shadow duration-300">
+                 <div className="text-4xl md:text-5xl font-serif text-[#5F9EA0] mb-2 leading-none">8<span className="text-2xl text-[#8C8C8C]">편</span></div>
+                 <p className="text-xs font-bold tracking-widest text-[#8C8C8C] uppercase">SCI급 논문</p>
+               </div>
+               
+               {/* Metric 3 */}
+               <div className="bg-gradient-to-br from-white to-[#F5F5F3] border border-[#D1D5DB] rounded-[24px] p-6 md:p-8 hover:shadow-lg transition-shadow duration-300">
+                 <div className="text-4xl md:text-5xl font-serif text-[#5F9EA0] mb-2 leading-none">98.2<span className="text-2xl text-[#8C8C8C]">%</span></div>
+                 <p className="text-xs font-bold tracking-widest text-[#8C8C8C] uppercase">환자 만족도</p>
+               </div>
+               
+               {/* Metric 4 */}
+               <div className="bg-gradient-to-br from-white to-[#F5F5F3] border border-[#D1D5DB] rounded-[24px] p-6 md:p-8 hover:shadow-lg transition-shadow duration-300">
+                 <div className="text-4xl md:text-5xl font-serif text-[#991B1B] mb-2 leading-none">15<span className="text-2xl text-[#8C8C8C]">년</span></div>
+                 <p className="text-xs font-bold tracking-widest text-[#8C8C8C] uppercase">피부과 경력</p>
+               </div>
+             </div>
+           </div>
+           
            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
               <div>
                 <p className="text-xs tracking-[0.2em] text-[#8C8C8C] mb-4 uppercase flex items-center gap-3">
@@ -131,6 +160,11 @@ export function MedicalStaff() {
                </div>
              </div>
            </div>
+        </div>
+
+        <div className="mt-24 text-center">
+            <p className="text-xs tracking-[0.3em] uppercase text-[#1C1C1C] mb-2">Object 03 : Master's Touch</p>
+            <p className="text-[#666] font-serif italic text-lg">"장인의 손길"</p>
         </div>
 
       </div>

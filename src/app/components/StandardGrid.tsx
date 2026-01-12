@@ -43,7 +43,7 @@ export function StandardGrid() {
         
         {/* Title Section - Medical Identity Restored */}
         <div className="mb-24 md:mb-32 flex flex-col items-start border-l-2 border-[#1A1A1A] pl-8">
-          <span className="text-[#5E7A70] text-xs font-bold tracking-[0.3em] uppercase mb-4">Medical Philosophy</span>
+          <span className="text-[#5E7A70] text-xs font-bold tracking-[0.3em] uppercase mb-4">Medical Standards</span>
           <h2 className="text-5xl md:text-7xl font-serif text-[#1A1A1A] leading-[1.2] mb-4 break-keep">
             강남 하이엔드 미학의<br/>
             새로운 기준
@@ -119,6 +119,11 @@ export function StandardGrid() {
             ))}
           </div>
 
+        </div>
+
+        <div className="mt-24 text-center">
+            <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2">Object 03 : The Standard</p>
+            <p className="text-[#8C8C8C] font-serif italic text-lg">\"강남의 기준이 되다\"</p>
         </div>
 
       </div>

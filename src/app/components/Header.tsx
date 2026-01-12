@@ -1,30 +1,47 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'motion/react';
 import { Menu } from 'lucide-react';
 import GooeyFilter from './ui/GooeyFilter';
 // Import the provided brand logo
-import logoImage from 'figma:asset/badd8ea61c2312ef02742069ccaa77fc94ee738f.png';
+import logoImage from 'figma:asset/fcc6e13ae36e4d588436cc30d4b454b19cc23c67.png';
 
 // ----------------------------------------------------------------------
 // CURVED METEOR LINK
 // ----------------------------------------------------------------------
-const MeteorLink = ({ text, isRed }: { text: string, isRed?: boolean }) => {
+const MeteorLink = ({ text, isRed, to }: { text: string, isRed?: boolean, to?: string }) => {
     const [isHovered, setIsHovered] = useState(false);
+    const location = useLocation();
     const gradientId = `meteor-gradient-${text}`;
+    
+    // Check if this link is active
+    const isActive = to === location.pathname;
 
     return (
-        <a 
-          href="#" 
+        <Link 
+          to={to || "#"} 
           className="relative block py-2 group"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
             <span className={`
                 relative z-10 text-xs font-medium tracking-[0.15em] uppercase transition-colors duration-300
-                ${isHovered ? 'text-white' : (isRed ? 'text-[#991B1B]' : 'text-white/70')}
+                ${isActive ? 'text-white font-bold' : isHovered ? 'text-white' : (isRed ? 'text-[#991B1B]' : 'text-white/70')}
             `}>
                 {text}
             </span>
+            
+            {/* Active Indicator - Always visible when active */}
+            {isActive && (
+                <motion.div 
+                    className="absolute left-0 -bottom-2 w-full h-[2px] bg-gradient-to-r from-[#991B1B] to-[#ff6b6b]"
+                    layoutId="activeNav"
+                    initial={false}
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+            )}
+            
+            {/* Hover Animation */}
             <div className="absolute left-0 -bottom-2 w-full h-[24px] pointer-events-none overflow-visible">
                 <svg width="100%" height="100%" viewBox="0 0 100 24" preserveAspectRatio="none" className="overflow-visible">
                     <defs>
@@ -41,11 +58,15 @@ const MeteorLink = ({ text, isRed }: { text: string, isRed?: boolean }) => {
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         initial={{ pathLength: 0, pathOffset: 0, opacity: 0 }}
-                        animate={isHovered ? { pathLength: 1, pathOffset: 0, opacity: 1, transition: { duration: 0.4, ease: "easeOut" }} : { pathLength: 1, pathOffset: 1, opacity: 0, transition: { duration: 0.55, ease: [0.32, 0, 0.67, 0] }}}
+                        animate={
+                            isHovered && !isActive 
+                                ? { pathLength: 1, pathOffset: 0, opacity: 1, transition: { duration: 0.4, ease: "easeOut" }} 
+                                : { pathLength: 1, pathOffset: 1, opacity: 0, transition: { duration: 0.55, ease: [0.32, 0, 0.67, 0] }}
+                        }
                     />
                 </svg>
             </div>
-        </a>
+        </Link>
     );
 };
 
@@ -58,9 +79,8 @@ const Logo = () => (
         <img 
             src={logoImage} 
             alt="ADO CLINIC" 
-            // Optimized Size: Increased from h-7 to h-14 for better visibility
-            // Scale-110: Slightly zoom in to reduce perceived internal padding
-            className="h-14 w-auto object-contain transform scale-110 origin-left" 
+            // Matched with Footer logo size: w-[250px]
+            className="w-[250px] h-auto object-contain origin-left" 
             style={{ filter: 'brightness(0) invert(1)' }}
             loading="eager"
             decoding="sync"
@@ -77,9 +97,9 @@ const Utilities = ({ onOpenConsultation }: { onOpenConsultation?: () => void }) 
             KOREAN
         </button>
         <div className="flex items-center gap-3 text-[10px] font-bold tracking-widest text-white/90">
-            <button className="hover:text-[#5E7A70] transition-colors">LOGIN</button>
+            <Link to="/login" className="hover:text-[#5E7A70] transition-colors">LOGIN</Link>
             <span className="text-white/20">|</span>
-            <button onClick={onOpenConsultation} className="hover:text-[#991B1B] transition-colors text-[#991B1B]">CONTACT</button>
+            <Link to="/contact" className="hover:text-[#991B1B] transition-colors text-[#991B1B]">CONTACT</Link>
         </div>
     </div>
 );
@@ -90,18 +110,12 @@ interface HeaderProps {
 }
 
 export function Header({ onOpenConsultation }: HeaderProps) {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(true); // Always show background for visibility
   const [hasSplit, setHasSplit] = useState(false);
   const { scrollY } = useScroll();
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const scrolled = latest > 50;
-    if (scrolled !== isScrolled) {
-      setIsScrolled(scrolled);
-      if (scrolled) setHasSplit(false);
-      else setHasSplit(false);
-    }
-  });
+  // REMOVED: useMotionValueEvent that was changing isScrolled to false
+  // Navigation background is now always visible
 
   useEffect(() => {
     if (isScrolled && !hasSplit) {
@@ -217,7 +231,12 @@ export function Header({ onOpenConsultation }: HeaderProps) {
             <Logo />
             <nav className="hidden lg:flex items-center gap-10">
               {['병원소개', '시술안내', '이벤트/소식', '칭찬/불만', '전후사진'].map((item) => (
-                 <MeteorLink key={item} text={item} isRed={item === '병원소개'} />
+                 <MeteorLink 
+                    key={item} 
+                    text={item} 
+                    isRed={item === '병원소개'} 
+                    to={item === '전후사진' ? '/before-after' : item === '시술안내' ? '/treatments' : item === '이벤트/소식' ? '/events' : item === '병원소개' ? '/' : '#'}
+                 />
               ))}
             </nav>
             <button className="lg:hidden text-white ml-auto"><Menu className="w-6 h-6" /></button>

@@ -1,6 +1,7 @@
 @theme {
-  --font-sans: 'Pretendard', sans-serif;
-  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Playfair Display', 'Gowun Batang', serif;
+  --font-korean-serif: 'Gowun Batang', serif;
   --font-mono: 'Cinzel', serif;
 }
 
@@ -38,4 +39,23 @@
 ::selection {
   background: #2F4F4F;
   color: #F4F3F0;
+}
+
+/* Korean Typography Enhancement */
+@layer utilities {
+  .font-korean-serif {
+    font-family: var(--font-korean-serif);
+  }
+  
+  /* Auto-detect Korean and apply Gowun Batang */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+  }
+  
+  /* Headings with Korean characters get better spacing */
+  h1:lang(ko), h2:lang(ko), h3:lang(ko), 
+  h4:lang(ko), h5:lang(ko), h6:lang(ko) {
+    font-family: var(--font-korean-serif);
+    letter-spacing: -0.02em;
+  }
 }

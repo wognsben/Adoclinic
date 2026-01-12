@@ -3,17 +3,18 @@ import { ArrowUpRight } from 'lucide-react';
 
 export function Promotions() {
   return (
-    <section className="w-full bg-[#1A1A1A] text-white py-24 md:py-40 overflow-hidden">
+    <>
+    <section className="w-full bg-[#FDFBF9] text-[#1A1A1A] py-24 md:py-40 overflow-hidden">
       <div className="max-w-[1600px] mx-auto px-6">
         
         <div className="flex flex-col md:flex-row justify-between items-end mb-16">
-          <h2 className="text-5xl md:text-8xl font-serif text-[#Fdfbf9]">
+          <h2 className="text-5xl md:text-8xl font-serif text-[#1A1A1A]">
             ADO<br/>
-            <span className="italic text-[#738F86]">Promotion</span>
+            <span className="italic text-[#5FB5B8]">Promotion</span>
           </h2>
           <div className="text-right mt-8 md:mt-0">
              <p className="text-sm tracking-widest uppercase mb-2 text-[#8C8C8C]">Seasonal Benefits</p>
-             <button className="text-sm border-b border-white pb-1 hover:text-[#738F86] hover:border-[#738F86] transition-colors">
+             <button className="text-sm border-b border-[#2D7A7C] pb-1 hover:text-[#5FB5B8] hover:border-[#5FB5B8] transition-colors text-[#2D7A7C]">
                View All Events
              </button>
           </div>
@@ -88,5 +89,12 @@ export function Promotions() {
         </div>
       </div>
     </section>
+    
+    {/* Gallery Caption for Promotions */}
+    <div className="w-full bg-[#FDFBF9] py-16 text-center border-t border-[#1A1A1A]/10">
+      <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2">Object 06 : Seasonal Benefits</p>
+      <p className="text-[#8C8C8C] font-serif italic text-lg">"특별한 혜택"</p>
+    </div>
+    </>
   );
 }

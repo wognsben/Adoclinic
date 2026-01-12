@@ -1,8 +1,7 @@
-import React from 'react';
 import { motion } from 'motion/react';
 import { MapPin, Copy, MessageCircle, Phone, ArrowUpRight, Instagram, Map as MapIcon, ArrowUp } from 'lucide-react';
 import mapImage from 'figma:asset/6c0afad9e2fdd413414a793d92801ce7a718649c.png';
-import logoImage from 'figma:asset/2fbedda476eb26284d7ca2fbd1385497c99baa07.png';
+import logoImage from 'figma:asset/fcc6e13ae36e4d588436cc30d4b454b19cc23c67.png';
 
 export function Footer() {
   const handleCopyAddress = () => {

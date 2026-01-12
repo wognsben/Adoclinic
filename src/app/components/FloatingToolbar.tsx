@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 
 // Custom SVG Icons for consistent stroke style
@@ -42,83 +42,136 @@ interface FloatingToolbarProps {
   onOpenConsultation?: () => void;
 }
 
-export function FloatingToolbar({ onOpenConsultation }: FloatingToolbarProps) {
-  const [highlight, setHighlight] = React.useState(false);
+export interface FloatingToolbarRef {
+  highlightBooking: () => void;
+}
 
-  React.useEffect(() => {
-    const handleHighlight = () => {
-      setHighlight(true);
-      setTimeout(() => setHighlight(false), 3000);
+export const FloatingToolbar = forwardRef<FloatingToolbarRef, FloatingToolbarProps>(
+  ({ onOpenConsultation }, ref) => {
+    const [highlightedButtons, setHighlightedButtons] = useState<number[]>([]);
+    const [showTooltips, setShowTooltips] = useState<number[]>([]);
+
+    // Listen for highlight-consultation event from Smart Diagnosis
+    useEffect(() => {
+      const handleHighlightConsultation = () => {
+        console.log('🎨 FloatingToolbar: highlight-consultation 이벤트 수신!');
+        // Highlight 네이버 예약 (index 0) and 카카오 (index 3) with teal-400 청옥색
+        setHighlightedButtons([0, 3]);
+        setShowTooltips([0, 3]); // Show tooltips
+        console.log('✅ FloatingToolbar: teal-400 청옥색 하이라이트 + 툴팁 표시 [0, 3]');
+        
+        // Remove highlight and tooltips after 3 seconds
+        setTimeout(() => {
+          setHighlightedButtons([]);
+          setShowTooltips([]);
+          console.log('⏰ FloatingToolbar: 3초 후 하이라이트 및 툴팁 제거 완료');
+        }, 3000);
+      };
+
+      window.addEventListener('highlight-consultation', handleHighlightConsultation);
+      
+      return () => {
+        window.removeEventListener('highlight-consultation', handleHighlightConsultation);
+      };
+    }, []);
+
+    // Expose method to parent
+    useImperativeHandle(ref, () => ({
+      highlightBooking: () => {
+        console.log('🎨 FloatingToolbar: highlightBooking 메서드 실행됨!');
+        // Highlight 네이버 예약 (index 0) and 카카오 (index 3) with teal-400 청옥색
+        setHighlightedButtons([0, 3]);
+        setShowTooltips([0, 3]); // Show tooltips
+        console.log('✅ FloatingToolbar: teal-400 청옥색 하이라이트 + 툴팁 표시 [0, 3]');
+        
+        // Remove highlight and tooltips after 3 seconds
+        setTimeout(() => {
+          setHighlightedButtons([]);
+          setShowTooltips([]);
+          console.log('⏰ FloatingToolbar: 3초 후 하이라이트 및 툴팁 제거 완료');
+        }, 3000);
+      },
+    }));
+
+    const tools = [
+      { 
+        name: "예약", 
+        icon: Icons.NaverBooking, 
+        color: "hover:bg-[#03C75A]", 
+        action: onOpenConsultation
+      },
+      { name: "Insta", icon: Icons.Instagram, color: "hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500" },
+      { name: "Threads", icon: Icons.Threads, color: "hover:bg-black" },
+      { 
+        name: "Kakao", 
+        icon: Icons.Kakao, 
+        color: "hover:bg-[#FEE500] hover:text-black"
+      },
+      { name: "Blog", icon: Icons.NaverBlog, color: "hover:bg-[#2DB400]" },
+    ];
+
+    const scrollToTop = () => {
+      // Scroll to the main content area (skipping Hero) to avoid re-triggering intro animations
+      const mainContent = document.getElementById('main-content');
+      if (mainContent) {
+        mainContent.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        // Fallback if ID is missing
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     };
-    window.addEventListener('highlight-consultation', handleHighlight);
-    return () => window.removeEventListener('highlight-consultation', handleHighlight);
-  }, []);
 
-  const tools = [
-    { 
-      name: highlight ? "예약 클릭" : "예약", 
-      icon: Icons.NaverBooking, 
-      color: "hover:bg-[#03C75A]", 
-      action: onOpenConsultation,
-      isTarget: true 
-    },
-    { name: "Insta", icon: Icons.Instagram, color: "hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500" },
-    { name: "Threads", icon: Icons.Threads, color: "hover:bg-black" },
-    { 
-      name: highlight ? "상담 클릭" : "Kakao", 
-      icon: Icons.Kakao, 
-      color: "hover:bg-[#FEE500] hover:text-black",
-      isTarget: true
-    },
-    { name: "Blog", icon: Icons.NaverBlog, color: "hover:bg-[#2DB400]" },
-  ];
+    return (
+      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-4">
+        {tools.map((item, idx) => {
+          const isHighlighted = highlightedButtons.includes(idx);
+          const showTooltip = showTooltips.includes(idx);
+          
+          return (
+            <motion.button
+              key={idx}
+              onClick={item.action}
+              initial={{ x: 50, opacity: 0 }}
+              animate={{ 
+                x: 0, 
+                opacity: 1,
+                scale: isHighlighted ? 1.2 : 1,
+              }}
+              transition={{ delay: 1 + idx * 0.1 }}
+              className={`group relative w-12 h-12 rounded-full backdrop-blur-md border flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-110 ${item.color} hover:text-white hover:border-transparent ${
+                isHighlighted 
+                  ? 'bg-teal-400 text-white border-transparent scale-125 animate-pulse shadow-[0_0_30px_rgba(45,212,191,0.8)]' 
+                  : 'bg-white/90 border-stone-200 text-stone-800'
+              }`}
+            >
+              <item.icon />
+              
+              {/* Tooltip Label */}
+              <span className={`absolute right-full mr-4 px-3 py-1 bg-[#1A1A1A] text-white text-[10px] font-bold tracking-wider whitespace-nowrap transition-opacity rounded-full shadow-lg z-50 ${showTooltip ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
+                {item.name}
+              </span>
+            </motion.button>
+          );
+        })}
 
-  const scrollToTop = () => {
-    // Scroll to the main content area (skipping Hero) to avoid re-triggering intro animations
-    const mainContent = document.getElementById('main-content');
-    if (mainContent) {
-      mainContent.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      // Fallback if ID is missing
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
-  return (
-    <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-4">
-      {tools.map((item, idx) => (
+        {/* Top Button */}
         <motion.button
-          key={idx}
-          onClick={item.action}
+          onClick={scrollToTop}
           initial={{ x: 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 1 + idx * 0.1 }}
-          className={`group relative w-12 h-12 rounded-full bg-white/90 backdrop-blur-md border border-stone-200 flex items-center justify-center text-stone-800 shadow-xl transition-all duration-300 hover:scale-110 ${item.color} hover:text-white hover:border-transparent ${highlight && item.isTarget ? 'ring-4 ring-offset-2 ring-teal-400 scale-110 !bg-teal-50 !border-teal-400' : ''}`}
+          transition={{ delay: 1.5 }}
+          className="group relative w-12 h-12 rounded-full bg-[#1A1A1A] flex items-center justify-center text-white shadow-xl transition-all duration-300 hover:bg-[#738F86] hover:scale-110 mt-4"
         >
-          <item.icon />
-          
-          {/* Tooltip Label */}
-          <span className={`absolute right-full mr-4 px-3 py-1 bg-[#1A1A1A] text-white text-[10px] font-bold tracking-wider whitespace-nowrap transition-opacity rounded-full shadow-lg ${highlight && item.isTarget ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
-            {item.name}
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+            <path d="m18 15-6-6-6 6"/>
+          </svg>
+          <span className="absolute right-full mr-4 px-3 py-1 bg-[#1A1A1A] text-white text-[10px] font-bold tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity rounded-full shadow-lg">
+            TOP
           </span>
         </motion.button>
-      ))}
+      </div>
+    );
+  }
+);
 
-      {/* Top Button */}
-      <motion.button
-        onClick={scrollToTop}
-        initial={{ x: 50, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="group relative w-12 h-12 rounded-full bg-[#1A1A1A] flex items-center justify-center text-white shadow-xl transition-all duration-300 hover:bg-[#738F86] hover:scale-110 mt-4"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-          <path d="m18 15-6-6-6 6"/>
-        </svg>
-        <span className="absolute right-full mr-4 px-3 py-1 bg-[#1A1A1A] text-white text-[10px] font-bold tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity rounded-full shadow-lg">
-          TOP
-        </span>
-      </motion.button>
-    </div>
-  );
-}
+FloatingToolbar.displayName = 'FloatingToolbar';

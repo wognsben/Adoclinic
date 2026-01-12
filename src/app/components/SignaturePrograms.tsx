@@ -9,7 +9,9 @@ const programs = [
     subtitle: "Immediate Brightening & Tightening",
     desc: "통증 없이 즉각적인 리프팅과 화이트닝을 동시에. 강남 VIP들이 선택한 다운타임 없는 프리미엄 리프팅.",
     tags: ["Lifting", "Brightening", "No Pain"],
-    image: "https://images.unsplash.com/photo-1569259330179-ef650d87beee?q=80&w=1200&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1729337531424-198f880cb6c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    protocol: "Instant Brightening Protocol™",
+    advantage: "일반 시술 대비 120% 효과"
   },
   {
     id: "02",
@@ -17,7 +19,9 @@ const programs = [
     subtitle: "Face Line Reshaping",
     desc: "뼈를 깎지 않고 완성하는 완벽한 얼굴 라인. 튠페이스와 울쎄라의 황금 조합으로 무너진 턱선을 복원합니다.",
     tags: ["Contouring", "V-Line", "Custom"],
-    image: "https://images.unsplash.com/photo-1631596577204-53ad0d6e6978?q=80&w=1200&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1596178060671-7a80dc8059ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    protocol: "Golden Ratio Design™",
+    advantage: "동양인 골격 특화 설계"
   },
   {
     id: "03",
@@ -25,7 +29,9 @@ const programs = [
     subtitle: "Deep Hydration & Glow",
     desc: "피부 깊은 곳부터 차오르는 수분감. 쥬베룩과 리쥬란의 최적 배합으로 건조함과 잔주름을 한번에 해결합니다.",
     tags: ["Anti-Aging", "Hydration", "Glow"],
-    image: "https://images.unsplash.com/photo-1655361166052-a65fa7633820?q=80&w=1200&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1728949202468-c37fdbd76856?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1200&auto=format&fit=crop",
+    protocol: "ADO 3-Layer Protocol™",
+    advantage: "3단계 깊이별 맞춤 주입"
   }
 ];
 
@@ -90,6 +96,15 @@ export function SignaturePrograms() {
                     ))}
                   </div>
                 </div>
+                
+                {/* Protocol Badge - Premium Style */}
+                <div className="mb-3">
+                  <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#991B1B]/10 to-[#5E7A70]/10 border border-[#991B1B]/30 rounded-full px-3 py-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#991B1B] animate-pulse"></div>
+                    <span className="text-[10px] font-bold tracking-widest text-[#991B1B] uppercase">{item.protocol}</span>
+                  </div>
+                </div>
+
                 <h3 className="text-2xl font-serif text-[#1A1A1A] group-hover:text-[#5E7A70] transition-colors">
                   {item.title}
                 </h3>
@@ -97,11 +112,25 @@ export function SignaturePrograms() {
                 <p className="text-sm text-[#555] leading-relaxed line-clamp-2 group-hover:line-clamp-none transition-all">
                   {item.desc}
                 </p>
+                
+                {/* Advantage Badge */}
+                <div className="mt-3 pt-3 border-t border-[#F5F5F5]">
+                  <p className="text-xs text-[#5E7A70] font-semibold flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-[#5E7A70]"></span>
+                    {item.advantage}
+                  </p>
+                </div>
               </div>
             </div>
           ))}
         </div>
 
+      </div>
+      
+      {/* Gallery Caption */}
+      <div className="w-full bg-white py-16 text-center border-t border-[#1A1A1A]/10">
+        <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2">Object 04 : Signature Collection</p>
+        <p className="text-[#8C8C8C] font-serif italic text-lg">"ADO만의 독점 프로토콜"</p>
       </div>
     </section>
   );

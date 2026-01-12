@@ -1,4 +1,5 @@
 import React, { useRef, useLayoutEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MagneticButton } from './ui/MagneticButton';
@@ -8,10 +9,12 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroCompleted: (v: boolean) => void; onOpenConsultation?: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
   const portalRef = useRef<HTMLDivElement>(null);
   const mainBgRef = useRef<HTMLDivElement>(null);
   const introTextRef = useRef<HTMLDivElement>(null);
   const mainContentRef = useRef<HTMLDivElement>(null);
+  const hasCompletedRef = useRef(false); // 한번 완료되면 다시 돌아가지 않음
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -22,8 +25,16 @@ export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroComple
           end: "+=150%", // Scroll distance
           pin: true,
           scrub: 1.5, // Smooth scrubbing
-          onLeave: () => setIntroCompleted(true),
-          onEnterBack: () => setIntroCompleted(false)
+          onLeave: () => {
+            setIntroCompleted(true);
+            hasCompletedRef.current = true; // 완료 플래그 설정
+          },
+          onEnterBack: () => {
+            // 한��� 완료되면 다시 돌아가지 않음
+            if (!hasCompletedRef.current) {
+              setIntroCompleted(false);
+            }
+          }
         }
       });
 
@@ -111,7 +122,7 @@ export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroComple
             {/* CTA Button (Magnetic) */}
             <div className="absolute bottom-12 left-1/2 -translate-x-1/2 md:left-auto md:right-32 md:translate-x-0">
                 <MagneticButton 
-                    onClick={onOpenConsultation}
+                    onClick={() => navigate('/contact')}
                     className="group bg-[#991B1B] text-white rounded-full px-10 py-5 text-sm font-bold tracking-[0.2em] hover:bg-[#7F1D1D] shadow-2xl overflow-hidden"
                 >
                     <span className="relative z-10 flex items-center gap-3">
