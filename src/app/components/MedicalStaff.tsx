@@ -140,9 +140,9 @@ export function MedicalStaff() {
            <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
               <div>
                 <p className="text-xs tracking-[0.2em] text-[#5F9EA0] mb-3 uppercase font-bold">
-                   Global Leadership
+                   Global Academic Insight
                 </p>
-                <h3 className="text-3xl md:text-4xl font-serif text-[#1A1A1A]">Pioneering Medical Artistry</h3>
+                <h3 className="text-3xl md:text-4xl font-serif text-[#1A1A1A]">의료진 강의 이력</h3>
               </div>
               <p className="text-[#888] text-sm md:text-base font-light text-right">
                  끊임없는 연구와 글로벌 강연 활동으로<br />
@@ -156,7 +156,7 @@ export function MedicalStaff() {
                
                {/* Overlay Instruction */}
                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[#8C8C8C] text-[10px] tracking-[0.3em] uppercase opacity-70">
-                   Drag to Explore
+                   Scroll to Explore
                </div>
            </div>
         </div>
