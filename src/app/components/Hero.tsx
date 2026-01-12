@@ -1,34 +1,62 @@
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MagneticButton } from './ui/MagneticButton';
 import { ArrowUpRight } from 'lucide-react';
-import HeroGL from './HeroGL';
+// Import user provided images
+import stage2Image from 'figma:asset/dae4af3dc0d177f616729ae192c952a660d01df8.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroCompleted: (v: boolean) => void; onOpenConsultation?: () => void }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-  const portalRef = useRef<HTMLDivElement>(null);
-  const mainBgRef = useRef<HTMLDivElement>(null);
-  const introTextRef = useRef<HTMLDivElement>(null);
-  const mainContentRef = useRef<HTMLDivElement>(null);
+  
+  // Refs
+  const glassLayerRef = useRef<HTMLDivElement>(null); // The Fluted Glass Overlay
+  const jadeWindowRef = useRef<HTMLDivElement>(null); // The Portal Frame
+  const stage2ContentRef = useRef<HTMLDivElement>(null); 
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const bgImageRef = useRef<HTMLDivElement>(null); // The Background Image itself
+
   const hasCompletedRef = useRef(false);
+
+  // Mouse Follower
+  useEffect(() => {
+    const moveCursor = (e: MouseEvent) => {
+      if (cursorRef.current) {
+        gsap.to(cursorRef.current, {
+          x: e.clientX,
+          y: e.clientY,
+          duration: 0.6,
+          ease: "power3.out"
+        });
+      }
+    };
+    window.addEventListener('mousemove', moveCursor);
+    return () => window.removeEventListener('mousemove', moveCursor);
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      
+      // Initialize Mask Size
+      gsap.set(glassLayerRef.current, { 
+        "--mask-size-x": "280px", 
+        "--mask-size-y": "380px" 
+      });
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=150%", 
+          end: "+=200%", 
           pin: true,
-          scrub: 1.5, 
+          scrub: 1, // Smooth interaction
           onLeave: () => {
             setIntroCompleted(true);
-            hasCompletedRef.current = true; 
+            hasCompletedRef.current = true;
           },
           onEnterBack: () => {
             if (!hasCompletedRef.current) {
@@ -38,134 +66,179 @@ export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroComple
         }
       });
 
-      // 1. Intro Text fades out
-      tl.to(introTextRef.current, { opacity: 0, scale: 0.95, duration: 0.5 });
+      // 1. (Removed Intro Text Animation)
 
-      // 2. The entire GL Background (Portal) fades out/scales up to reveal the content
-      tl.to(portalRef.current, {
-        opacity: 0,
-        scale: 1.1, // Subtle scale
+      // 2. Expand the "Clear" Hole (Mask Expansion)
+      // This reveals the background clearly by removing the glass filter
+      tl.to(glassLayerRef.current, {
+        "--mask-size-x": "150vw", 
+        "--mask-size-y": "150vw", 
         ease: "power2.inOut",
-        duration: 1.5,
-        pointerEvents: "none" // Disable interaction after scroll
-      }, 0.2); 
+        duration: 3
+      }, 0);
 
-      // 3. Main Background & Content Reveal
-      tl.fromTo(mainBgRef.current, {
-        scale: 1.1,
+      // 3. Expand the Jade Rim (Sync with mask) and Fade Out
+      tl.to(jadeWindowRef.current, {
+        scale: 15,
         opacity: 0,
-        filter: "blur(10px)"
+        borderWidth: "0px", // Thin out as it expands
+        ease: "power2.inOut",
+        duration: 2.5
+      }, 0);
+
+      // 4. Background Image settles in (Slight zoom out effect)
+      tl.fromTo(bgImageRef.current, {
+        scale: 1.1,
       }, {
         scale: 1,
-        opacity: 1,
-        filter: "blur(0px)",
         ease: "power2.out",
-        duration: 1.5
-      }, 0.2);
-      
-      // 4. Main Content Animation
-      tl.fromTo(mainContentRef.current, {
+        duration: 3
+      }, 0);
+
+      // 5. Reveal Stage 2 Text Content
+      tl.fromTo(stage2ContentRef.current, {
         opacity: 0,
-        y: 30
+        y: 60
       }, {
         opacity: 1,
         y: 0,
         ease: "power2.out",
         duration: 1
-      }, 1.0);
+      }, 1.8);
 
     }, containerRef);
     return () => ctx.revert();
   }, [setIntroCompleted]);
 
   return (
-    <div ref={containerRef} className="relative w-full h-screen overflow-hidden bg-[#0c1210]">
+    <div ref={containerRef} className="relative w-full h-screen overflow-hidden bg-[#E0E5E2]">
       
-      {/* ========================================================= */}
-      {/* 2. DESTINATION: Main Hero Content (Revealed after scroll) */}
-      {/* ========================================================= */}
+      {/* Custom Cursor (White Glow) */}
       <div 
-        ref={mainBgRef}
-        className="absolute inset-0 w-full h-full overflow-hidden bg-[#E6E4E0]" // Warm Stone Base
-      >
-        {/* Background Image: Gallery Space */}
+        ref={cursorRef} 
+        className="fixed top-0 left-0 w-32 h-32 bg-white/30 rounded-full blur-[50px] pointer-events-none z-[60] -translate-x-1/2 -translate-y-1/2 mix-blend-soft-light"
+      />
+
+      {/* ================================================================= */}
+      {/* LAYER 1 (BOTTOM): The Real Image (Stage 2)                        */}
+      {/* - This is always visible.                                         */}
+      {/* - Initially, it's seen BLURRED through the glass layer,           */}
+      {/*   except for the center hole where it is CLEAR.                   */}
+      {/* ================================================================= */}
+      <div className="absolute inset-0 z-0 w-full h-full overflow-hidden">
         <div 
-            className="absolute inset-0 w-full h-full bg-cover bg-center opacity-90"
+            ref={bgImageRef}
+            className="absolute inset-0 w-full h-full bg-cover bg-center"
             style={{ 
-              backgroundImage: `url('https://images.unsplash.com/photo-1620641788421-7f1c918e7899?q=80&w=2000&auto=format&fit=crop')`, // Stone/Marble texture or Gallery
+              backgroundImage: `url('${stage2Image}')`,
               backgroundPosition: 'center center',
             }}
         />
-        {/* Deep Green Tint Overlay */}
-        <div className="absolute inset-0 bg-[#0a2f1c] mix-blend-multiply opacity-30" />
-        
-        {/* Main Content Area */}
-        <div 
-            ref={mainContentRef}
-            className="absolute inset-0 z-10 flex flex-col justify-center px-6 md:px-20 lg:px-32 max-w-[1600px] mx-auto h-full"
+        {/* Cinematic Tint to match brand colors */}
+        <div className="absolute inset-0 bg-[#5E7A70] mix-blend-multiply opacity-10" />
+      </div>
+
+
+      {/* ================================================================= */}
+      {/* LAYER 2 (OVERLAY): Premium Fluted Glass Effect (Stage 1)          */}
+      {/* - Covers the whole screen initially.                              */}
+      {/* - Has a mask hole in the center.                                  */}
+      {/* ================================================================= */}
+      <div 
+         ref={glassLayerRef}
+         className="absolute inset-0 z-10 w-full h-full pointer-events-none"
+         style={{
+            // The mask creates the clear hole. 
+            // 'transparent' is the hole, 'black' is the glass.
+            maskImage: `radial-gradient(ellipse var(--mask-size-x) var(--mask-size-y) at center, transparent 45%, black 46%)`,
+            WebkitMaskImage: `radial-gradient(ellipse var(--mask-size-x) var(--mask-size-y) at center, transparent 45%, black 46%)`,
+            maskComposite: 'exclude',
+            WebkitMaskComposite: 'source-out', 
+            // Note: 'source-out' usually works best for "punching a hole" in webkit
+         }}
+      >
+         {/* 1. Backdrop Blur (Frosted Effect) */}
+         <div className="absolute inset-0 backdrop-blur-[20px] bg-white/10" />
+         
+         {/* 2. Fluted Glass Texture (Vertical Stripes) */}
+         {/* Using repeating linear gradient for the reeded/fluted glass look */}
+         <div 
+            className="absolute inset-0 opacity-40 mix-blend-overlay"
+            style={{
+                backgroundImage: `repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.1) 2px,
+                    rgba(255, 255, 255, 0.1) 4px,
+                    rgba(0, 0, 0, 0.1) 4px,
+                    rgba(0, 0, 0, 0.1) 6px
+                )`
+            }}
+         />
+
+         {/* 3. Noise Texture for Realism */}
+         <div className="absolute inset-0 opacity-[0.07] mix-blend-overlay" style={{backgroundImage: 'url("https://grainy-gradients.vercel.app/noise.svg")'}} />
+         
+         {/* 4. Jade Tint (Subtle Greenish hue of thick glass) */}
+         <div className="absolute inset-0 bg-[#8BAFA5] mix-blend-overlay opacity-20" />
+      </div>
+
+
+      {/* ================================================================= */}
+      {/* LAYER 3 (DECORATION): The Jade Portal Rim                         */}
+      {/* - Sits exactly on the edge of the mask hole.                      */}
+      {/* ================================================================= */}
+      <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+         <div 
+            ref={jadeWindowRef}
+            className="relative w-[280px] h-[380px] rounded-[50%]"
+         >
+            {/* Inner Border (Sharp) */}
+            <div className="absolute inset-0 rounded-[50%] border-[1px] border-white/60 shadow-[0_0_15px_rgba(255,255,255,0.3)]"></div>
+            
+            {/* Outer Glow (Jade) */}
+            <div className="absolute -inset-[4px] rounded-[50%] border-[4px] border-[#8BAFA5]/30 blur-[4px]"></div>
+            
+            {/* Specular Highlights (Glass Edge Reflection) */}
+            <div className="absolute top-0 left-1/4 w-1/2 h-[2px] bg-white/80 blur-[1px]"></div>
+            <div className="absolute bottom-0 right-1/4 w-1/2 h-[2px] bg-white/50 blur-[1px]"></div>
+         </div>
+      </div>
+
+
+      {/* ================================================================= */}
+      {/* LAYER 4 (CONTENT): Stage 2 Content (Revealed later)               */}
+      {/* ================================================================= */}
+      <div 
+            ref={stage2ContentRef}
+            className="absolute inset-0 z-30 flex flex-col justify-center px-6 md:px-20 lg:px-32 max-w-[1600px] mx-auto h-full pointer-events-auto"
         >
-            {/* Title Group */}
-            <div className="mb-12">
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-[#1c1917] mb-6 tracking-tight">
-                    ADO Clinic <span className="font-light opacity-50 text-3xl align-top">Est. 2024</span>
-                </h1>
+             <div className="mb-12">
+                {/* REMOVED H1 "ADO CLINIC - The Point" as requested */}
                 
-                {/* Description */}
-                <div className="border-l-2 border-[#1c1917]/20 pl-8 max-w-2xl">
-                    <p className="text-[#44403c] text-lg md:text-2xl font-light leading-relaxed font-serif">
-                        시간이 흘러도 변치 않는<br/>
-                        <span className="font-semibold text-[#1c1917]">견고한 아름다움</span>을 조각합니다.
+                {/* Description Text */}
+                <div className="bg-white/40 backdrop-blur-md p-8 rounded-3xl border border-white/40 max-w-2xl shadow-lg mt-32">
+                    <p className="text-[#121C1A] text-lg md:text-2xl font-light leading-relaxed">
+                        모든 아름다움은<br/>
+                        <span className="font-semibold">마지막 한 점</span>, 아도에서 더해질때 비로소 완성됩니다.
                     </p>
                 </div>
             </div>
 
-            {/* CTA Button */}
-            <div className="absolute bottom-12 left-6 md:left-auto md:right-32">
+            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 md:left-auto md:right-32 md:translate-x-0">
                 <MagneticButton 
                     onClick={() => navigate('/contact')}
-                    className="group bg-[#0f392b] text-[#e7e5e4] rounded-none px-12 py-6 text-sm font-medium tracking-[0.2em] hover:bg-[#144736] transition-all duration-500"
+                    className="group bg-[#991B1B] text-white rounded-full px-10 py-5 text-sm font-bold tracking-[0.2em] hover:bg-[#7F1D1D] shadow-2xl overflow-hidden"
                 >
-                    <span className="flex items-center gap-4">
-                        PRIVATE CONSULTATION
-                        <ArrowUpRight className="w-4 h-4 opacity-70 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <span className="relative z-10 flex items-center gap-3">
+                        CONTACT US
+                        <span className="opacity-70 font-normal border-l border-white/30 pl-3">상담신청</span>
+                        <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                     </span>
+                    <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300 rounded-full" />
                 </MagneticButton>
             </div>
-        </div>
-      </div>
-
-      {/* ========================================================= */}
-      {/* 1. ENTRANCE: Stage 1 (Interactive WebGL Background)       */}
-      {/* ========================================================= */}
-      <div 
-        ref={portalRef}
-        className="absolute inset-0 z-20 flex items-center justify-center w-full h-full bg-[#051811]"
-      >
-        {/* High-End 3D WebGL Background */}
-        <HeroGL />
-        
-        {/* Floating Text Overlay (Stage 1) */}
-        <div 
-            ref={introTextRef}
-            className="absolute inset-0 z-30 flex flex-col items-center justify-center pointer-events-none"
-        >
-            <div className="flex flex-col items-center text-center mix-blend-overlay">
-                <span className="text-xs md:text-sm tracking-[0.6em] mb-8 text-[#e5e5e5] uppercase opacity-80">
-                    High-End Aesthetic Gallery
-                </span>
-                <h2 className="text-6xl md:text-8xl lg:text-9xl font-serif text-[#f5f5f4] tracking-wider opacity-90">
-                    ADO
-                </h2>
-                <span className="mt-4 text-sm md:text-lg text-[#d6d3d1] font-light tracking-[0.3em] opacity-70">
-                    CLINIC & GALLERY
-                </span>
-            </div>
-            
-            <div className="absolute bottom-12 flex flex-col items-center gap-4 opacity-40">
-                <div className="w-[1px] h-16 bg-gradient-to-b from-transparent via-white to-transparent"></div>
-                <span className="text-[10px] tracking-widest uppercase text-white/60">Scroll to Explore</span>
-            </div>
-        </div>
       </div>
 
     </div>

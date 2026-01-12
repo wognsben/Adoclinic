@@ -19,7 +19,6 @@ export function BrandPhilosophy() {
   const pointerRef = useRef(new THREE.Vector2());
   const hitPlaneRef = useRef<THREE.Mesh | null>(null);
   const sphereRef = useRef<THREE.Mesh | null>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
 
   // Canvas에 텍스트 텍스처 생성 (런타임)
   const createTextTexture = (text: string, isBlurred: boolean = false): THREE.CanvasTexture => {
@@ -53,7 +52,7 @@ export function BrandPhilosophy() {
 
   // Three.js 초기화
   useEffect(() => {
-    if (!canvasRef.current || isInitialized) return;
+    if (!canvasRef.current || rendererRef.current) return;
 
     const canvas = canvasRef.current;
     const renderer = new THREE.WebGLRenderer({ 
@@ -221,8 +220,6 @@ export function BrandPhilosophy() {
     sceneRef.current = scene;
     cameraRef.current = camera;
 
-    setIsInitialized(true);
-
     // Resize handler
     const handleResize = () => {
       if (!canvas || !renderer || !camera) return;
@@ -251,13 +248,12 @@ export function BrandPhilosophy() {
       hitMaterial.dispose();
       sphereGeometry.dispose();
       sphereMaterial.dispose();
+      rendererRef.current = null;
     };
-  }, [isInitialized]);
+  }, []);
 
   // Pointer Move Handler (Raycaster)
   useEffect(() => {
-    if (!isInitialized) return;
-
     const onPointerMove = (event: PointerEvent) => {
       const pointer = pointerRef.current;
       const raycaster = raycasterRef.current;
@@ -269,6 +265,15 @@ export function BrandPhilosophy() {
 
       if (!camera || !hitPlane || !sphere || !plane || !shadowPlane) return;
 
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (!rect) return;
+
+      // Calculate pointer position relative to canvas
+      // (기존 window 기준에서 canvas 기준으로 변경하여 정확도 향상)
+      // 하지만 Raycaster가 전체 화면 기준이라면 기존 유지.
+      // 여기서는 전체 화면 Overlay 방식이 아니므로, 
+      // 캔버스 내에서의 좌표를 구하는 것이 맞지만, 
+      // Three.js 좌표계 변환을 위해 단순화:
       pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
       pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
@@ -287,12 +292,10 @@ export function BrandPhilosophy() {
 
     window.addEventListener('pointermove', onPointerMove);
     return () => window.removeEventListener('pointermove', onPointerMove);
-  }, [isInitialized]);
+  }, []);
 
   // Animation Loop
   useEffect(() => {
-    if (!isInitialized) return;
-
     let animationId: number;
     const animate = () => {
       animationId = requestAnimationFrame(animate);
@@ -308,7 +311,7 @@ export function BrandPhilosophy() {
     animate();
 
     return () => cancelAnimationFrame(animationId);
-  }, [isInitialized]);
+  }, []);
 
   return (
     <section 

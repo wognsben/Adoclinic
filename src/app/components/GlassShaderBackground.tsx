@@ -55,6 +55,12 @@ export function GlassShaderBackground() {
       ctx.fillStyle = '#FAFAFA';
       ctx.fillRect(0, 0, width, height);
 
+      // Guard against 0 dimensions
+      if (width === 0 || height === 0) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
       // Draw vertical glass stripes
       ctx.strokeStyle = 'rgba(0, 0, 0, 0.015)';
       ctx.lineWidth = 1;

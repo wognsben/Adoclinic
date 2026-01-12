@@ -1,11 +1,16 @@
-import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
+import recoveryImage from 'figma:asset/109bb833138db031ab61c872f7bdd27afa9dc929.png';
+import waitingImage from 'figma:asset/726390ee550bc4908d10cf2fb04c0c71e734f5d8.png';
+import treatmentImage from 'figma:asset/e5ef167a4db6053f520c2c1e859e4a79d09e345a.png';
+import detailImage from 'figma:asset/1f08b2b39d608fcbfa897e0da681515194b244cd.png';
+import jadeTexture from 'figma:asset/6580d7606d23edb4edaf1c6f54585367770a3336.png';
 
 /**
  * ADO Clinic Interior Section
  * 듀얼 슬라이더 방식 - 화면을 좌우로 나눠서 프리미엄 인테리어 이미지 표시
- * 마우스 호버 시 이미지 줌아웃 + 텍스트 애니메이션
+ * 성능 최적화: 좌/우 배타적 호버 처리 (한 번에 한쪽만 애니메이션)
  */
 
 interface Slide {
@@ -19,59 +24,44 @@ interface Slide {
 const leftSlides: Slide[] = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1561105108-fcee05a487a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aGl0ZSUyMGphZGUlMjBtaW5pbWFsaXN0JTIwaW50ZXJpb3J8ZW58MXx8fHwxNzY4MjA2OTA3fDA&ixlib=rb-4.1.0&q=80&w=1080',
-    title: 'Reception',
-    subtitle: '본질을 담는 공간',
+    image: waitingImage,
+    title: 'Waiting',
+    subtitle: '여유로운 기다림',
     number: '01'
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1647845500203-0e7ab145efcb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBtaW5pbWFsaXN0JTIwd2hpdGUlMjByb29tfGVufDF8fHx8MTc2ODIwNjkwOHww&ixlib=rb-4.1.0&q=80&w=1080',
-    title: 'Waiting',
-    subtitle: '여유로운 기다림',
-    number: '02'
-  },
-  {
-    id: 3,
-    image: 'https://images.unsplash.com/photo-1735448213858-6bdfdf78967a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB3aGl0ZSUyMGNsaW5pYyUyMHNwYWNlfGVufDF8fHx8MTc2ODIwNjkwOHww&ixlib=rb-4.1.0&q=80&w=1080',
+    image: treatmentImage,
     title: 'Treatment',
-    subtitle: '정밀한 시술',
-    number: '03'
+    subtitle: '프라이빗 공간',
+    number: '02'
   }
 ];
 
 const rightSlides: Slide[] = [
   {
-    id: 4,
-    image: 'https://images.unsplash.com/photo-1765766599489-fd53df7f8724?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwd2hpdGUlMjBpbnRlcmlvciUyMGRlc2lnbnxlbnwxfHx8fDE3NjgyMDY5MDh8MA&ixlib=rb-4.1.0&q=80&w=1080',
-    title: 'Consultation',
-    subtitle: '프라이빗 상담',
-    number: '04'
-  },
-  {
-    id: 5,
-    image: 'https://images.unsplash.com/photo-1561105108-fcee05a487a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aGl0ZSUyMGphZGUlMjBtaW5pbWFsaXN0JTIwaW50ZXJpb3J8ZW58MXx8fHwxNzY4MjA2OTA3fDA&ixlib=rb-4.1.0&q=80&w=1080',
+    id: 3,
+    image: recoveryImage,
     title: 'Recovery',
     subtitle: '회복의 시간',
-    number: '05'
+    number: '03'
   },
   {
-    id: 6,
-    image: 'https://images.unsplash.com/photo-1647845500203-0e7ab145efcb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBtaW5pbWFsaXN0JTIwd2hpdGUlMjByb29tfGVufDF8fHx8MTc2ODIwNjkwOHww&ixlib=rb-4.1.0&q=80&w=1080',
+    id: 4,
+    image: detailImage,
     title: 'Details',
     subtitle: '디테일의 완성',
-    number: '06'
+    number: '04'
   }
 ];
 
 interface SlideItemProps {
   slide: Slide;
   isActive: boolean;
+  isHovered: boolean; // Managed by parent
 }
 
-function SlideItem({ slide, isActive }: SlideItemProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
+function SlideItem({ slide, isActive, isHovered }: SlideItemProps) {
   return (
     <motion.div
       className="absolute inset-0 overflow-hidden"
@@ -79,24 +69,34 @@ function SlideItem({ slide, isActive }: SlideItemProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.5 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image with zoom effect */}
       <motion.div
         className="absolute inset-0 w-full h-full"
+        style={{ 
+            willChange: "clip-path, transform",
+            backfaceVisibility: "hidden", // Prevent flickering
+            transform: "translateZ(0)" // Force GPU
+        }}
         animate={{
           clipPath: isHovered 
             ? 'inset(18% 18% 18% 18%)' 
             : 'inset(0% 0% 0% 0%)',
           scale: isHovered ? 0.95 : 1
         }}
-        transition={{ duration: 1.1, ease: [0.76, 0, 0.24, 1] }}
+        transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
       >
         <img 
           src={slide.image} 
           alt={slide.title}
           className="w-full h-full object-cover"
+        />
+        
+        {/* Dimming overlay for better text contrast on hover */}
+        <motion.div 
+            className="absolute inset-0 bg-black/20"
+            animate={{ opacity: isHovered ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
         />
       </motion.div>
 
@@ -107,18 +107,22 @@ function SlideItem({ slide, isActive }: SlideItemProps) {
           {slide.title.split('').map((char, idx) => (
             <motion.span
               key={idx}
-              className="text-6xl md:text-8xl font-light text-white tracking-wider uppercase"
-              style={{ fontFamily: "'Gowun Batang', serif" }}
-              initial={{ opacity: 0, x: idx % 2 === 0 ? -300 : 300, y: -50 }}
+              className="text-5xl md:text-7xl font-light text-white tracking-wider uppercase"
+              style={{ 
+                  fontFamily: "'Gowun Batang', serif",
+                  willChange: "transform, opacity",
+                  display: "inline-block"
+              }}
+              initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50, y: -20 }}
               animate={{
                 opacity: isHovered ? 1 : 0,
-                x: isHovered ? 0 : (idx % 2 === 0 ? -300 : 300),
-                y: isHovered ? 0 : -50
+                x: isHovered ? 0 : (idx % 2 === 0 ? -50 : 50),
+                y: isHovered ? 0 : -20
               }}
               transition={{ 
-                duration: 1.2, 
-                delay: idx * 0.05,
-                ease: [0.76, 0, 0.24, 1]
+                duration: 0.6, 
+                delay: isHovered ? idx * 0.03 : 0,
+                ease: "easeOut"
               }}
             >
               {char === ' ' ? '\u00A0' : char}
@@ -128,23 +132,25 @@ function SlideItem({ slide, isActive }: SlideItemProps) {
 
         {/* Number - Bottom Right */}
         <motion.div
-          className="absolute bottom-[10%] right-[18%] flex text-[8rem] md:text-[12rem] font-light text-white"
+          className="absolute bottom-[10%] right-[18%] flex text-[8rem] md:text-[10rem] font-light text-white"
           style={{ fontFamily: "'Gowun Batang', serif" }}
-          initial={{ opacity: 0, y: 80 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={{
             opacity: isHovered ? 1 : 0,
-            y: isHovered ? 0 : 80
+            y: isHovered ? 0 : 50
           }}
-          transition={{ duration: 1, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: isHovered ? 0.2 : 0 }}
         >
           {slide.number.split('').map((num, idx) => (
             <motion.span
               key={idx}
-              initial={{ rotateY: idx === 0 ? 90 : -90 }}
+              style={{ willChange: "transform", display: "inline-block" }}
+              initial={{ rotateY: 0 }} // Simplified initial state
               animate={{
-                rotateY: isHovered ? 0 : (idx === 0 ? 90 : -90)
+                rotateY: isHovered ? 0 : (idx === 0 ? 90 : -90),
+                opacity: isHovered ? 1 : 0
               }}
-              transition={{ duration: 1.6, ease: [0.76, 0, 0.24, 1] }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
               {num}
             </motion.span>
@@ -154,12 +160,12 @@ function SlideItem({ slide, isActive }: SlideItemProps) {
         {/* Subtitle - Top */}
         <motion.div
           className="absolute top-[8%] left-1/2 -translate-x-1/2 text-white text-sm tracking-[0.3em] uppercase"
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{
             opacity: isHovered ? 0.8 : 0,
-            y: isHovered ? 0 : -20
+            y: isHovered ? 0 : -10
           }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5 }}
         >
           {slide.subtitle}
         </motion.div>
@@ -169,9 +175,12 @@ function SlideItem({ slide, isActive }: SlideItemProps) {
 }
 
 export function InteriorSection() {
-  const [leftIndex, setLeftIndex] = useState(1); // Start at index 1 (middle)
-  const [rightIndex, setRightIndex] = useState(1);
+  const [leftIndex, setLeftIndex] = useState(0);
+  const [rightIndex, setRightIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  
+  // Central Hover Management: 'left' | 'right' | null
+  const [hoveredSide, setHoveredSide] = useState<'left' | 'right' | null>(null);
 
   const handleNavigation = (direction: 'up' | 'down') => {
     if (isAnimating) return;
@@ -190,38 +199,83 @@ export function InteriorSection() {
   };
 
   return (
-    <section className="w-full h-screen bg-[#1A1A1A] relative overflow-hidden">
-      {/* Dual Slider */}
+    <section 
+        className="w-full h-screen relative overflow-hidden bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${jadeTexture})` }}
+    >
+      {/* Dual Slider Container */}
       <div className="flex h-full">
+        
         {/* Left Side */}
-        <div className="w-1/2 h-full relative overflow-hidden">
+        <div 
+            className="w-1/2 h-full relative overflow-hidden cursor-pointer"
+            onMouseEnter={() => setHoveredSide('left')}
+            onMouseLeave={() => setHoveredSide(null)}
+        >
+          {/* Transition Mask: Slightly darken if other side is hovered */}
+          <motion.div 
+            className="absolute inset-0 bg-black/40 z-10 pointer-events-none"
+            animate={{ opacity: hoveredSide === 'right' ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
+          />
+          
           {leftSlides.map((slide, index) => (
             <SlideItem
               key={slide.id}
               slide={slide}
               isActive={index === leftIndex}
+              isHovered={hoveredSide === 'left'}
             />
           ))}
         </div>
 
         {/* Right Side */}
-        <div className="w-1/2 h-full relative overflow-hidden border-l border-white/10">
+        <div 
+            className="w-1/2 h-full relative overflow-hidden border-l border-white/10 cursor-pointer"
+            onMouseEnter={() => setHoveredSide('right')}
+            onMouseLeave={() => setHoveredSide(null)}
+        >
+          {/* Transition Mask: Slightly darken if other side is hovered */}
+          <motion.div 
+            className="absolute inset-0 bg-black/40 z-10 pointer-events-none"
+            animate={{ opacity: hoveredSide === 'left' ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
+          />
+
           {rightSlides.map((slide, index) => (
             <SlideItem
               key={slide.id}
               slide={slide}
               isActive={index === rightIndex}
+              isHovered={hoveredSide === 'right'}
             />
           ))}
         </div>
       </div>
 
+      {/* Central Safe Zone - Prevents "Tag Game" with the button */}
+      <div 
+        className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-[20%] z-40"
+        onMouseEnter={() => setHoveredSide(null)}
+      />
+
       {/* Navigation Controls - Premium Center Circle */}
       <motion.div 
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-auto"
+        initial={{ opacity: 0, scale: 0.8, x: 0 }}
+        animate={{ 
+            opacity: 1, 
+            scale: 1,
+            // Move to the opposite side based on hover
+            // If left hovered -> move right (approx 25vw)
+            // If right hovered -> move left (approx -25vw)
+            x: hoveredSide === 'left' ? '25vw' : hoveredSide === 'right' ? '-25vw' : 0
+        }}
+        transition={{ 
+            type: "spring", 
+            stiffness: 200, 
+            damping: 25 
+        }}
       >
         <div className="relative group">
           {/* Outer Glow Ring */}
@@ -288,9 +342,9 @@ export function InteriorSection() {
               <ChevronDown className="w-5 h-5 text-white drop-shadow-lg" strokeWidth={1.5} />
             </motion.button>
 
-            {/* Current Slide Indicator (optional subtle hint) */}
+            {/* Current Slide Indicator */}
             <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 flex gap-1">
-              {[0, 1, 2].map((idx) => (
+              {[0, 1].map((idx) => (
                 <motion.div
                   key={idx}
                   className="w-1 h-1 rounded-full bg-white/40"
@@ -315,22 +369,30 @@ export function InteriorSection() {
         </div>
       </motion.div>
 
-      {/* Top Label */}
-      <div className="absolute top-12 left-1/2 -translate-x-1/2 z-10 text-center">
+      {/* Top Label - Fade out on hover */}
+      <motion.div 
+        className="absolute top-12 left-1/2 -translate-x-1/2 z-10 text-center pointer-events-none"
+        animate={{ opacity: hoveredSide ? 0 : 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <span className="text-white/60 text-xs font-bold tracking-[0.4em] uppercase mb-2 block">
           Interior Space
         </span>
         <h2 className="text-4xl md:text-5xl font-serif text-white/90" style={{ fontFamily: "'Gowun Batang', serif" }}>
           공간
         </h2>
-      </div>
+      </motion.div>
 
-      {/* Bottom Signature */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center z-10">
+      {/* Bottom Signature - Fade out on hover */}
+      <motion.div 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center z-10 pointer-events-none"
+        animate={{ opacity: hoveredSide ? 0 : 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <p className="text-[10px] text-white/40 font-light italic tracking-wide" style={{ fontFamily: "'Gowun Batang', serif" }}>
           "본질을 담는 공간"
         </p>
-      </div>
+      </motion.div>
     </section>
   );
 }

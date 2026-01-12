@@ -1,14 +1,50 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { Instagram, BookOpen, AtSign, Award, Mic, GraduationCap, ArrowUpRight } from 'lucide-react';
 import { AcademicGallery } from './AcademicGallery';
 
 export function MedicalStaff() {
-  const histories = [
-    { year: '2015', title: 'Medical License', desc: '서울대학교 의과대학 졸업, 피부과 전문의 취득' },
-    { year: '2019', title: 'Director of Dermatology', desc: '서울대학교병원 피부과 임상 자문의' },
-    { year: '2021', title: 'Key Opinion Leader (KOL)', desc: '글로벌 에스테틱 브랜드 공식 트레이너 선정, 연 1,200건 시술 집도' },
-    { year: '2023', title: 'Grand Master of K-Aesthetics', desc: '필러/보톡스 시술 부문 대상 수상, 누적 리프팅 시술 5,000건 돌파' },
-    { year: '2024', title: 'International Speaker', desc: 'IMCAS Paris 초청 연사, SCI급 논문 8편 게재 (Impact Factor: 4.2)' },
+  // 임의의 상세 약력 데이터
+  const profileDetails = {
+    academic: [
+      '서울대학교 의과대학 졸업',
+      '서울대학교병원 피부과 전문의 취득',
+      '서울대학교병원 피부과 임상 자문의',
+      '대한피부과의사회 정회원'
+    ],
+    keyDoctor: [
+      'Ulthera® Global Key Opinion Leader',
+      'Juvederm® Global Trainer & Faculty',
+      'Restylane® Master Course 수료',
+      'Teoxane® Expert Member'
+    ],
+    awards: [
+      '2024 대한민국 메디컬 헬스케어 대상',
+      '2023 글로벌 에스테틱 리더 100인 선정',
+      'SCI급 논문 다수 등재 (Dermatologic Surgery 등)'
+    ]
+  };
+
+  // 강의 이력 데이터 (Pioneering Section)
+  const lectures = [
+    {
+      title: "IMCAS Paris 2024",
+      role: "Invited Speaker",
+      desc: "Asian Facial Contouring with Fillers",
+      image: "https://images.unsplash.com/photo-1544531696-60195e297837?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbnRlcm5hdGlvbmFsJTIwY29uZmVyZW5jZXxlbnwxfHx8fDE3NjgxNDU1NjJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      title: "AMWC Monaco",
+      role: "Live Demo Faculty",
+      desc: "Advanced Lifting Techniques",
+      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwc2VtaW5hcnxlbnwxfHx8fDE3NjgxNDU1Njd8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    },
+    {
+      title: "Korea Derma",
+      role: "Key Doctor",
+      desc: "Combined Laser Therapy Protocols",
+      image: "https://images.unsplash.com/photo-1517048676732-d65bc937f952?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25mZXJlbmNlJTIwc3BlYWtlcnxlbnwxfHx8fDE3NjgxNDU1NzF8MA&ixlib=rb-4.1.0&q=80&w=1080"
+    }
   ];
 
   return (
@@ -18,38 +54,38 @@ export function MedicalStaff() {
           
           {/* Left Column: Doctor Profile with 3D Gallery */}
           <div className="relative h-full">
-            {/* Sticky Container: Moves inside the tall parent column */}
-            <div className="sticky top-0 h-screen flex flex-col py-12">
+            {/* Sticky Container */}
+            <div className="sticky top-12 h-[85vh] flex flex-col">
               <div className="relative w-full flex-1 overflow-hidden bg-[#E5E5E5] rounded-[40px] shadow-xl">
                 
-                {/* 3D Infinite Scroll Gallery */}
+                {/* 3D Infinite Scroll Gallery (Background) */}
                 <div className="absolute inset-0 w-full h-full z-0">
                    <AcademicGallery />
                 </div>
 
-                {/* Overlay Content (Combined Name & Expertise for cleaner look) */}
-                <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 via-black/40 to-transparent text-white z-20 pointer-events-none flex flex-col justify-end h-full">
+                {/* Overlay Content (Name & Title) */}
+                <div className="absolute bottom-0 left-0 w-full p-10 bg-gradient-to-t from-[#121C1A] via-[#121C1A]/60 to-transparent text-white z-20 pointer-events-none flex flex-col justify-end h-full">
                   
-                  <div className="mb-auto pt-4 opacity-50 text-xs tracking-[0.3em] uppercase hidden md:block">
-                     Rep. Director
+                  <div className="mb-auto pt-4 opacity-70 text-xs tracking-[0.3em] uppercase hidden md:block border-l-2 border-[#5F9EA0] pl-3">
+                     Representative Director
                   </div>
 
                   <div>
-                    <h3 className="text-5xl md:text-6xl font-serif mb-2 leading-none">
+                    <h3 className="text-5xl md:text-7xl font-serif mb-3 leading-none">
                       Dr. Kim Ado
                     </h3>
-                    <p className="text-xl opacity-90 font-light mb-8">김아도 대표원장</p>
+                    <p className="text-2xl opacity-90 font-light mb-8">김아도 대표원장</p>
                     
-                    <div className="w-12 h-[1px] bg-white/50 mb-8"></div>
+                    <div className="w-16 h-[1px] bg-[#5F9EA0] mb-8"></div>
 
-                    <div className="grid grid-cols-2 gap-4 text-sm font-light opacity-90">
+                    <div className="grid grid-cols-2 gap-6 text-sm font-light opacity-90">
                       <div>
-                        <p className="font-serif text-lg leading-tight mb-1">Facial Contouring</p>
-                        <p className="opacity-70 text-xs">안면 윤곽 / 리모델링</p>
+                        <p className="font-serif text-xl leading-tight mb-1 text-[#5F9EA0]">Specialist</p>
+                        <p className="opacity-70 text-sm">피부과 전문의</p>
                       </div>
                       <div>
-                         <p className="font-serif text-lg leading-tight mb-1">Anti-Aging</p>
-                         <p className="opacity-70 text-xs">프리미엄 안티에이징</p>
+                         <p className="font-serif text-xl leading-tight mb-1 text-[#5F9EA0]">Ph.D.</p>
+                         <p className="opacity-70 text-sm">의학 박사</p>
                       </div>
                     </div>
                   </div>
@@ -58,107 +94,133 @@ export function MedicalStaff() {
             </div>
           </div>
 
-          {/* Right Column: History & Philosophy */}
+          {/* Right Column: Detailed Profile & Socials */}
           <div className="flex flex-col pt-12 pb-12">
-            {/* Philosophy - Increased height for longer initial scroll */}
-            <div className="mb-[30vh] min-h-[80vh] flex flex-col justify-center">
-              <h2 className="text-3xl md:text-5xl font-serif mb-12 leading-snug break-keep">
-                "진정한 아름다움은<br/>
-                본연의 <span className="italic text-[#5F9EA0]">조화 (Harmony)</span>에 있습니다."
-              </h2>
-              <p className="text-[#4A4A4A] leading-relaxed text-xl font-light max-w-lg break-keep">
-                우리는 인위적인 변화보다는 당신이 가진 고유의 매력을 찾아내는 것을 추구합니다. 
-                정밀한 분석과 섬세한 터치를 통해, 시간이 흘러도 변치 않는 가장 자연스럽고 아름다운 라인을 완성합니다.
-              </p>
+            
+            {/* Social Links */}
+            <div className="flex gap-4 mb-16">
+                <SocialButton icon={Instagram} label="Instagram" href="#" />
+                <SocialButton icon={AtSign} label="Threads" href="#" />
+                <SocialButton icon={BookOpen} label="Blog" href="#" />
             </div>
 
-            {/* History List - Massive spacing between items to prolong the 3D gallery experience */}
-            <div className="space-y-[50vh] border-l border-[#D1D5DB] pl-10 ml-2 pb-[20vh]">
-              {histories.map((item, index) => (
+            {/* Profile Sections */}
+            <div className="space-y-16">
+                
+                {/* Section 1: Academic Background */}
                 <motion.div 
-                  key={index}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ delay: 0.2, duration: 0.8 }}
-                  className="relative group"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="border-l border-[#D1D5DB] pl-8"
                 >
-                  <span className="absolute -left-[45px] top-2 w-4 h-4 rounded-full bg-[#F5F5F3] border border-[#8C8C8C] group-hover:bg-[#5F9EA0] group-hover:border-[#5F9EA0] transition-colors duration-300" />
-                  <span className="text-base font-bold tracking-widest text-[#5F9EA0] mb-2 block">{item.year}</span>
-                  <h4 className="text-2xl font-medium mb-2">{item.title}</h4>
-                  <p className="text-base text-[#666] font-light break-keep">{item.desc}</p>
+                    <div className="flex items-center gap-3 mb-6">
+                        <GraduationCap className="w-6 h-6 text-[#5F9EA0]" />
+                        <h4 className="text-2xl font-serif text-[#121C1A]">Academic Background</h4>
+                    </div>
+                    <ul className="space-y-3">
+                        {profileDetails.academic.map((item, idx) => (
+                            <li key={idx} className="text-[#4A4A4A] font-light text-lg leading-relaxed">{item}</li>
+                        ))}
+                    </ul>
                 </motion.div>
-              ))}
+
+                {/* Section 2: Key Doctor */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                    className="border-l border-[#D1D5DB] pl-8"
+                >
+                    <div className="flex items-center gap-3 mb-6">
+                        <Mic className="w-6 h-6 text-[#5F9EA0]" />
+                        <h4 className="text-2xl font-serif text-[#121C1A]">Key Doctor & Faculty</h4>
+                    </div>
+                    <ul className="space-y-3">
+                        {profileDetails.keyDoctor.map((item, idx) => (
+                            <li key={idx} className="text-[#4A4A4A] font-light text-lg leading-relaxed">{item}</li>
+                        ))}
+                    </ul>
+                </motion.div>
+
+                {/* Section 3: Awards */}
+                <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 }}
+                    className="border-l border-[#D1D5DB] pl-8"
+                >
+                    <div className="flex items-center gap-3 mb-6">
+                        <Award className="w-6 h-6 text-[#5F9EA0]" />
+                        <h4 className="text-2xl font-serif text-[#121C1A]">Awards & Publications</h4>
+                    </div>
+                    <ul className="space-y-3">
+                        {profileDetails.awards.map((item, idx) => (
+                            <li key={idx} className="text-[#4A4A4A] font-light text-lg leading-relaxed">{item}</li>
+                        ))}
+                    </ul>
+                </motion.div>
+            </div>
+
+            {/* Quote */}
+            <div className="mt-24 p-8 bg-white rounded-2xl shadow-sm border border-[#E5E5E5] relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-[#5F9EA0]/10 rounded-bl-full -mr-4 -mt-4" />
+                <p className="font-serif text-xl italic text-[#555] leading-relaxed relative z-10">
+                    "가장 이상적인 아름다움은, <br/>의사의 손기술이 아니라 환자를 이해하는 깊이에서 나옵니다."
+                </p>
+                <p className="mt-4 text-xs font-bold text-[#5F9EA0] tracking-widest uppercase relative z-10">
+                    - Dr. Kim Ado
+                </p>
             </div>
           </div>
         </div>
 
+        {/* Global Academic Leadership Section */}
         <div className="mt-32 pt-20 border-t border-[#D1D5DB]">
-           {/* Expertise Metrics - Premium Grid */}
-           <div className="mb-20">
-             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-               {/* Metric 1 */}
-               <div className="bg-gradient-to-br from-white to-[#F5F5F3] border border-[#D1D5DB] rounded-[24px] p-6 md:p-8 hover:shadow-lg transition-shadow duration-300">
-                 <div className="text-4xl md:text-5xl font-serif text-[#991B1B] mb-2 leading-none">5,000<span className="text-2xl text-[#8C8C8C]">+</span></div>
-                 <p className="text-xs font-bold tracking-widest text-[#8C8C8C] uppercase">리프팅 시술</p>
-               </div>
-               
-               {/* Metric 2 */}
-               <div className="bg-gradient-to-br from-white to-[#F5F5F3] border border-[#D1D5DB] rounded-[24px] p-6 md:p-8 hover:shadow-lg transition-shadow duration-300">
-                 <div className="text-4xl md:text-5xl font-serif text-[#5F9EA0] mb-2 leading-none">8<span className="text-2xl text-[#8C8C8C]">편</span></div>
-                 <p className="text-xs font-bold tracking-widest text-[#8C8C8C] uppercase">SCI급 논문</p>
-               </div>
-               
-               {/* Metric 3 */}
-               <div className="bg-gradient-to-br from-white to-[#F5F5F3] border border-[#D1D5DB] rounded-[24px] p-6 md:p-8 hover:shadow-lg transition-shadow duration-300">
-                 <div className="text-4xl md:text-5xl font-serif text-[#5F9EA0] mb-2 leading-none">98.2<span className="text-2xl text-[#8C8C8C]">%</span></div>
-                 <p className="text-xs font-bold tracking-widest text-[#8C8C8C] uppercase">환자 만족도</p>
-               </div>
-               
-               {/* Metric 4 */}
-               <div className="bg-gradient-to-br from-white to-[#F5F5F3] border border-[#D1D5DB] rounded-[24px] p-6 md:p-8 hover:shadow-lg transition-shadow duration-300">
-                 <div className="text-4xl md:text-5xl font-serif text-[#991B1B] mb-2 leading-none">15<span className="text-2xl text-[#8C8C8C]">년</span></div>
-                 <p className="text-xs font-bold tracking-widest text-[#8C8C8C] uppercase">피부과 경력</p>
-               </div>
-             </div>
-           </div>
            
            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
               <div>
                 <p className="text-xs tracking-[0.2em] text-[#8C8C8C] mb-4 uppercase flex items-center gap-3">
                    <span className="w-8 h-[1px] bg-[#8C8C8C]"></span>
-                   Global Leadership
+                   Global Academic Leadership
                 </p>
-                <h3 className="text-3xl font-serif">Pioneering Medical Artistry</h3>
+                <h3 className="text-4xl md:text-5xl font-serif text-[#121C1A]">Pioneering Medical Artistry</h3>
               </div>
-              <p className="text-[#666] font-light max-w-md text-sm md:text-base leading-relaxed">
-                끊임없는 연구와 글로벌 강연 활동을 통해<br/> 
-                대한민국 미용 의학의 수준을 세계에 알리고 있습니다.
+              <p className="text-[#666] font-light max-w-md text-sm md:text-base leading-relaxed text-right md:text-right">
+                의료진 강의 이력 및 학술 활동 <br/>
+                <span className="text-[#5F9EA0]">Sharing Knowledge, Leading Trends</span>
               </p>
            </div>
            
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-             <div className="aspect-[4/3] bg-[#D1D5DB] relative overflow-hidden group rounded-[32px]">
-               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10" />
-               <img src="https://images.unsplash.com/photo-1674049406179-d7bf2c263e71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXJtYXRvbG9neSUyMGxhc2VyJTIwdHJlYXRtZW50JTIwY2xpbmljJTIwbHV4dXJ5JTIwYWVzdGhldGljJTIwcHJvY2VkdXJlJTIwY2xvc2UlMjB1cHxlbnwxfHx8fDE3NjgxNDU1NjJ8MA&ixlib=rb-4.1.0&q=80&w=1080" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Treatment 1" />
-               <div className="absolute bottom-6 left-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-white text-sm bg-black/50 px-3 py-1 backdrop-blur-sm rounded-full">Laser Treatment</span>
-               </div>
-             </div>
-             <div className="aspect-[4/3] bg-[#D1D5DB] relative overflow-hidden group rounded-[32px]">
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10" />
-                <img src="https://images.unsplash.com/photo-1670201202784-ec638a82bca8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYWNpYWwlMjBza2luJTIwY2FyZSUyMHRyZWF0bWVudCUyMGx1eHVyeSUyMGNsaW5pYyUyMGRvY3RvciUyMGNvbnN1bHRpbmclMjBwYXRpZW50fGVufDF8fHx8MTc2ODE0NTU2N3ww&ixlib=rb-4.1.0&q=80&w=1080" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Treatment 2" />
-                <div className="absolute bottom-6 left-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-white text-sm bg-black/50 px-3 py-1 backdrop-blur-sm rounded-full">1:1 Consultation</span>
-               </div>
-             </div>
-             <div className="aspect-[4/3] bg-[#D1D5DB] relative overflow-hidden group rounded-[32px] hidden lg:block">
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10" />
-                <img src="https://images.unsplash.com/photo-1669930605340-801a0be1f5a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwYWVzdGhldGljJTIwY2xpbmljJTIwaW50ZXJpb3IlMjBtb2Rlcm4lMjBoaWdoJTIwZW5kJTIwZXF1aXBtZW50fGVufDF8fHx8MTc2ODE0NTU3MXww&ixlib=rb-4.1.0&q=80&w=1080" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Treatment 3" />
-                <div className="absolute bottom-6 left-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-white text-sm bg-black/50 px-3 py-1 backdrop-blur-sm rounded-full">Private Facility</span>
-               </div>
-             </div>
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+             {lectures.map((lecture, index) => (
+                 <div key={index} className="group cursor-pointer">
+                    <div className="aspect-[4/3] bg-[#D1D5DB] relative overflow-hidden rounded-[24px] mb-6 shadow-md">
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors z-10 duration-500" />
+                        <img 
+                            src={lecture.image} 
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                            alt={lecture.title} 
+                        />
+                        <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
+                            <div className="bg-white p-2 rounded-full">
+                                <ArrowUpRight className="w-4 h-4 text-black" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="pl-2">
+                        <div className="flex items-center gap-2 mb-2">
+                            <span className="px-2 py-0.5 border border-[#5F9EA0] text-[#5F9EA0] text-[10px] font-bold uppercase rounded-full">
+                                {lecture.role}
+                            </span>
+                        </div>
+                        <h4 className="text-xl font-serif text-[#121C1A] mb-1 group-hover:text-[#5F9EA0] transition-colors">{lecture.title}</h4>
+                        <p className="text-sm text-[#666] font-light">{lecture.desc}</p>
+                    </div>
+                 </div>
+             ))}
            </div>
         </div>
 
@@ -170,4 +232,17 @@ export function MedicalStaff() {
       </div>
     </section>
   );
+}
+
+// Helper Component for Social Buttons
+function SocialButton({ icon: Icon, label, href }: { icon: any, label: string, href: string }) {
+    return (
+        <a 
+            href={href}
+            className="flex items-center gap-2 px-5 py-3 bg-white border border-[#E5E5E5] rounded-full text-sm font-medium text-[#4A4A4A] hover:bg-[#121C1A] hover:text-white hover:border-[#121C1A] transition-all duration-300 shadow-sm group"
+        >
+            <Icon className="w-4 h-4 group-hover:scale-110 transition-transform" />
+            {label}
+        </a>
+    );
 }
