@@ -98,7 +98,8 @@ function DockItem({
   // Priority: Highlighted > Custom Bg > Transparent
   let bgClass = 'bg-transparent';
   if (isHighlighted) {
-    bgClass = 'bg-teal-400 text-white shadow-[0_0_20px_rgba(45,212,191,0.6)]';
+    // Premium Highlight: White bg + Jade Ring + Soft Glow
+    bgClass = 'bg-white ring-2 ring-[#738F86] shadow-[0_0_25px_rgba(115,143,134,0.5)] z-10 animate-pulse';
   } else if (customBg) {
     bgClass = `${customBg} text-gray-500 hover:text-[#1A1A1A] shadow-sm border border-gray-100`; // Added slight shadow/border for white bg visibility
   } else {
@@ -121,12 +122,12 @@ function DockItem({
       <motion.div
         initial={false}
         animate={{ 
-          opacity: hovered ? 1 : 0,
-          x: hovered ? -20 : -10,
-          scale: hovered ? 1 : 0.9,
+          opacity: (hovered || isHighlighted) ? 1 : 0,
+          x: (hovered || isHighlighted) ? -16 : -8,
+          scale: (hovered || isHighlighted) ? 1 : 0.95,
         }}
-        transition={{ duration: 0.2 }}
-        className="absolute right-full px-3 py-1 bg-white/80 backdrop-blur-md border border-white/20 text-[#1A1A1A] text-xs font-medium rounded-lg shadow-lg whitespace-nowrap pointer-events-none z-50 origin-right"
+        transition={{ duration: 0.2, ease: "easeOut" }}
+        className="absolute right-full mr-2 px-4 py-2 bg-[#738F86]/15 backdrop-blur-xl border border-white/50 text-[#1A2F29] text-sm font-medium rounded-xl shadow-[0_8px_32px_rgba(115,143,134,0.2)] whitespace-nowrap pointer-events-none z-50 origin-right"
       >
         {label}
       </motion.div>
@@ -143,7 +144,7 @@ export const FloatingToolbar = forwardRef<FloatingToolbarRef, FloatingToolbarPro
     // Event Listener for Highlighting
     React.useEffect(() => {
         const handleHighlight = () => {
-            setHighlightedIndices([0, 3]); // Naver Booking & Kakao
+            setHighlightedIndices([0, 1]); // Kakao & Naver Booking
             setTimeout(() => setHighlightedIndices([]), 3000);
         };
         window.addEventListener('highlight-consultation', handleHighlight);
@@ -153,7 +154,7 @@ export const FloatingToolbar = forwardRef<FloatingToolbarRef, FloatingToolbarPro
     // Expose ref method
     useImperativeHandle(ref, () => ({
         highlightBooking: () => {
-            setHighlightedIndices([0, 3]);
+            setHighlightedIndices([0, 1]);
             setTimeout(() => setHighlightedIndices([]), 3000);
         }
     }));
@@ -165,11 +166,11 @@ export const FloatingToolbar = forwardRef<FloatingToolbarRef, FloatingToolbarPro
     };
 
     const tools = [
-      { name: "예약", icon: Icons.NaverBooking, action: onOpenConsultation, customBg: "bg-white" },
+      { name: "카카오톡 채널 상담하기", icon: Icons.Kakao, customBg: "bg-white" },
+      { name: "네이버 예약하기", icon: Icons.NaverBooking, action: onOpenConsultation, customBg: "bg-white" },
+      { name: "네이버 블로그", icon: Icons.NaverBlog, customBg: "bg-white" },
       { name: "Instagram", icon: Icons.Instagram, customBg: "bg-white" },
       { name: "Threads", icon: Icons.Threads, customBg: "bg-white" },
-      { name: "Kakao", icon: Icons.Kakao, customBg: "bg-white" },
-      { name: "Blog", icon: Icons.NaverBlog, customBg: "bg-white" },
       { name: "Top", icon: Icons.Top, action: scrollToTop },
     ];
 
