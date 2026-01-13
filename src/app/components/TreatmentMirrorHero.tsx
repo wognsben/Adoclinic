@@ -622,7 +622,7 @@ export function TreatmentMirrorHero() {
             <h1 
               className="font-light mb-10 relative"
               style={{
-                fontSize: '10rem',
+                fontSize: '7.5rem',
                 fontFamily: "'Gowun Batang', serif",
                 color: '#7A9B8E',
                 letterSpacing: '0.06em',
@@ -700,7 +700,7 @@ export function TreatmentMirrorHero() {
             <h1 
               className="font-light mb-10 relative"
               style={{
-                fontSize: '10rem',
+                fontSize: '7.5rem',
                 fontFamily: "'Gowun Batang', serif",
                 color: '#7A9B8E',
                 letterSpacing: '0.12em',
@@ -792,6 +792,14 @@ export function TreatmentMirrorHero() {
           Object 04 · Medical Aesthetics
         </p>
       </motion.div>
+
+      {/* Seamless Fade-out Gradient Overlay */}
+      <div 
+        className="absolute bottom-0 left-0 w-full h-64 pointer-events-none z-10"
+        style={{
+          background: 'linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 60%, #FFFFFF 100%)'
+        }}
+      />
     </section>
   );
 }

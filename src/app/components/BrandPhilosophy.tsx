@@ -316,7 +316,7 @@ export function BrandPhilosophy() {
   return (
     <section 
       ref={containerRef} 
-      className="w-full bg-[#FFFBF7] py-32 md:py-48 px-6 overflow-hidden relative"
+      className="w-full bg-white py-32 md:py-48 px-6 overflow-hidden relative"
     >
       <div className="max-w-[1400px] mx-auto">
         
@@ -326,7 +326,7 @@ export function BrandPhilosophy() {
             Brand Philosophy
           </span>
           <h2 className="text-5xl md:text-7xl font-serif text-[#1A1A1A] leading-[1.2] mb-6">
-            본질을 완성하는 한 점
+            본질을 깨우는 결정적 한 점, 아도
           </h2>
           <p className="text-[#888] text-base md:text-lg font-light tracking-wide">
             The Philosophy of ADO Clinic
@@ -368,7 +368,7 @@ export function BrandPhilosophy() {
             Interactive Philosophy
           </p>
           <p className="text-[10px] text-[#888] font-light italic" style={{ fontFamily: "'Gowun Batang', serif" }}>
-            "본질을 완성하는 한 점의 정밀함"
+            "본질을 깨우는 결정적 한 점, 아도"
           </p>
         </div>
       </div>

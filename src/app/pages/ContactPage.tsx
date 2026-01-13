@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "../components/ui/select";
 import { ArrowUpRight, Clock, Mail, MapPin, Phone } from 'lucide-react';
+import bgImage from 'figma:asset/577afd783ee754bf2b314ecdf9a126b87c706014.png';
 
 const SKIN_TYPES = [
   { value: 'dry', label: '건성' },
@@ -52,299 +53,204 @@ export function ContactPage() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#Fdfbf9]">
-      {/* Hero Section */}
-      <section className="relative w-full h-[60vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-[#1A1A1A]">
-            <img 
-                src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=2000&auto=format&fit=crop" 
-                alt="Reception" 
-                className="w-full h-full object-cover opacity-60"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-transparent to-transparent opacity-90" />
-        </div>
-        <div className="relative z-10 text-center text-white px-6">
-            <motion.span 
+    <div className="relative w-full min-h-screen font-sans bg-white overflow-x-hidden">
+      
+      {/* Background Image with Gradient Overlay */}
+      <div className="fixed inset-0 z-0">
+        <img 
+            src={bgImage}
+            alt="Clinic Reception" 
+            className="w-full h-full object-cover"
+        />
+        {/* Gradient: Solid White on Left -> Fade to Transparent on Right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-white/30 lg:via-white/60 lg:to-transparent" />
+      </div>
+
+      <div className="relative z-10 container mx-auto px-6 py-32 lg:py-24 min-h-screen flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 w-full items-start lg:items-center">
+          
+          {/* Left Content: Text & Info */}
+          <div className="lg:col-span-5 space-y-12 lg:pr-12">
+            <div>
+                <motion.span 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="block text-sm font-bold tracking-[0.2em] text-[#738F86] mb-4 uppercase"
+                >
+                    Contact Us
+                </motion.span>
+                <motion.h1 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="text-4xl md:text-5xl font-serif text-[#1A1A1A] mb-6 leading-tight word-keep"
+                >
+                    아름다움을 향한<br/> 여정의 시작
+                </motion.h1>
+                <motion.p 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-[#8C8C8C] text-lg font-light leading-relaxed max-w-md"
+                >
+                    아도 클리닉은 100% 예약제로 운영되며, 한 분 한 분 깊이 있는 상담을 통해 최적의 솔루션을 제안합니다.
+                </motion.p>
+            </div>
+
+            {/* Contact Info List */}
+            <motion.div 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="block text-sm md:text-base tracking-[0.3em] text-[#738F86] mb-6 uppercase font-medium"
+                transition={{ delay: 0.3 }}
+                className="space-y-8"
             >
-                Private Consultation
-            </motion.span>
-            <motion.h1 
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-5xl md:text-7xl font-serif mb-6 leading-tight"
-            >
-                Start Your Journey
-            </motion.h1>
-            <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-white/70 max-w-xl mx-auto font-light text-lg"
-            >
-                아도 클리닉은 100% 예약제로 운영되며,<br className="hidden md:block"/> 한 분 한 분 깊이 있는 상담을 통해 최적의 솔루션을 제안합니다.
-            </motion.p>
-        </div>
-      </section>
-
-      {/* Main Content */}
-      <div className="relative z-20 -mt-20 max-w-[1400px] mx-auto px-6 pb-32">
-        <div className="bg-white rounded-[32px] shadow-[0_20px_80px_rgba(0,0,0,0.05)] overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-5">
-                
-                {/* Left: Contact Info (Dark) */}
-                <div className="lg:col-span-2 bg-[#1A1A1A] text-white p-12 md:p-16 flex flex-col justify-between relative overflow-hidden">
-                    {/* Background Pattern */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#738F86] rounded-full filter blur-[100px] opacity-20 -translate-y-1/2 translate-x-1/2"></div>
-
-                    <div>
-                        <h3 className="text-3xl font-serif mb-12">Contact Information</h3>
-                        
-                        <div className="space-y-10">
-                            <div className="flex items-start gap-6 group">
-                                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#738F86] transition-colors duration-300 shrink-0">
-                                    <Phone className="w-5 h-5 text-white" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-bold tracking-widest text-[#738F86] uppercase mb-2">Phone</p>
-                                    <p className="text-xl font-light">02-540-8829</p>
-                                    <p className="text-white/40 text-sm mt-1">상담 가능 시간: 10:00 - 20:00</p>
-                                </div>
-                            </div>
-                            
-                            <div className="flex items-start gap-6 group">
-                                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#738F86] transition-colors duration-300 shrink-0">
-                                    <Mail className="w-5 h-5 text-white" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-bold tracking-widest text-[#738F86] uppercase mb-2">Email</p>
-                                    <p className="text-xl font-light">info@adoclinic.com</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-6 group">
-                                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#738F86] transition-colors duration-300 shrink-0">
-                                    <MapPin className="w-5 h-5 text-white" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-bold tracking-widest text-[#738F86] uppercase mb-2">Location</p>
-                                    <p className="text-lg font-light leading-relaxed text-white/90">
-                                        서울특별시 강남구 도산대로 45길 12,<br/>
-                                        아도빌딩 3, 4F
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                <div className="flex items-center gap-5 group">
+                    <div className="w-12 h-12 rounded-full bg-[#738F86]/10 flex items-center justify-center text-[#738F86] group-hover:bg-[#738F86] group-hover:text-white transition-all duration-300 shadow-sm">
+                        <Phone className="w-5 h-5" />
                     </div>
-
-                    <div className="mt-20 lg:mt-0">
-                         {/* Simple Hours Summary */}
-                         <div className="border-t border-white/10 pt-8">
-                            <h4 className="font-serif text-xl mb-4 flex items-center gap-2">
-                                <Clock className="w-5 h-5 text-[#738F86]" />
-                                Operating Hours
-                            </h4>
-                            <ul className="space-y-2 text-sm text-white/60 font-light">
-                                <li className="flex justify-between"><span>Mon - Fri</span> <span>10:00 - 20:00</span></li>
-                                <li className="flex justify-between"><span>Saturday</span> <span>10:00 - 16:00</span></li>
-                                <li className="flex justify-between text-[#738F86]"><span>Sun / Holiday</span> <span>Closed</span></li>
-                            </ul>
-                         </div>
+                    <div>
+                        <p className="text-xl font-medium text-[#1A1A1A]">02-540-8829</p>
+                        <p className="text-sm text-[#8C8C8C] mt-0.5">상담 가능 시간: 10:00 - 20:00</p>
                     </div>
                 </div>
 
-                {/* Right: Advanced Consultation Form (Light) */}
-                <div className="lg:col-span-3 p-12 md:p-16 bg-white">
-                    <div className="mb-10">
-                        <h2 className="text-3xl md:text-4xl font-serif text-[#1A1A1A] mb-4">Request Consultation</h2>
-                        <p className="text-[#8C8C8C] font-light">
-                            정확한 진단을 위해 아래 정보를 입력해주시면,<br/>
-                            <span className="text-[#5E7A70] font-medium">24시간 내 전문 상담실장이 연락드립니다.</span>
+                <div className="flex items-center gap-5 group">
+                    <div className="w-12 h-12 rounded-full bg-[#738F86]/10 flex items-center justify-center text-[#738F86] group-hover:bg-[#738F86] group-hover:text-white transition-all duration-300 shadow-sm">
+                        <Mail className="w-5 h-5" />
+                    </div>
+                    <div>
+                        <p className="text-xl font-medium text-[#1A1A1A]">info@adoclinic.com</p>
+                        <p className="text-sm text-[#8C8C8C] mt-0.5">언제든 문의주세요</p>
+                    </div>
+                </div>
+
+                <div className="flex items-center gap-5 group">
+                    <div className="w-12 h-12 rounded-full bg-[#738F86]/10 flex items-center justify-center text-[#738F86] group-hover:bg-[#738F86] group-hover:text-white transition-all duration-300 shadow-sm">
+                        <MapPin className="w-5 h-5" />
+                    </div>
+                    <div>
+                        <p className="text-lg font-medium text-[#1A1A1A] leading-tight">
+                            서울특별시 강남구 도산대로 45길 12, <br/>아도빌딩 3, 4F
                         </p>
                     </div>
+                </div>
+            </motion.div>
+          </div>
 
-                    <form className="space-y-8">
-                        {/* Personal Info Group */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div className="space-y-3">
-                                <Label htmlFor="name" className="text-xs font-bold tracking-widest text-[#5E7A70] uppercase">Name *</Label>
+          {/* Right Content: Glassmorphism Form Card */}
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="lg:col-span-7"
+          >
+             <div className="backdrop-blur-xl bg-white/40 border border-white/60 shadow-[0_20px_80px_rgba(0,0,0,0.05)] rounded-[40px] p-8 md:p-12 relative overflow-hidden">
+                
+                {/* Glossy Highlight Effect */}
+                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/40 to-transparent pointer-events-none" />
+
+                <div className="relative z-10">
+                    <h2 className="text-2xl font-serif text-[#1A1A1A] mb-8 flex items-center gap-3">
+                        Request Consultation
+                        <div className="h-px flex-1 bg-gradient-to-r from-[#1A1A1A]/20 to-transparent" />
+                    </h2>
+
+                    <form className="space-y-6">
+                        {/* Personal Info */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider pl-1">Name</Label>
                                 <Input 
-                                    id="name" 
-                                    placeholder="성함을 입력해주세요" 
-                                    className="border-x-0 border-t-0 border-b border-[#E5E5E5] rounded-none px-0 py-2 focus-visible:ring-0 focus-visible:border-[#1A1A1A] placeholder:text-[#D6D3D1] text-base"
+                                    placeholder="성함" 
+                                    className="bg-white/70 border-white/50 focus:bg-white focus:border-[#738F86]/50 rounded-xl h-12 shadow-sm text-base placeholder:text-gray-400"
                                 />
                             </div>
-                            <div className="space-y-3">
-                                <Label htmlFor="phone" className="text-xs font-bold tracking-widest text-[#5E7A70] uppercase">Contact *</Label>
+                            <div className="space-y-2">
+                                <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider pl-1">Contact</Label>
                                 <Input 
-                                    id="phone" 
-                                    placeholder="연락처를 입력해주세요" 
-                                    className="border-x-0 border-t-0 border-b border-[#E5E5E5] rounded-none px-0 py-2 focus-visible:ring-0 focus-visible:border-[#1A1A1A] placeholder:text-[#D6D3D1] text-base"
+                                    placeholder="연락처" 
+                                    className="bg-white/70 border-white/50 focus:bg-white focus:border-[#738F86]/50 rounded-xl h-12 shadow-sm text-base placeholder:text-gray-400"
                                 />
                             </div>
                         </div>
 
-                        {/* Skin Analysis Group */}
-                        <div className="bg-[#F9F9F9] rounded-3xl p-8 space-y-6 border border-[#E5E5E5]">
-                            <h3 className="text-lg font-serif text-[#1A1A1A] mb-4 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-[#5E7A70]"></span>
-                                피부 분석 정보
-                            </h3>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-3">
-                                    <Label className="text-xs font-bold tracking-widest text-[#5E7A70] uppercase">Skin Type</Label>
-                                    <Select>
-                                        <SelectTrigger className="border-x-0 border-t-0 border-b border-[#E5E5E5] rounded-none px-0 py-2 focus:ring-0 focus:ring-offset-0 focus:border-[#1A1A1A] text-base font-normal bg-transparent">
-                                            <SelectValue placeholder="피부 타입 선택" />
-                                        </SelectTrigger>
-                                        <SelectContent className="bg-white z-50">
-                                            {SKIN_TYPES.map(type => (
-                                                <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-
-                                <div className="space-y-3">
-                                    <Label className="text-xs font-bold tracking-widest text-[#5E7A70] uppercase">Age Range</Label>
-                                    <Select>
-                                        <SelectTrigger className="border-x-0 border-t-0 border-b border-[#E5E5E5] rounded-none px-0 py-2 focus:ring-0 focus:ring-offset-0 focus:border-[#1A1A1A] text-base font-normal bg-transparent">
-                                            <SelectValue placeholder="연령대 선택" />
-                                        </SelectTrigger>
-                                        <SelectContent className="bg-white z-50">
-                                            {AGE_RANGES.map(age => (
-                                                <SelectItem key={age.value} value={age.value}>{age.label}</SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                </div>
-                            </div>
-
-                            {/* Main Concerns - Checkboxes */}
-                            <div className="space-y-4">
-                                <Label className="text-xs font-bold tracking-widest text-[#5E7A70] uppercase block">
-                                    주요 고민 부위 (복수 선택 가능)
-                                </Label>
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                    {CONCERNS.map(concern => (
-                                        <div key={concern.id} className="flex items-center space-x-2">
-                                            <Checkbox 
-                                                id={concern.id}
-                                                checked={selectedConcerns.includes(concern.id)}
-                                                onCheckedChange={() => toggleConcern(concern.id)}
-                                                className="data-[state=checked]:bg-[#5E7A70] data-[state=checked]:border-[#5E7A70]"
-                                            />
-                                            <label
-                                                htmlFor={concern.id}
-                                                className="text-sm font-light text-[#525252] cursor-pointer leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                            >
-                                                {concern.label}
-                                            </label>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Treatment Preferences */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div className="space-y-3">
-                                <Label className="text-xs font-bold tracking-widest text-[#5E7A70] uppercase">Treatment Interest</Label>
+                        {/* Skin Info & Age (Simplified Layout) */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider pl-1">Skin Type</Label>
                                 <Select>
-                                    <SelectTrigger className="border-x-0 border-t-0 border-b border-[#E5E5E5] rounded-none px-0 py-2 focus:ring-0 focus:ring-offset-0 focus:border-[#1A1A1A] text-base font-normal">
-                                        <SelectValue placeholder="관심 시술을 선택해주세요" />
+                                    <SelectTrigger className="bg-white/70 border-white/50 focus:bg-white focus:ring-0 focus:border-[#738F86]/50 rounded-xl h-12 shadow-sm">
+                                        <SelectValue placeholder="피부 타입" />
                                     </SelectTrigger>
-                                    <SelectContent className="bg-white z-50">
-                                        <SelectItem value="lifting">리프팅 (울쎄라/티타늄/튠페이스)</SelectItem>
-                                        <SelectItem value="skin">스킨부스터 (리쥬란/쥬베룩)</SelectItem>
-                                        <SelectItem value="pore">모공/흉터 (포텐자/피코)</SelectItem>
-                                        <SelectItem value="pigment">기미/색소</SelectItem>
-                                        <SelectItem value="body">바디 컨투어링</SelectItem>
+                                    <SelectContent className="bg-white/90 backdrop-blur-xl border-white/50">
+                                        {SKIN_TYPES.map(type => (
+                                            <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                             </div>
-                            <div className="space-y-3">
-                                <Label className="text-xs font-bold tracking-widest text-[#5E7A70] uppercase">Previous Treatment</Label>
+                            <div className="space-y-2">
+                                <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider pl-1">Age Range</Label>
                                 <Select>
-                                    <SelectTrigger className="border-x-0 border-t-0 border-b border-[#E5E5E5] rounded-none px-0 py-2 focus:ring-0 focus:ring-offset-0 focus:border-[#1A1A1A] text-base font-normal">
-                                        <SelectValue placeholder="이전 시술 경험" />
+                                    <SelectTrigger className="bg-white/70 border-white/50 focus:bg-white focus:ring-0 focus:border-[#738F86]/50 rounded-xl h-12 shadow-sm">
+                                        <SelectValue placeholder="연령대" />
                                     </SelectTrigger>
-                                    <SelectContent className="bg-white z-50">
-                                        <SelectItem value="none">경험 없음</SelectItem>
-                                        <SelectItem value="botox">보톡스 경험 있음</SelectItem>
-                                        <SelectItem value="filler">필러 경험 있음</SelectItem>
-                                        <SelectItem value="laser">레이저 경험 있음</SelectItem>
-                                        <SelectItem value="multiple">복수 시술 경험</SelectItem>
+                                    <SelectContent className="bg-white/90 backdrop-blur-xl border-white/50">
+                                        {AGE_RANGES.map(age => (
+                                            <SelectItem key={age.value} value={age.value}>{age.label}</SelectItem>
+                                        ))}
                                     </SelectContent>
                                 </Select>
                             </div>
                         </div>
 
-                        {/* Preferred Time */}
-                        <div className="space-y-3">
-                            <Label className="text-xs font-bold tracking-widest text-[#5E7A70] uppercase">Preferred Time</Label>
-                            <Select>
-                                <SelectTrigger className="border-x-0 border-t-0 border-b border-[#E5E5E5] rounded-none px-0 py-2 focus:ring-0 focus:ring-offset-0 focus:border-[#1A1A1A] text-base font-normal">
-                                    <SelectValue placeholder="희망 상담 시간대" />
-                                </SelectTrigger>
-                                <SelectContent className="bg-white z-50">
-                                    <SelectItem value="morning">오전 (10:00 - 13:00)</SelectItem>
-                                    <SelectItem value="afternoon">오후 (13:00 - 17:00)</SelectItem>
-                                    <SelectItem value="evening">저녁 (17:00 - 20:00)</SelectItem>
-                                    <SelectItem value="any">상관없음</SelectItem>
-                                </SelectContent>
-                            </Select>
+                        {/* Concerns (Glass Box) */}
+                        <div className="bg-white/40 rounded-2xl p-6 border border-white/50 shadow-inner">
+                            <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider mb-4 block">주요 고민 부위</Label>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                {CONCERNS.map(concern => (
+                                    <div key={concern.id} className="flex items-center space-x-2">
+                                        <Checkbox 
+                                            id={concern.id}
+                                            checked={selectedConcerns.includes(concern.id)}
+                                            onCheckedChange={() => toggleConcern(concern.id)}
+                                            className="data-[state=checked]:bg-[#738F86] data-[state=checked]:border-[#738F86] border-black/20"
+                                        />
+                                        <label
+                                            htmlFor={concern.id}
+                                            className="text-sm text-[#444] cursor-pointer leading-none hover:text-black transition-colors"
+                                        >
+                                            {concern.label}
+                                        </label>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
                         {/* Message */}
-                        <div className="space-y-3">
-                            <Label htmlFor="message" className="text-xs font-bold tracking-widest text-[#5E7A70] uppercase">Message</Label>
+                        <div className="space-y-2">
+                            <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider pl-1">Message</Label>
                             <Textarea 
-                                id="message" 
-                                placeholder="현재 고민이거나 궁금하신 점을 자유롭게 적어주세요." 
-                                className="bg-[#F9F9F9] border-0 resize-none min-h-[150px] p-4 text-base placeholder:text-[#D6D3D1] focus-visible:ring-1 focus-visible:ring-[#1A1A1A]"
+                                placeholder="문의 내용을 자유롭게 적어주세요." 
+                                className="bg-white/70 border-white/50 focus:bg-white focus:border-[#738F86]/50 rounded-xl min-h-[120px] shadow-sm resize-none p-4 text-base placeholder:text-gray-400"
                             />
                         </div>
 
-                        {/* Agreement */}
-                        <div className="flex items-start space-x-3 pt-4">
-                            <Checkbox id="terms" className="mt-1 data-[state=checked]:bg-[#1A1A1A] data-[state=checked]:border-[#1A1A1A]" />
-                            <div className="grid gap-1.5 leading-none">
-                                <label
-                                    htmlFor="terms"
-                                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-[#525252]"
-                                >
-                                    개인정보 수집 및 이용에 동의합니다.
-                                </label>
-                                <p className="text-xs text-[#A3A3A3]">
-                                    상담 예약 및 응대를 위해 이름, 연락처, 피부 정보를 수집하며, 
-                                    상담 완료 후 <span className="text-[#5E7A70] font-medium">6개월 이내 자동 파기</span>됩니다.
-                                </p>
-                            </div>
-                        </div>
+                        {/* Submit Button */}
+                        <Button className="w-full bg-[#738F86] hover:bg-[#5E7A70] text-white h-14 rounded-xl text-sm font-bold tracking-[0.2em] shadow-lg hover:shadow-xl transition-all duration-300">
+                            SEND MESSAGE
+                        </Button>
 
-                        <div className="pt-8">
-                            <Button className="w-full md:w-auto bg-[#1A1A1A] hover:bg-[#5E7A70] text-white px-10 py-6 text-sm font-bold tracking-[0.2em] transition-all duration-300 rounded-none md:rounded-full group">
-                                SUBMIT REQUEST
-                                <ArrowUpRight className="ml-2 w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                            </Button>
-                        </div>
+                        <p className="text-center text-xs text-[#8C8C8C]">
+                            개인정보 수집 및 이용에 동의하는 것으로 간주합니다.
+                        </p>
                     </form>
                 </div>
-            </div>
+             </div>
+          </motion.div>
+
         </div>
       </div>
-
-      {/* Gallery Caption */}
-      <section className="w-full bg-[#Fdfbf9] py-16 text-center border-t border-[#1A1A1A]/10">
-        <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2">Object 06 : Gateway</p>
-        <p className="text-[#8C8C8C] font-serif italic text-lg">"정확한 진단의 시작"</p>
-      </section>
     </div>
   );
 }

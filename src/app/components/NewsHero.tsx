@@ -86,7 +86,7 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
   return (
     <section 
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden bg-[#FDFBF9]"
+      className="relative w-full h-screen overflow-hidden bg-white"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -126,12 +126,16 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
               left: '50%',
               transform: 'translateX(-50%)',
               whiteSpace: 'nowrap', // Prevent wrapping
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <h1 
-              className="font-light mb-10 relative"
+              className="font-light mb-10 relative flex flex-col items-center gap-2"
               style={{
-                fontSize: '10rem',
+                fontSize: '7.5rem',
                 fontFamily: "'Gowun Batang', serif",
                 color: '#2D7A7C', // 청옥 dark
                 letterSpacing: '0.06em',
@@ -148,25 +152,25 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
               }}
             >
               <span className="relative inline-block">
-                이벤트 · 소식
+                이벤트
                 {/* Ultra-premium multi-layer glow */}
                 <span 
                   className="absolute inset-0 blur-3xl opacity-85"
                   style={{ color: '#3D9B9E' }} // 청옥 mid
                 >
-                  이벤트 · 소식
+                  이벤트
                 </span>
                 <span 
                   className="absolute inset-0 blur-2xl opacity-65"
                   style={{ color: '#5FB5B8' }} // 청옥 main
                 >
-                  이벤트 · 소식
+                  이벤트
                 </span>
                 <span 
                   className="absolute inset-0 blur-xl opacity-45"
                   style={{ color: '#A8D5D7' }} // 청옥 light
                 >
-                  이벤트 · 소식
+                  이벤트
                 </span>
                 {/* Crisp outline */}
                 <span 
@@ -176,7 +180,40 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
                     WebkitTextStroke: '0.5px rgba(255, 255, 255, 0.98)',
                   }}
                 >
-                  이벤트 · 소식
+                  이벤트
+                </span>
+              </span>
+
+              <span className="relative inline-block">
+                소식
+                {/* Ultra-premium multi-layer glow */}
+                <span 
+                  className="absolute inset-0 blur-3xl opacity-85"
+                  style={{ color: '#3D9B9E' }} // 청옥 mid
+                >
+                  소식
+                </span>
+                <span 
+                  className="absolute inset-0 blur-2xl opacity-65"
+                  style={{ color: '#5FB5B8' }} // 청옥 main
+                >
+                  소식
+                </span>
+                <span 
+                  className="absolute inset-0 blur-xl opacity-45"
+                  style={{ color: '#A8D5D7' }} // 청옥 light
+                >
+                  소식
+                </span>
+                {/* Crisp outline */}
+                <span 
+                  className="absolute inset-0"
+                  style={{ 
+                    color: 'transparent',
+                    WebkitTextStroke: '0.5px rgba(255, 255, 255, 0.98)',
+                  }}
+                >
+                  소식
                 </span>
               </span>
             </h1>
@@ -209,7 +246,7 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
             <h1 
               className="font-light mb-10 relative"
               style={{
-                fontSize: '10rem',
+                fontSize: '7.5rem',
                 fontFamily: "'Gowun Batang', serif",
                 color: '#2D7A7C', // 청옥 dark
                 letterSpacing: '0.12em',

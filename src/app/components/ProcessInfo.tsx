@@ -30,9 +30,9 @@ export function ProcessInfo() {
   ];
 
   return (
-    <section className="w-full bg-[#Fdfbf9] py-32 md:py-48 relative overflow-hidden">
+    <section className="w-full bg-white py-32 md:py-48 relative overflow-hidden">
       {/* Background Decor: Abstract Line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-[#E5E5E5]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-[#F2F2F2]" />
       
       <div className="max-w-[1600px] mx-auto px-6 relative z-10">
         
@@ -84,7 +84,7 @@ export function ProcessInfo() {
       </div>
       
       {/* Gallery Caption */}
-      <div className="w-full bg-[#Fdfbf9] py-16 text-center border-t border-[#1A1A1A]/10">
+      <div className="w-full bg-white py-16 text-center border-t border-[#1A1A1A]/10">
         <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2">Object 04.5 : The Process</p>
         <p className="text-[#8C8C8C] font-serif italic text-lg">"본질에서 완성으로"</p>
       </div>

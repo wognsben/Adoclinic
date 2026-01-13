@@ -1,39 +1,56 @@
-import React, { forwardRef, useImperativeHandle, useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import React, { forwardRef, useImperativeHandle, useState, useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform, MotionValue } from 'motion/react';
 
-// Custom SVG Icons for consistent stroke style
+// === Icons ===
 const Icons = {
   NaverBooking: () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
-      <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-      <line x1="16" y1="2" x2="16" y2="6" />
-      <line x1="8" y1="2" x2="8" y2="6" />
-      <line x1="3" y1="10" x2="21" y2="10" />
-      <path d="M8 14h.01" /> <path d="M12 14h.01" /> <path d="M16 14h.01" />
-      <path d="M8 18h.01" /> <path d="M12 18h.01" /> <path d="M16 18h.01" />
-    </svg>
+    <img 
+      src="https://github.com/wognsben/jjtest/blob/main/assets/1x/%EB%84%A4%EC%9D%B4%EB%B2%84%EC%98%88%EC%95%BD_%EB%A1%9C%EA%B3%A0.png?raw=true" 
+      alt="Naver Booking" 
+      loading="eager"
+      decoding="async"
+      className="w-full h-full object-contain p-2" 
+    />
   ),
   Instagram: () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-    </svg>
+    <img 
+      src="https://github.com/wognsben/jjtest/blob/main/assets/1x/instagram.png?raw=true" 
+      alt="Instagram" 
+      loading="eager"
+      decoding="async"
+      className="w-full h-full object-contain p-2" 
+    />
   ),
   Threads: () => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
-       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 15c-1.84 0-3.33-1.12-3.33-2.5S10.16 12 12 12c.5 0 .97.08 1.4.23.4.15.74.37 1 .64.08.09.15.19.22.29.35.53.56 1.15.56 1.84 0 1.38-1.12 2.5-2.5 2.5h-4.5" />
-       <path d="M15.5 12a3.5 3.5 0 1 0-7 0" />
-    </svg>
+    <img 
+      src="https://github.com/wognsben/jjtest/blob/main/assets/1x/thread.jpg?raw=true" 
+      alt="Threads" 
+      loading="eager"
+      decoding="async"
+      className="w-full h-full object-contain p-2 rounded-full" 
+    />
   ),
   Kakao: () => (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-      <path d="M12 3c-5.52 0-10 3.67-10 8.2 0 2.93 1.9 5.53 4.83 7.02-.22.8-.79 2.9-.82 2.99 0 0-.02.16.08.22.1.06.22.04.22.04.38-.05 4.38-2.88 5.08-3.35.2.03.4.05.61.05 5.52 0 10-3.67 10-8.2S17.52 3 12 3z" />
-    </svg>
+    <img 
+      src="https://github.com/wognsben/jjtest/blob/main/assets/1x/kakao.png?raw=true" 
+      alt="Kakao Talk" 
+      loading="eager"
+      decoding="async"
+      className="w-full h-full object-contain p-2" 
+    />
   ),
   NaverBlog: () => (
-    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-       <path d="M4 4h16v16H4V4zm4 5h8v2H8V9zm0 4h5v2H8v-2z" />
+    <img 
+      src="https://github.com/wognsben/jjtest/blob/main/assets/1x/blog%20bl.png?raw=true" 
+      alt="Naver Blog" 
+      loading="eager"
+      decoding="async"
+      className="w-full h-full object-contain p-2" 
+    />
+  ),
+  Top: () => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full p-3">
+       <path d="m18 15-6-6-6 6"/>
     </svg>
   )
 };
@@ -46,129 +63,138 @@ export interface FloatingToolbarRef {
   highlightBooking: () => void;
 }
 
+// === Dock Item Component ===
+function DockItem({ 
+    mouseY, 
+    icon: Icon, 
+    label, 
+    onClick,
+    isHighlighted,
+    customBg
+}: { 
+    mouseY: MotionValue; 
+    icon: any; 
+    label: string; 
+    onClick?: () => void;
+    isHighlighted?: boolean;
+    customBg?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Calculate distance from mouse to this item
+  const distance = useTransform(mouseY, (val) => {
+    const bounds = ref.current?.getBoundingClientRect() ?? { y: 0, height: 0 };
+    return val - bounds.y - bounds.height / 2;
+  });
+
+  // Transform distance to scale/width/height
+  // range: [-150, 0, 150] -> output: [40, 80, 40]
+  const widthSync = useTransform(distance, [-150, 0, 150], [40, 70, 40]);
+  const width = useSpring(widthSync, { mass: 0.1, stiffness: 150, damping: 12 });
+
+  const [hovered, setHovered] = useState(false);
+
+  // Background Class Logic
+  // Priority: Highlighted > Custom Bg > Transparent
+  let bgClass = 'bg-transparent';
+  if (isHighlighted) {
+    bgClass = 'bg-teal-400 text-white shadow-[0_0_20px_rgba(45,212,191,0.6)]';
+  } else if (customBg) {
+    bgClass = `${customBg} text-gray-500 hover:text-[#1A1A1A] shadow-sm border border-gray-100`; // Added slight shadow/border for white bg visibility
+  } else {
+    bgClass = 'bg-transparent text-gray-500 hover:text-[#1A1A1A]';
+  }
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ width, height: width }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={onClick}
+      className={`relative flex items-center justify-center rounded-full cursor-pointer transition-colors duration-200 shrink-0 ${bgClass}`}
+    >
+      {/* Icon */}
+      <Icon />
+
+      {/* Tooltip (Always rendered to prevent insertBefore error) */}
+      <motion.div
+        initial={false}
+        animate={{ 
+          opacity: hovered ? 1 : 0,
+          x: hovered ? -20 : -10,
+          scale: hovered ? 1 : 0.9,
+        }}
+        transition={{ duration: 0.2 }}
+        className="absolute right-full px-3 py-1 bg-white/80 backdrop-blur-md border border-white/20 text-[#1A1A1A] text-xs font-medium rounded-lg shadow-lg whitespace-nowrap pointer-events-none z-50 origin-right"
+      >
+        {label}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// === Main Component ===
 export const FloatingToolbar = forwardRef<FloatingToolbarRef, FloatingToolbarProps>(
   ({ onOpenConsultation }, ref) => {
-    const [highlightedButtons, setHighlightedButtons] = useState<number[]>([]);
-    const [showTooltips, setShowTooltips] = useState<number[]>([]);
+    const mouseY = useMotionValue(Infinity);
+    const [highlightedIndices, setHighlightedIndices] = useState<number[]>([]);
 
-    // Listen for highlight-consultation event from Smart Diagnosis
-    useEffect(() => {
-      const handleHighlightConsultation = () => {
-        console.log('🎨 FloatingToolbar: highlight-consultation 이벤트 수신!');
-        // Highlight 네이버 예약 (index 0) and 카카오 (index 3) with teal-400 청옥색
-        setHighlightedButtons([0, 3]);
-        setShowTooltips([0, 3]); // Show tooltips
-        console.log('✅ FloatingToolbar: teal-400 청옥색 하이라이트 + 툴팁 표시 [0, 3]');
-        
-        // Remove highlight and tooltips after 3 seconds
-        setTimeout(() => {
-          setHighlightedButtons([]);
-          setShowTooltips([]);
-          console.log('⏰ FloatingToolbar: 3초 후 하이라이트 및 툴팁 제거 완료');
-        }, 3000);
-      };
-
-      window.addEventListener('highlight-consultation', handleHighlightConsultation);
-      
-      return () => {
-        window.removeEventListener('highlight-consultation', handleHighlightConsultation);
-      };
+    // Event Listener for Highlighting
+    React.useEffect(() => {
+        const handleHighlight = () => {
+            setHighlightedIndices([0, 3]); // Naver Booking & Kakao
+            setTimeout(() => setHighlightedIndices([]), 3000);
+        };
+        window.addEventListener('highlight-consultation', handleHighlight);
+        return () => window.removeEventListener('highlight-consultation', handleHighlight);
     }, []);
 
-    // Expose method to parent
+    // Expose ref method
     useImperativeHandle(ref, () => ({
-      highlightBooking: () => {
-        console.log('🎨 FloatingToolbar: highlightBooking 메서드 실행됨!');
-        // Highlight 네이버 예약 (index 0) and 카카오 (index 3) with teal-400 청옥색
-        setHighlightedButtons([0, 3]);
-        setShowTooltips([0, 3]); // Show tooltips
-        console.log('✅ FloatingToolbar: teal-400 청옥색 하이라이트 + 툴팁 표시 [0, 3]');
-        
-        // Remove highlight and tooltips after 3 seconds
-        setTimeout(() => {
-          setHighlightedButtons([]);
-          setShowTooltips([]);
-          console.log('⏰ FloatingToolbar: 3초 후 하이라이트 및 툴팁 제거 완료');
-        }, 3000);
-      },
+        highlightBooking: () => {
+            setHighlightedIndices([0, 3]);
+            setTimeout(() => setHighlightedIndices([]), 3000);
+        }
     }));
 
-    const tools = [
-      { 
-        name: "예약", 
-        icon: Icons.NaverBooking, 
-        color: "hover:bg-[#03C75A]", 
-        action: onOpenConsultation
-      },
-      { name: "Insta", icon: Icons.Instagram, color: "hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500" },
-      { name: "Threads", icon: Icons.Threads, color: "hover:bg-black" },
-      { 
-        name: "Kakao", 
-        icon: Icons.Kakao, 
-        color: "hover:bg-[#FEE500] hover:text-black"
-      },
-      { name: "Blog", icon: Icons.NaverBlog, color: "hover:bg-[#2DB400]" },
-    ];
-
     const scrollToTop = () => {
-      // Scroll to the main content area (skipping Hero) to avoid re-triggering intro animations
-      const mainContent = document.getElementById('main-content');
-      if (mainContent) {
-        mainContent.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        // Fallback if ID is missing
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+        const mainContent = document.getElementById('main-content');
+        if (mainContent) mainContent.scrollIntoView({ behavior: 'smooth' });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    return (
-      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-40 hidden md:flex flex-col gap-4">
-        {tools.map((item, idx) => {
-          const isHighlighted = highlightedButtons.includes(idx);
-          const showTooltip = showTooltips.includes(idx);
-          
-          return (
-            <motion.button
-              key={idx}
-              onClick={item.action}
-              initial={{ x: 50, opacity: 0 }}
-              animate={{ 
-                x: 0, 
-                opacity: 1,
-                scale: isHighlighted ? 1.2 : 1,
-              }}
-              transition={{ delay: 1 + idx * 0.1 }}
-              className={`group relative w-12 h-12 rounded-full backdrop-blur-md border flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-110 ${item.color} hover:text-white hover:border-transparent ${
-                isHighlighted 
-                  ? 'bg-teal-400 text-white border-transparent scale-125 animate-pulse shadow-[0_0_30px_rgba(45,212,191,0.8)]' 
-                  : 'bg-white/90 border-stone-200 text-stone-800'
-              }`}
-            >
-              <item.icon />
-              
-              {/* Tooltip Label */}
-              <span className={`absolute right-full mr-4 px-3 py-1 bg-[#1A1A1A] text-white text-[10px] font-bold tracking-wider whitespace-nowrap transition-opacity rounded-full shadow-lg z-50 ${showTooltip ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
-                {item.name}
-              </span>
-            </motion.button>
-          );
-        })}
+    const tools = [
+      { name: "예약", icon: Icons.NaverBooking, action: onOpenConsultation, customBg: "bg-white" },
+      { name: "Instagram", icon: Icons.Instagram, customBg: "bg-white" },
+      { name: "Threads", icon: Icons.Threads, customBg: "bg-white" },
+      { name: "Kakao", icon: Icons.Kakao, customBg: "bg-white" },
+      { name: "Blog", icon: Icons.NaverBlog, customBg: "bg-white" },
+      { name: "Top", icon: Icons.Top, action: scrollToTop },
+    ];
 
-        {/* Top Button */}
-        <motion.button
-          onClick={scrollToTop}
-          initial={{ x: 50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="group relative w-12 h-12 rounded-full bg-[#1A1A1A] flex items-center justify-center text-white shadow-xl transition-all duration-300 hover:bg-[#738F86] hover:scale-110 mt-4"
+    return (
+      <div 
+        className="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-3"
+        onMouseLeave={() => mouseY.set(Infinity)}
+      >
+        {/* Glass Container (The Dock) */}
+        <motion.div 
+            className="flex flex-col items-center gap-2 p-3 rounded-full bg-white/40 backdrop-blur-xl border border-white/40 shadow-[0_8px_32px_rgba(0,0,0,0.05)]"
+            onMouseMove={(e) => mouseY.set(e.clientY)}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-            <path d="m18 15-6-6-6 6"/>
-          </svg>
-          <span className="absolute right-full mr-4 px-3 py-1 bg-[#1A1A1A] text-white text-[10px] font-bold tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity rounded-full shadow-lg">
-            TOP
-          </span>
-        </motion.button>
+            {tools.map((tool, idx) => (
+                <DockItem 
+                    key={idx}
+                    mouseY={mouseY}
+                    icon={tool.icon}
+                    label={tool.name}
+                    onClick={tool.action}
+                    isHighlighted={highlightedIndices.includes(idx)}
+                    customBg={tool.customBg}
+                />
+            ))}
+        </motion.div>
       </div>
     );
   }

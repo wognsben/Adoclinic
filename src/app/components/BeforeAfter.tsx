@@ -120,73 +120,64 @@ export function BeforeAfter() {
     // Update lines immediately for responsiveness
     updateDragLines(index);
 
-    // GSAP Timeline
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setCurrentIdx(index);
-        setIsAnimating(false);
+    // GSAP Context for cleanup safety
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setCurrentIdx(index);
+          setIsAnimating(false);
+        }
+      });
+
+      // 1. Title Exit
+      tl.to([titleRef.current, descRef.current], {
+        y: -30,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power2.in"
+      });
+
+      // 2. Slide Transition
+      if (nextSlide && currentSlide) {
+        // Setup next slide
+        gsap.set(nextSlide, { 
+          zIndex: 10, 
+          autoAlpha: 1,
+          yPercent: direction === 1 ? 100 : -100,
+          scale: 0.8
+        });
+        
+        // Animate next slide in
+        tl.to(nextSlide, {
+          yPercent: 0,
+          scale: 1,
+          duration: 1,
+          ease: "power4.inOut"
+        }, "-=0.2"); // Overlap slightly
+        
+        // Animate current slide out
+        tl.to(currentSlide, {
+          scale: 0.9,
+          autoAlpha: 0,
+          duration: 1,
+          ease: "power4.inOut"
+        }, "<"); // Start same time
       }
     });
 
-    // 1. Title Exit
-    tl.to([titleRef.current, descRef.current], {
-      y: -30,
-      opacity: 0,
-      duration: 0.4,
-      ease: "power2.in"
-    });
-
-    // 2. Slide Transition
-    if (nextSlide && currentSlide) {
-      // Setup next slide
-      gsap.set(nextSlide, { 
-        zIndex: 10, 
-        autoAlpha: 1,
-        yPercent: direction === 1 ? 100 : -100,
-        scale: 0.8
-      });
-      
-      // Animate next slide in
-      tl.to(nextSlide, {
-        yPercent: 0,
-        scale: 1,
-        duration: 1,
-        ease: "power4.inOut"
-      }, "-=0.2"); // Overlap slightly
-      
-      // Animate current slide out
-      tl.to(currentSlide, {
-        scale: 0.9,
-        autoAlpha: 0,
-        duration: 1,
-        ease: "power4.inOut"
-      }, "<"); // Start same time
-    }
-
-    // 3. Title Enter (New Content)
-    tl.call(() => {
-      // This part assumes React state update would handle content change, 
-      // but inside GSAP context we might need to manually trigger text change visually if we want perfect sync.
-      // Since we rely on React rendering the text based on `currentIdx`, there's a slight delay.
-      // For this implementation, we will update text via state after animation or use a separate ref approach.
-      // To keep it simple with React:
-    });
-    
-    // We animate text back in AFTER index update
-    // But since state update is async, we do it in a separate effect or use a little trick.
-    // Let's use a "key" on the text elements to force re-mount or simple opacity animation.
-    
-    // Actually, better way:
-    // We can't easily animate text content change mid-timeline in React without state.
-    // So we will just animate in the *new* text after state change.
+    return () => ctx.revert();
   };
 
   // Effect to animate text IN when index changes
   useEffect(() => {
-    gsap.fromTo([titleRef.current, descRef.current], 
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", delay: 0.3 }
-    );
+    const ctx = gsap.context(() => {
+      gsap.fromTo([titleRef.current, descRef.current], 
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: "power2.out", delay: 0.3 }
+      );
+    });
+
+    return () => ctx.revert();
   }, [currentIdx]);
 
   const handleNext = () => {
@@ -200,7 +191,7 @@ export function BeforeAfter() {
   };
 
   return (
-    <section className="relative w-full h-[900px] bg-[#Fdfbf9] overflow-hidden flex flex-col items-center justify-center">
+    <section className="relative w-full h-[900px] bg-white overflow-hidden flex flex-col items-center justify-center">
       
       {/* Background Slides Container */}
       <div className="absolute inset-0 w-full h-full">

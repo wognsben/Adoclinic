@@ -11,7 +11,7 @@ interface EventsPageProps {
 export function EventsPage({ onHighlightBooking }: EventsPageProps) {
   const youtubeContent = [
     {
-      thumbnail: 'https://images.unsplash.com/photo-1601839777132-b3f4e455c369?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXJtYXRvbG9naXN0JTIwZG9jdG9yJTIwY29uc3VsdGF0aW9ufGVufDF8fHx8MTc2ODIwMzA5Nnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      thumbnail: 'https://images.unsplash.com/photo-1748407408885-9b62df0e2527?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXJtYXRvbG9neSUyMGxhc2VyJTIwdHJlYXRtZW50JTIwY2xvc2UlMjB1cHxlbnwxfHx8fDE3NjgzMDA5MzV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
       title: '피부과 전문의가 말하는',
       subtitle: '안티에이징의 과학',
       duration: '15:42',
@@ -29,7 +29,7 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
       videoId: 'dQw4w9WgXcQ'
     },
     {
-      thumbnail: 'https://images.unsplash.com/photo-1576670160060-c4e874631c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwY29uZmVyZW5jZSUyMHByZXNlbnRhdGlvbnxlbnwxfHx8fDE3NjgxNjU1NTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      thumbnail: 'https://images.unsplash.com/photo-1584800526920-35d8a0409deb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwZGVybWF0b2xvZ3klMjBjb25mZXJlbmNlJTIwc2tpbiUyMHNjaWVuY2V8ZW58MXx8fHwxNzY4MzAwOTM2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
       title: 'IMCAS Paris 2025',
       subtitle: '초청 연사 발표 현장',
       duration: '8:15',
@@ -47,7 +47,7 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
       videoId: 'dQw4w9WgXcQ'
     },
     {
-      thumbnail: 'https://images.unsplash.com/photo-1662973487707-a5bd2bb695a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZXN0aGV0aWMlMjBtZWRpY2luZSUyMHRlY2hub2xvZ3l8ZW58MXx8fHwxNzY4MjAzMDk3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      thumbnail: 'https://images.unsplash.com/photo-1620423855978-e5d74a7bef30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZXN0aGV0aWMlMjBtZWRpY2luZSUyMHRlY2hub2xvZ3klMjBkZXZpY2V8ZW58MXx8fHwxNzY4MzAwOTQwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
       title: '글로벌 트렌드',
       subtitle: '2025 미용의학 전망',
       duration: '18:22',
@@ -56,7 +56,7 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
       videoId: 'dQw4w9WgXcQ'
     },
     {
-      thumbnail: 'https://images.unsplash.com/photo-1598448056086-307e98ef5c4a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBjbGluaWMlMjBpbnRlcmlvcnxlbnwxfHx8fDE3NjgxNjMyMzZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+      thumbnail: 'https://images.unsplash.com/photo-1735448213858-6bdfdf78967a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBkZXJtYXRvbG9neSUyMGNsaW5pYyUyMGludGVyaW9yJTIwbW9kZXJuJTIwd2hpdGV8ZW58MXx8fHwxNzY4MzAwOTM2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
       title: 'ADO 클리닉 투어',
       subtitle: '프리미엄 시설 소개',
       duration: '6:48',
@@ -67,7 +67,7 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
   ];
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-white">
       {/* News Hero Section */}
       <NewsHero onHighlightBooking={onHighlightBooking} />
       
@@ -75,7 +75,7 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
         <Promotions />
         
         {/* Academic Excellence Section */}
-        <section className="w-full bg-[#F5F5F3] py-32 md:py-40 px-6">
+        <section className="w-full bg-white py-32 md:py-40 px-6">
           <div className="max-w-[1600px] mx-auto">
             
             {/* Header */}
@@ -95,7 +95,7 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
                 transition={{ delay: 0.1 }}
                 className="text-5xl md:text-7xl font-serif text-[#1A1A1A] mb-6"
               >
-                Beyond Treatment
+                시술, 그 이상의 가치
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}

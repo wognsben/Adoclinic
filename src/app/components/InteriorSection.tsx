@@ -174,7 +174,11 @@ function SlideItem({ slide, isActive, isHovered }: SlideItemProps) {
   );
 }
 
-export function InteriorSection() {
+interface InteriorSectionProps {
+    disableBackground?: boolean;
+}
+
+export function InteriorSection({ disableBackground = false }: InteriorSectionProps) {
   const [leftIndex, setLeftIndex] = useState(0);
   const [rightIndex, setRightIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -200,8 +204,8 @@ export function InteriorSection() {
 
   return (
     <section 
-        className="w-full h-screen relative overflow-hidden bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${jadeTexture})` }}
+        className={`w-full relative overflow-hidden h-[80vh] md:h-screen ${!disableBackground ? 'bg-cover bg-center bg-no-repeat' : ''}`}
+        style={!disableBackground ? { backgroundImage: `url(${jadeTexture})` } : {}}
     >
       {/* Dual Slider Container */}
       <div className="flex h-full">

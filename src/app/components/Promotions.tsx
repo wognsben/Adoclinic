@@ -4,7 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 export function Promotions() {
   return (
     <>
-    <section className="w-full bg-[#FDFBF9] text-[#1A1A1A] py-24 md:py-40 overflow-hidden">
+    <section className="w-full bg-white text-[#1A1A1A] py-24 md:py-40 overflow-hidden">
       <div className="max-w-[1600px] mx-auto px-6">
         
         <div className="flex flex-col md:flex-row justify-between items-end mb-16">
@@ -91,7 +91,7 @@ export function Promotions() {
     </section>
     
     {/* Gallery Caption for Promotions */}
-    <div className="w-full bg-[#FDFBF9] py-16 text-center border-t border-[#1A1A1A]/10">
+    <div className="w-full bg-white py-16 text-center border-t border-[#1A1A1A]/10">
       <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2">Object 06 : Seasonal Benefits</p>
       <p className="text-[#8C8C8C] font-serif italic text-lg">"특별한 혜택"</p>
     </div>

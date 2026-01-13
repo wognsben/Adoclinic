@@ -38,7 +38,7 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
   return (
     <section 
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden bg-[#FDFBF9]"
+      className="relative w-full h-screen overflow-hidden bg-white"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -62,6 +62,7 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
               inset 0 0 ${particle.size * 0.3}px rgba(255, 255, 255, ${particle.opacity * 0.3})
             `,
             filter: 'blur(12px)',
+            willChange: 'transform, opacity', // Performance hint
           }}
           animate={{
             x: [0, Math.random() * 80 - 40, 0],
@@ -119,7 +120,7 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
             <h1 
               className="font-light mb-10 relative"
               style={{
-                fontSize: '10rem',
+                fontSize: '7.5rem',
                 fontFamily: "'Gowun Batang', serif",
                 color: '#2D7A7C',
                 letterSpacing: '0.06em',
@@ -197,7 +198,7 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
             <h1 
               className="font-light mb-10 relative"
               style={{
-                fontSize: '10rem',
+                fontSize: '7.5rem',
                 fontFamily: "'Gowun Batang', serif",
                 color: '#2D7A7C',
                 letterSpacing: '0.12em',

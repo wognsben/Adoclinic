@@ -4,7 +4,11 @@ import mapImage from 'figma:asset/6c0afad9e2fdd413414a793d92801ce7a718649c.png';
 import logoImage from 'figma:asset/fcc6e13ae36e4d588436cc30d4b454b19cc23c67.png';
 import jadeTexture from 'figma:asset/6580d7606d23edb4edaf1c6f54585367770a3336.png';
 
-export function Footer() {
+interface FooterProps {
+  disableBackground?: boolean;
+}
+
+export function Footer({ disableBackground = false }: FooterProps) {
   const handleCopyAddress = () => {
     navigator.clipboard.writeText("서울특별시 강남구 도산대로 119, 5층 케이타워(K-Tower) (신사동)");
     alert("주소가 복사되었습니다.");
@@ -16,8 +20,8 @@ export function Footer() {
 
   return (
     <footer 
-        className="relative w-full text-[#Fdfbf9] overflow-hidden pt-10 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${jadeTexture})` }}
+        className={`relative w-full text-[#Fdfbf9] overflow-hidden pt-10 ${!disableBackground ? 'bg-cover bg-center bg-no-repeat' : ''}`}
+        style={!disableBackground ? { backgroundImage: `url(${jadeTexture})` } : {}}
     >
         {/* Container with rounded aesthetic */}
         <div className="flex flex-col lg:flex-row min-h-[550px] gap-6 px-4 pb-4 lg:px-6 lg:pb-6">
@@ -51,20 +55,28 @@ export function Footer() {
             {/* --------------------------------------------------------------------------- */}
             {/* RIGHT COLUMN: INFORMATION & ACTIONS (ROUNDED BG)                            */}
             {/* --------------------------------------------------------------------------- */}
-            {/* Applied Dark Glass Effect: bg-[#121C1A]/85 + backdrop-blur-xl */}
-            <div className="w-full lg:w-[58%] bg-[#121C1A]/85 backdrop-blur-xl rounded-[40px] px-8 py-12 lg:px-16 lg:py-16 flex flex-col justify-between shadow-2xl border border-white/10 relative transition-colors duration-500 hover:bg-[#121C1A]/90">
+            {/* Applied Dark Glass Effect: bg-[#121C1A]/90 + backdrop-blur-2xl to reduce noise */}
+            <div className="w-full lg:w-[58%] bg-[#121C1A]/90 backdrop-blur-2xl rounded-[40px] px-8 py-12 lg:px-16 lg:py-16 flex flex-col justify-between shadow-2xl border border-white/10 relative transform-gpu overflow-hidden">
+                {/* Global Noise Texture for Panel - Set z-0 to ensure it's behind content */}
+                <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay z-0"
+                     style={{ 
+                         backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` 
+                     }}
+                />
                 
-                {/* Scroll To Top Button (Absolute Position inside Right Panel) */}
+                {/* Scroll To Top Button (Absolute Position, Z-20 to be above everything) */}
                 <button 
                     onClick={scrollToTop}
-                    className="absolute top-8 right-8 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-[#1A1A1A] transition-all duration-300 group text-white/50 bg-white/5 backdrop-blur-sm"
+                    className="absolute top-8 right-8 z-20 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-[#1A1A1A] transition-all duration-300 group text-white/50 bg-white/5"
                     aria-label="Scroll to top"
                 >
                     <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform" />
                 </button>
 
-                {/* TOP: Brand & Shortcuts */}
-                <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-12 pr-12">
+                {/* Content Wrapper (Relative Z-10 to sit above noise) */}
+                <div className="relative z-10 flex flex-col justify-between h-full">
+                    {/* TOP: Brand & Shortcuts */}
+                    <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-12 pr-12">
                     {/* Brand */}
                     <div>
                          {/* Logo: Increased size to w-[250px], Removed Filter for original color */}
@@ -110,10 +122,10 @@ export function Footer() {
                 {/* BOTTOM: Primary Actions & Copyright */}
                 <div className="space-y-8">
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <FooterActionButton icon={MapPin} label="오시는 길" variant="light" />
-                        <FooterActionButton icon={Copy} label="주소복사" variant="outline" onClick={handleCopyAddress} />
-                        <FooterActionButton icon={MessageCircle} label="카톡상담" variant="outline" />
-                        <FooterActionButton icon={Phone} label="전화상담" variant="light" />
+                        <FooterActionButton icon={MapPin} label="오시는 길" />
+                        <FooterActionButton icon={Copy} label="주소복사" onClick={handleCopyAddress} />
+                        <FooterActionButton icon={MessageCircle} label="카톡상담" />
+                        <FooterActionButton icon={Phone} label="전화상담" />
                     </div>
                 </div>
 
@@ -124,6 +136,7 @@ export function Footer() {
                         <span className="cursor-pointer hover:text-white transition-colors">Privacy Policy</span>
                         <span className="cursor-pointer hover:text-white transition-colors">Terms of Use</span>
                     </div>
+                </div>
                 </div>
             </div>
 
@@ -137,34 +150,45 @@ export function Footer() {
 // ----------------------------------------------------------------------
 
 const ExternalLink = ({ text, icon: Icon }: { text: string, icon?: any }) => (
-    <a href="#" className="group flex items-center gap-1.5 text-[10px] font-bold tracking-widest text-white hover:text-[#738F86] transition-colors">
-        {Icon && <Icon className="w-3 h-3" />}
+    <a href="#" className="group flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-white/70 hover:text-white transition-colors duration-300">
+        {Icon && <Icon className="w-3 h-3" strokeWidth={1.5} />}
         {text}
-        <ArrowUpRight className="w-2.5 h-2.5 opacity-30 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all" />
+        <ArrowUpRight strokeWidth={1.5} className="w-2.5 h-2.5 opacity-30 group-hover:opacity-100 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300" />
     </a>
 );
 
 const InfoItem = ({ label, value }: { label: string, value: string }) => (
     <div className="grid grid-cols-[80px_1fr] items-start gap-2 text-sm font-light">
-        <span className="font-bold text-[#738F86] text-[11px] tracking-widest mt-0.5">{label}</span>
-        <span className="text-[#8C8C8C] text-xs">{value}</span>
+        <span className="font-bold text-[#5E7A70] text-[10px] tracking-[0.2em] mt-0.5 opacity-80">{label}</span>
+        <span className="text-[#A0A0A0] text-xs font-light tracking-wide">{value}</span>
     </div>
 );
 
-const FooterActionButton = ({ icon: Icon, label, variant, onClick }: { icon: any, label: string, variant: 'light' | 'outline', onClick?: () => void }) => {
+const FooterActionButton = ({ icon: Icon, label, onClick }: { icon: any, label: string, onClick?: () => void }) => {
     return (
         <button 
             onClick={onClick}
-            className={`
-                relative overflow-hidden group flex flex-col items-center justify-center gap-2 px-4 py-6 rounded-[20px] transition-all duration-300
-                ${variant === 'light' 
-                    ? 'bg-[#Fdfbf9] text-[#1A1A1A] hover:bg-[#EAEFE9]' 
-                    : 'bg-[#2A2A2A]/50 border border-white/10 text-[#Fdfbf9] hover:border-white/30 hover:bg-[#2A2A2A]'
-                }
-            `}
+            className="
+                relative overflow-hidden group flex flex-col items-center justify-center gap-3 px-4 py-7 rounded-[24px] transition-all duration-500
+                bg-white/5 border border-white/10 
+                hover:bg-white/15 hover:border-white/30 hover:shadow-[0_8px_32px_rgba(255,255,255,0.1)]
+            "
         >
-            <Icon className={`w-5 h-5 mb-1 opacity-80 group-hover:scale-110 transition-transform duration-300 ${variant === 'light' ? 'text-[#1A1A1A]' : 'text-white'}`} />
-            <span className="text-xs font-bold tracking-wider">{label}</span>
+            {/* Noise Texture Overlay */}
+            <div className="absolute inset-0 opacity-[0.07] pointer-events-none mix-blend-overlay"
+                 style={{ 
+                     backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` 
+                 }}
+            />
+
+            {/* Reflection Shine Effect */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            <Icon 
+                strokeWidth={1.5}
+                className="w-6 h-6 text-white/70 group-hover:text-white group-hover:-translate-y-1 group-hover:scale-110 transition-all duration-300 ease-out relative z-10" 
+            />
+            <span className="text-[11px] font-medium tracking-[0.15em] text-white/50 group-hover:text-white transition-colors duration-300 relative z-10">{label}</span>
         </button>
     );
 };
