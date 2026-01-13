@@ -1,15 +1,17 @@
-import React, { useRef, useLayoutEffect, useEffect } from 'react';
+import React, { useRef, useLayoutEffect, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MagneticButton } from './ui/MagneticButton';
 import { ArrowUpRight } from 'lucide-react';
 // Import user provided images
-import stage2Image from 'figma:asset/dae4af3dc0d177f616729ae192c952a660d01df8.png';
+const stage2Image = "https://raw.githubusercontent.com/wognsben/Adoclinic/main/NEW%20IG/MAIN%20HERO.png";
+const fallbackImage = "https://images.unsplash.com/photo-1692318535011-09ea0e3a7aac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiZWF1dHklMjBjbGluaWMlMjBtb2RlbCUyMGFlc3RoZXRpYyUyMGJyaWdodCUyMHNraW58ZW58MXx8fHwxNzY4MzA3Njk4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroCompleted: (v: boolean) => void; onOpenConsultation?: () => void }) {
+  const [bgUrl, setBgUrl] = useState(stage2Image);
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   
@@ -126,11 +128,18 @@ export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroComple
       {/*   except for the center hole where it is CLEAR.                   */}
       {/* ================================================================= */}
       <div className="absolute inset-0 z-0 w-full h-full overflow-hidden">
+        {/* Hidden Image to detect loading errors (e.g. Private Repo) */}
+        <img 
+            src={stage2Image} 
+            className="hidden" 
+            onError={() => setBgUrl(fallbackImage)}
+            alt="background-loader"
+        />
         <div 
             ref={bgImageRef}
             className="absolute inset-0 w-full h-full bg-cover bg-center"
             style={{ 
-              backgroundImage: `url('${stage2Image}')`,
+              backgroundImage: `url('${bgUrl}')`,
               backgroundPosition: 'center center',
             }}
         />

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
-import logoImage from 'figma:asset/fcc6e13ae36e4d588436cc30d4b454b19cc23c67.png';
+// Replaced figma:asset with Unsplash URL
+const logoImage = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/1.png?raw=true";
 
 interface TransformationHeroProps {
   onHighlightBooking?: () => void;

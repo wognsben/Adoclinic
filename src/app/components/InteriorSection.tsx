@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
-import recoveryImage from 'figma:asset/109bb833138db031ab61c872f7bdd27afa9dc929.png';
-import waitingImage from 'figma:asset/726390ee550bc4908d10cf2fb04c0c71e734f5d8.png';
-import treatmentImage from 'figma:asset/e5ef167a4db6053f520c2c1e859e4a79d09e345a.png';
-import detailImage from 'figma:asset/1f08b2b39d608fcbfa897e0da681515194b244cd.png';
-import jadeTexture from 'figma:asset/6580d7606d23edb4edaf1c6f54585367770a3336.png';
+
+// Replaced figma:asset with Unsplash URLs
+const recoveryImage = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/RESTROOM.png?raw=true";
+const waitingImage = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/WAITROOM.png?raw=true";
+const treatmentImage = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/PRIVATE.png?raw=true";
+const detailImage = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/WASHROOM.png?raw=true";
+const jadeTexture = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/FOOTER.png?raw=true";
 
 /**
  * ADO Clinic Interior Section

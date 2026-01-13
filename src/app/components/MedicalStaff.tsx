@@ -1,16 +1,22 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { AcademicGallery } from './AcademicGallery';
-import doctorImg from "figma:asset/bc18b9298660fc46b0d1e94a624c06576d821235.png";
-import teamImg from "figma:asset/fff87461ca55c8e56cf3aaf5c26ae6a5999343ce.png";
+
+// Replaced figma:asset with Unsplash URLs
+const doctorImg = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/MAIN%20DOC.png?raw=true";
+const teamImg = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/SEC%20DOC.png?raw=true";
+
+// Fallback Images (Unsplash) - Used if GitHub Raw URL fails (e.g. Private Repo)
+const doctorImgFallback = "https://images.unsplash.com/photo-1701463387028-3947648f1337?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBhc2lhbiUyMG1hbGUlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMHN0dWRpbyUyMGFlc3RoZXRpY3xlbnwxfHx8fDE3NjgzMDc2OTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
+const teamImgFallback = "https://images.unsplash.com/photo-1756699279701-99e1fd273517?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGVhbSUyMHByb2Zlc3Npb25hbCUyMGRpdmVyc2UlMjBhZXN0aGV0aWN8ZW58MXx8fHwxNzY4MzA3Njk4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
 
 // Social Icons Data (Matched with FloatingToolbar)
 const socialIcons = [
-  { name: "Naver Booking", url: "https://github.com/wognsben/jjtest/blob/main/assets/1x/%EB%84%A4%EC%9D%B4%EB%B2%84%EC%98%88%EC%95%BD_%EB%A1%9C%EA%B3%A0.png?raw=true", padding: "p-2", bg: "white" },
-  { name: "Instagram", url: "https://github.com/wognsben/jjtest/blob/main/assets/1x/instagram.png?raw=true", padding: "p-2", bg: "white" },
-  { name: "Threads", url: "https://github.com/wognsben/jjtest/blob/main/assets/1x/thread.jpg?raw=true", padding: "p-2 rounded-full", bg: "white" },
-  { name: "Kakao", url: "https://github.com/wognsben/jjtest/blob/main/assets/1x/kakao.png?raw=true", padding: "p-2", bg: "white" },
-  { name: "Blog", url: "https://github.com/wognsben/jjtest/blob/main/assets/1x/blog%20bl.png?raw=true", padding: "p-2", bg: "white" },
+  { name: "Naver Booking", url: "https://raw.githubusercontent.com/wognsben/jjtest/main/assets/1x/%EB%84%A4%EC%9D%B4%EB%B2%84%EC%98%88%EC%95%BD_%EB%A1%9C%EA%B3%A0.png", padding: "p-2", bg: "white" },
+  { name: "Instagram", url: "https://raw.githubusercontent.com/wognsben/jjtest/main/assets/1x/instagram.png", padding: "p-2", bg: "white" },
+  { name: "Threads", url: "https://raw.githubusercontent.com/wognsben/jjtest/main/assets/1x/thread.jpg", padding: "p-2 rounded-full", bg: "white" },
+  { name: "Kakao", url: "https://raw.githubusercontent.com/wognsben/jjtest/main/assets/1x/kakao.png", padding: "p-2", bg: "white" },
+  { name: "Blog", url: "https://raw.githubusercontent.com/wognsben/jjtest/main/assets/1x/blog%20bl.png", padding: "p-2", bg: "white" },
 ];
 
 export function MedicalStaff() {
@@ -64,6 +70,7 @@ export function MedicalStaff() {
                     <div className="aspect-[3/4] w-full bg-[#E5E5E5] rounded-[2px] overflow-hidden relative">
                         <img 
                           src={doctorImg} 
+                          onError={(e) => { e.currentTarget.src = doctorImgFallback; }}
                           className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
                           alt="Dr. Kim Ado"
                         />
@@ -194,6 +201,7 @@ export function MedicalStaff() {
                 <div className="p-4 md:p-6 bg-white rounded-[20px] shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] border border-gray-100">
                     <img 
                         src={teamImg} 
+                        onError={(e) => { e.currentTarget.src = teamImgFallback; }}
                         alt="ADO Clinic Professional Medical Team" 
                         className="w-full h-auto rounded-[12px] object-cover"
                     />

@@ -5,7 +5,7 @@ import { motion, useMotionValue, useSpring, useTransform, MotionValue } from 'mo
 const Icons = {
   NaverBooking: () => (
     <img 
-      src="https://github.com/wognsben/jjtest/blob/main/assets/1x/%EB%84%A4%EC%9D%B4%EB%B2%84%EC%98%88%EC%95%BD_%EB%A1%9C%EA%B3%A0.png?raw=true" 
+      src="https://raw.githubusercontent.com/wognsben/jjtest/main/assets/1x/%EB%84%A4%EC%9D%B4%EB%B2%84%EC%98%88%EC%95%BD_%EB%A1%9C%EA%B3%A0.png" 
       alt="Naver Booking" 
       loading="eager"
       decoding="async"
@@ -14,7 +14,7 @@ const Icons = {
   ),
   Instagram: () => (
     <img 
-      src="https://github.com/wognsben/jjtest/blob/main/assets/1x/instagram.png?raw=true" 
+      src="https://raw.githubusercontent.com/wognsben/jjtest/main/assets/1x/instagram.png" 
       alt="Instagram" 
       loading="eager"
       decoding="async"
@@ -23,7 +23,7 @@ const Icons = {
   ),
   Threads: () => (
     <img 
-      src="https://github.com/wognsben/jjtest/blob/main/assets/1x/thread.jpg?raw=true" 
+      src="https://raw.githubusercontent.com/wognsben/jjtest/main/assets/1x/thread.jpg" 
       alt="Threads" 
       loading="eager"
       decoding="async"
@@ -32,7 +32,7 @@ const Icons = {
   ),
   Kakao: () => (
     <img 
-      src="https://github.com/wognsben/jjtest/blob/main/assets/1x/kakao.png?raw=true" 
+      src="https://raw.githubusercontent.com/wognsben/jjtest/main/assets/1x/kakao.png" 
       alt="Kakao Talk" 
       loading="eager"
       decoding="async"
@@ -41,7 +41,7 @@ const Icons = {
   ),
   NaverBlog: () => (
     <img 
-      src="https://github.com/wognsben/jjtest/blob/main/assets/1x/blog%20bl.png?raw=true" 
+      src="https://raw.githubusercontent.com/wognsben/jjtest/main/assets/1x/blog%20bl.png" 
       alt="Naver Blog" 
       loading="eager"
       decoding="async"

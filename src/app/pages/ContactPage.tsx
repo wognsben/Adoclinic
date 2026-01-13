@@ -13,7 +13,8 @@ import {
   SelectValue,
 } from "../components/ui/select";
 import { ArrowUpRight, Clock, Mail, MapPin, Phone } from 'lucide-react';
-import bgImage from 'figma:asset/577afd783ee754bf2b314ecdf9a126b87c706014.png';
+// Replaced figma:asset with Unsplash URL
+const bgImage = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/CONTACT.png?raw=true";
 
 const SKIN_TYPES = [
   { value: 'dry', label: '건성' },

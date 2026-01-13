@@ -12,7 +12,9 @@ import { EventsPage } from './pages/EventsPage';
 import { ContactPage } from './pages/ContactPage';
 import { LoginPage } from './pages/LoginPage';
 import { InteriorSection } from './components/InteriorSection';
-import jadeTexture from 'figma:asset/6580d7606d23edb4edaf1c6f54585367770a3336.png';
+
+// Replaced figma:asset with a real Unsplash URL for build compatibility
+const jadeTexture = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/FOOTER.png?raw=true";
 
 // ScrollToTop Component
 function ScrollToTop() {
@@ -64,7 +66,7 @@ function AppContent() {
       {isMainPage ? (
         <div 
             className="relative w-full bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${jadeTexture})` }}
+            style={{ backgroundImage: `url('${jadeTexture}')` }}
         >
             <InteriorSection disableBackground={true} />
             <Footer disableBackground={true} />
