@@ -4,7 +4,7 @@ import { SplitText } from 'gsap/SplitText';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { motion } from 'motion/react';
 // Replaced figma:asset with Unsplash URL
-const logoImage = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/1.png?raw=true";
+const logoImage = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/1.png?raw=true";
 
 // GSAP 플러그인 등록
 if (typeof window !== 'undefined') {
@@ -136,7 +136,7 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
             <h1 
               className="font-light mb-10 relative flex flex-col items-center gap-2"
               style={{
-                fontSize: '7.5rem',
+                fontSize: 'clamp(3.5rem, 13vw, 7.5rem)',
                 fontFamily: "'Gowun Batang', serif",
                 color: '#2D7A7C', // 청옥 dark
                 letterSpacing: '0.06em',
@@ -247,7 +247,7 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
             <h1 
               className="font-light mb-10 relative"
               style={{
-                fontSize: '7.5rem',
+                fontSize: 'clamp(3.5rem, 13vw, 7.5rem)',
                 fontFamily: "'Gowun Batang', serif",
                 color: '#2D7A7C', // 청옥 dark
                 letterSpacing: '0.12em',

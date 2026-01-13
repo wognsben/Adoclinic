@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 // Replaced figma:asset with Unsplash URL
-const logoImage = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/1.png?raw=true";
+const logoImage = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/1.png?raw=true";
 
 interface TransformationHeroProps {
   onHighlightBooking?: () => void;
@@ -121,7 +121,7 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
             <h1 
               className="font-light mb-10 relative"
               style={{
-                fontSize: '7.5rem',
+                fontSize: 'clamp(3.5rem, 13vw, 7.5rem)',
                 fontFamily: "'Gowun Batang', serif",
                 color: '#2D7A7C',
                 letterSpacing: '0.06em',
@@ -199,7 +199,7 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
             <h1 
               className="font-light mb-10 relative"
               style={{
-                fontSize: '7.5rem',
+                fontSize: 'clamp(3.5rem, 13vw, 7.5rem)',
                 fontFamily: "'Gowun Batang', serif",
                 color: '#2D7A7C',
                 letterSpacing: '0.12em',

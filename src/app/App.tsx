@@ -14,7 +14,7 @@ import { LoginPage } from './pages/LoginPage';
 import { InteriorSection } from './components/InteriorSection';
 
 // Replaced figma:asset with a real Unsplash URL for build compatibility
-const jadeTexture = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/FOOTER.png?raw=true";
+const jadeTexture = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/FOOTER.png?raw=true";
 
 // ScrollToTop Component
 function ScrollToTop() {

@@ -3,8 +3,8 @@ import { MapPin, Copy, MessageCircle, Phone, ArrowUpRight, Instagram, Map as Map
 
 // Replaced figma:asset with Unsplash URLs for build compatibility
 const mapImage = "https://images.unsplash.com/photo-1712144250508-14ea3e3da8c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwbWFwJTIwbG9jYXRpb24lMjBncmVlbiUyMGJhY2tncm91bmR8ZW58MXx8fHwxNzY4MzA3NjY0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
-const logoImage = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/1.png?raw=true";
-const jadeTexture = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/FOOTER.png?raw=true";
+const logoImage = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/1.png?raw=true";
+const jadeTexture = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/FOOTER.png?raw=true";
 
 interface FooterProps {
   disableBackground?: boolean;

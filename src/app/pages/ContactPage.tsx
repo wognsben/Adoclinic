@@ -14,7 +14,7 @@ import {
 } from "../components/ui/select";
 import { ArrowUpRight, Clock, Mail, MapPin, Phone } from 'lucide-react';
 // Replaced figma:asset with Unsplash URL
-const bgImage = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/CONTACT.png?raw=true";
+const bgImage = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/CONTACT.png?raw=true";
 
 const SKIN_TYPES = [
   { value: 'dry', label: '건성' },

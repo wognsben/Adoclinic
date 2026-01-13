@@ -3,8 +3,8 @@ import { motion } from 'motion/react';
 import { AcademicGallery } from './AcademicGallery';
 
 // Replaced figma:asset with Unsplash URLs
-const doctorImg = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/MAIN%20DOC.png?raw=true";
-const teamImg = "https://github.com/wognsben/Adoclinic/blob/main/NEW%20IG/SEC%20DOC.png?raw=true";
+const doctorImg = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/MAIN%20DOC.png?raw=true";
+const teamImg = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/SEC%20DOC.png?raw=true";
 
 // Fallback Images (Unsplash) - Used if GitHub Raw URL fails (e.g. Private Repo)
 const doctorImgFallback = "https://images.unsplash.com/photo-1701463387028-3947648f1337?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBhc2lhbiUyMG1hbGUlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMHN0dWRpbyUyMGFlc3RoZXRpY3xlbnwxfHx8fDE3NjgzMDc2OTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";

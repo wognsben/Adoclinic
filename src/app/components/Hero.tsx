@@ -5,7 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MagneticButton } from './ui/MagneticButton';
 import { ArrowUpRight } from 'lucide-react';
 // Import user provided images
-const stage2Image = "https://raw.githubusercontent.com/wognsben/Adoclinic/main/NEW%20IG/MAIN%20HERO.png";
+const stage2Image = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/MAIN%20HERO.png?raw=true";
 const fallbackImage = "https://images.unsplash.com/photo-1692318535011-09ea0e3a7aac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiZWF1dHklMjBjbGluaWMlMjBtb2RlbCUyMGFlc3RoZXRpYyUyMGJyaWdodCUyMHNraW58ZW58MXx8fHwxNzY4MzA3Njk4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -43,10 +43,14 @@ export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroComple
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       
-      // Initialize Mask Size
+      // Initialize Mask Size with responsive logic
+      const isMobile = window.innerWidth < 768;
+      const initialMaskX = isMobile ? "60vw" : "280px"; // Slightly smaller on mobile to fit width
+      const initialMaskY = isMobile ? "80vw" : "380px";
+
       gsap.set(glassLayerRef.current, { 
-        "--mask-size-x": "280px", 
-        "--mask-size-y": "380px" 
+        "--mask-size-x": initialMaskX, 
+        "--mask-size-y": initialMaskY 
       });
 
       const tl = gsap.timeline({
@@ -201,7 +205,7 @@ export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroComple
       <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
          <div 
             ref={jadeWindowRef}
-            className="relative w-[280px] h-[380px] rounded-[50%]"
+            className="relative w-[60vw] h-[80vw] md:w-[280px] md:h-[380px] rounded-[50%]"
          >
             {/* Inner Border (Sharp) */}
             <div className="absolute inset-0 rounded-[50%] border-[1px] border-white/60 shadow-[0_0_15px_rgba(255,255,255,0.3)]"></div>

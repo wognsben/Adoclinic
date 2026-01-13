@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu } from 'lucide-react';
+import { Menu, X, ChevronRight } from 'lucide-react';
 import GooeyFilter from './ui/GooeyFilter';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+  SheetDescription,
+  SheetClose
+} from "@/app/components/ui/sheet";
 
 // ----------------------------------------------------------------------
 // CURVED METEOR LINK
 // ----------------------------------------------------------------------
-const MeteorLink = ({ text, isRed, to }: { text: string, isRed?: boolean, to?: string }) => {
+const MeteorLink = ({ text, isRed, to, onClick }: { text: string, isRed?: boolean, to?: string, onClick?: () => void }) => {
     const [isHovered, setIsHovered] = useState(false);
     const location = useLocation();
-    const gradientId = `meteor-gradient-${text}`;
+    const gradientId = `meteor-gradient-${text.replace(/\s+/g, '-')}`;
     
     // Check if this link is active
     const isActive = to === location.pathname;
@@ -21,6 +29,7 @@ const MeteorLink = ({ text, isRed, to }: { text: string, isRed?: boolean, to?: s
           className="relative block py-2 group"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          onClick={onClick}
         >
             <span className={`
                 relative z-10 text-xs font-medium tracking-[0.15em] uppercase transition-colors duration-300
@@ -40,7 +49,7 @@ const MeteorLink = ({ text, isRed, to }: { text: string, isRed?: boolean, to?: s
             )}
             
             {/* Hover Animation */}
-            <div className="absolute left-0 -bottom-2 w-full h-[24px] pointer-events-none overflow-visible">
+            <div className="absolute left-0 -bottom-2 w-full h-[24px] pointer-events-none overflow-visible hidden lg:block">
                 <svg width="100%" height="100%" viewBox="0 0 100 24" preserveAspectRatio="none" className="overflow-visible">
                     <defs>
                         <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
@@ -69,16 +78,16 @@ const MeteorLink = ({ text, isRed, to }: { text: string, isRed?: boolean, to?: s
 };
 
 // ----------------------------------------------------------------------
-// LOGO COMPONENT (Updated with Brand Image)
+// LOGO COMPONENT
 // ----------------------------------------------------------------------
-const Logo = () => (
-    <div className="flex items-center mr-10 min-w-max relative">
+const Logo = ({ isMobile = false }: { isMobile?: boolean }) => (
+    <div className={`flex items-center ${isMobile ? '' : 'mr-10'} min-w-max relative`}>
         {/* Use the provided logo image URL */}
         <img 
             src="https://drive.google.com/thumbnail?id=1HaiCyEQkF2vbt0iBRow1pwsHU9CAxFgm&sz=w1000" 
             alt="ADO CLINIC" 
             // Matched with Footer logo size: w-[250px]
-            className="w-[250px] h-auto object-contain origin-left" 
+            className={`${isMobile ? 'w-[140px]' : 'w-[200px] lg:w-[250px]'} h-auto object-contain origin-left transition-all duration-300`}
             // Removed filter to show original logo colors on white background
             loading="eager"
             decoding="sync"
@@ -91,8 +100,9 @@ const Logo = () => (
 // ----------------------------------------------------------------------
 const Utilities = ({ onOpenConsultation }: { onOpenConsultation?: () => void }) => (
     <div className="flex items-center gap-6 min-w-max">
+        {/* KR Button Restored */}
         <button className="flex items-center justify-center px-4 py-1.5 rounded-full border border-black/20 text-black text-[10px] font-bold tracking-widest hover:bg-black hover:text-white transition-colors">
-            KOREAN
+            KR
         </button>
         <div className="flex items-center gap-3 text-[10px] font-bold tracking-widest text-black/90">
             <Link to="/login" className="hover:text-[#5E7A70] transition-colors">LOGIN</Link>
@@ -110,9 +120,7 @@ interface HeaderProps {
 export function Header({ onOpenConsultation }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(true); // Always show background for visibility
   const [hasSplit, setHasSplit] = useState(false);
-
-  // REMOVED: useMotionValueEvent that was changing isScrolled to false
-  // Navigation background is now always visible
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (isScrolled && !hasSplit) {
@@ -126,20 +134,28 @@ export function Header({ onOpenConsultation }: HeaderProps) {
   const getGap = () => {
     if (!isScrolled) return "40px";
     if (!hasSplit) return "-20px";
-    return "12px";
+    return "8px"; // Reduced Gap to restore gooey connection
   };
+
+  const navItems = [
+    { text: '병원소개', path: '/' },
+    { text: '시술안내', path: '/treatments' },
+    { text: '이벤트/소식', path: '/events' },
+    { text: '칭찬/불만', path: '#' },
+    { text: '전후사진', path: '/before-after' }
+  ];
 
   return (
     <>
       <GooeyFilter />
 
-      <div className="fixed top-0 left-0 w-full z-50 pt-6 pointer-events-none">
+      <div className="fixed top-0 left-0 w-full z-50 pt-4 lg:pt-6 pointer-events-none">
         
         {/* ======================================================================== */}
         {/* LAYER 1: BACKGROUND (GOOEY EFFECT) - OPTIMIZED PADDING                   */}
         {/* ======================================================================== */}
         <motion.div 
-            className="absolute inset-0 top-6 flex justify-center w-full items-center"
+            className="absolute inset-0 top-4 lg:top-6 flex justify-center w-full items-center px-4 lg:px-0"
             initial={false}
             animate={{ gap: getGap() }}
             transition={springConfig}
@@ -148,57 +164,55 @@ export function Header({ onOpenConsultation }: HeaderProps) {
                 transform: "translateY(-4px)" 
             }}
         >
-             {/* Left Pill Background */}
+             {/* Left Pill Background (Merged on Mobile) */}
              <motion.div
                 layout
-                className={`relative flex items-center rounded-l-full transition-colors duration-500`}
+                className={`relative flex items-center w-full lg:w-auto justify-between lg:justify-start rounded-full lg:rounded-l-full lg:rounded-r-none transition-colors duration-500`}
                 style={{
-                    backgroundColor: "white", // Changed to white
+                    backgroundColor: "white",
                     
                     // Reduced Padding (Optimized for sleek look while preventing erosion)
-                    paddingLeft: "15px",  // Reduced from 30px
-                    paddingRight: isScrolled ? "40px" : "30px", // Reduced from 60px/50px
-                    paddingTop: "12px",
-                    paddingBottom: "12px",
+                    paddingLeft: "20px",
+                    paddingRight: isScrolled ? "20px" : "20px", // Mobile padding
+                    paddingTop: "10px",
+                    paddingBottom: "10px",
                     
-                    // Height Adjusted (80px -> 72px)
-                    // Content is 64px. 72px gives 4px buffer on top/bottom.
-                    height: "72px", 
+                    // Height Adjusted
+                    height: "64px", // Matches Right Pill Height
                     
                     // Optional: Add shadow since background is white
                     boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
 
-                    borderTopRightRadius: isScrolled && !hasSplit ? "20px" : "9999px",
-                    borderBottomRightRadius: isScrolled && !hasSplit ? "20px" : "9999px",
+                    // Mobile: Full rounded, Desktop: Dynamic
+                    borderRadius: "9999px",
                 }}
              >
-                {/* GHOST CONTENT (For Sizing) */}
-                <div className="opacity-0 flex items-center gap-2 pointer-events-none select-none">
+                {/* GHOST CONTENT (For Sizing - Desktop Only) */}
+                <div className="opacity-0 hidden lg:flex items-center gap-2 pointer-events-none select-none">
                     <Logo />
                     <nav className="flex items-center gap-10">
-                        {['병원소개', '시술안내', '이벤트/소식', '칭찬/불만', '전후사진'].map((item) => (
-                            <span key={item} className="text-xs font-medium tracking-[0.15em] uppercase">{item}</span>
+                        {navItems.map((item) => (
+                            <span key={item.text} className="text-xs font-medium tracking-[0.15em] uppercase">{item.text}</span>
                         ))}
                     </nav>
                 </div>
              </motion.div>
 
-             {/* Right Pill Background */}
+             {/* Right Pill Background (Desktop Only) */}
              <motion.div
                 layout
                 className={`relative hidden lg:flex items-center transition-colors duration-500`}
                 style={{
-                    backgroundColor: "white", // Changed to white
+                    backgroundColor: "white",
                     
-                    // Reduced Padding
-                    paddingLeft: isScrolled && !hasSplit ? "40px" : "30px", // Reduced from 60px/50px
-                    paddingRight: "15px", // Reduced from 30px
+                    // KEY FIX: Significantly increased left padding to prevent content from hitting the gooey edge
+                    paddingLeft: isScrolled && !hasSplit ? "60px" : "60px", 
+                    paddingRight: "30px",
                     paddingTop: "12px",
                     paddingBottom: "12px",
                     
-                    height: "72px",
+                    height: "64px", // Matches Left Pill Height
                     
-                    // Optional: Add shadow since background is white
                     boxShadow: "0 4px 20px rgba(0,0,0,0.05)",
 
                     borderTopLeftRadius: isScrolled && !hasSplit ? "20px" : "9999px",
@@ -217,7 +231,7 @@ export function Header({ onOpenConsultation }: HeaderProps) {
         {/* LAYER 2: CONTENT (VISIBLE)                                               */}
         {/* ======================================================================== */}
         <motion.div 
-            className="relative flex justify-center w-full items-center"
+            className="relative flex justify-center w-full items-center px-4 lg:px-0"
             initial={false}
             animate={{ gap: getGap() }}
             transition={springConfig}
@@ -225,33 +239,98 @@ export function Header({ onOpenConsultation }: HeaderProps) {
           {/* PILL 1: Logo & Nav */}
           <motion.header
             layout
-            className={`flex items-center h-[64px] rounded-l-full pointer-events-auto z-20`}
+            className={`flex items-center justify-between w-full lg:w-auto h-[60px] lg:h-[64px] rounded-full lg:rounded-l-full pointer-events-auto z-20`}
             style={{
-                // No extra padding needed on left, let the gap handle it
-                paddingRight: isScrolled ? "32px" : "24px",
+                // Padding handled by container size for desktop, fixed for mobile
+                paddingRight: isScrolled ? "20px" : "20px", 
+                paddingLeft: "20px",
             }}
           >
-            <Logo />
-            <nav className="hidden lg:flex items-center gap-10">
-              {['병원소개', '시술안내', '이벤트/소식', '칭찬/불만', '전후사진'].map((item) => (
+            <Logo isMobile={true} />
+            
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-10 ml-8">
+              {navItems.map((item) => (
                  <MeteorLink 
-                    key={item} 
-                    text={item} 
-                    isRed={item === '병원소개'} 
-                    to={item === '전후사진' ? '/before-after' : item === '시술안내' ? '/treatments' : item === '이벤트/소식' ? '/events' : item === '병원소개' ? '/' : '#'}
+                    key={item.text} 
+                    text={item.text} 
+                    isRed={item.text === '병원소개'} 
+                    to={item.path}
                  />
               ))}
             </nav>
-            <button className="lg:hidden text-black ml-auto"><Menu className="w-6 h-6" /></button>
+
+            {/* Mobile Menu Trigger */}
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+                <SheetTrigger asChild>
+                    <button className="lg:hidden text-black p-2 -mr-2 hover:bg-black/5 rounded-full transition-colors">
+                        <Menu className="w-6 h-6" />
+                    </button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px] sm:w-[350px] p-0 border-none bg-white/95 backdrop-blur-xl">
+                    <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                    <SheetDescription className="sr-only">Navigation links</SheetDescription>
+                    
+                    <div className="flex flex-col h-full">
+                        {/* Mobile Menu Header */}
+                        <div className="p-6 border-b border-black/5 flex justify-between items-center">
+                            <span className="text-sm font-bold tracking-[0.2em] text-[#738F86]">MENU</span>
+                            <SheetClose className="rounded-full p-2 hover:bg-black/5 transition-colors">
+                                <X className="w-5 h-5 text-black/60" />
+                            </SheetClose>
+                        </div>
+
+                        {/* Mobile Menu Items */}
+                        <div className="flex-1 overflow-y-auto py-6 px-6">
+                            <nav className="flex flex-col gap-6">
+                                {navItems.map((item) => (
+                                    <Link 
+                                        key={item.text} 
+                                        to={item.path}
+                                        onClick={() => setIsMobileMenuOpen(false)}
+                                        className="group flex items-center justify-between py-2 border-b border-black/5 last:border-0"
+                                    >
+                                        <span className={`text-lg font-medium tracking-wide ${item.text === '병원소개' ? 'text-[#991B1B]' : 'text-black/80'} group-hover:text-black transition-colors`}>
+                                            {item.text}
+                                        </span>
+                                        <ChevronRight className="w-4 h-4 text-black/20 group-hover:text-black/50 group-hover:translate-x-1 transition-all" />
+                                    </Link>
+                                ))}
+                            </nav>
+
+                            {/* Mobile Utils */}
+                            <div className="mt-12 space-y-6">
+                                <div className="flex gap-4">
+                                    <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="flex-1 py-3 text-center text-xs font-bold tracking-widest border border-black/10 rounded-xl hover:bg-black hover:text-white transition-colors">
+                                        LOGIN
+                                    </Link>
+                                    <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)} className="flex-1 py-3 text-center text-xs font-bold tracking-widest bg-[#738F86]/10 text-[#5E7A70] rounded-xl hover:bg-[#738F86] hover:text-white transition-colors">
+                                        CONTACT
+                                    </Link>
+                                </div>
+                                <button className="w-full py-3 text-center text-xs font-bold tracking-widest border border-black/10 rounded-xl hover:bg-black hover:text-white transition-colors">
+                                    KOREAN / ENGLISH
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Mobile Menu Footer */}
+                        <div className="p-6 bg-black/5 text-[10px] text-black/40 font-light tracking-wide text-center">
+                            © 2026 ADO CLINIC. All Rights Reserved.
+                        </div>
+                    </div>
+                </SheetContent>
+            </Sheet>
           </motion.header>
 
-          {/* PILL 2: Utilities */}
+          {/* PILL 2: Utilities (Desktop Only) */}
           <motion.div
             layout
             onMouseEnter={() => setHasSplit(true)} 
             className={`flex items-center h-[64px] hidden lg:flex pointer-events-auto cursor-pointer z-20`}
             style={{
-                paddingLeft: isScrolled && !hasSplit ? "32px" : "24px",
+                // IMPORTANT: Match the padding of the background layer so content aligns perfectly
+                paddingLeft: isScrolled && !hasSplit ? "60px" : "60px",
             }}
           >
             <Utilities onOpenConsultation={onOpenConsultation} />
