@@ -2,13 +2,36 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { AcademicGallery } from './AcademicGallery';
 
-// Replaced figma:asset with Unsplash URLs
-const doctorImg = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/MAIN%20DOC.png?raw=true";
-const teamImg = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/SEC%20DOC.png?raw=true";
+// Main Representative Director Image (Authoritative, Global Medical Leader)
+const doctorImg = "https://images.unsplash.com/photo-1678940805950-73f2127f9d4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYWxlJTIwZG9jdG9yJTIwY2hpZWYlMjBtZWRpY2FsJTIwb2ZmaWNlciUyMHBvcnRyYWl0fGVufDF8fHx8MTc2ODY0Njg0Mnww&ixlib=rb-4.1.0&q=80&w=1080";
 
-// Fallback Images (Unsplash) - Used if GitHub Raw URL fails (e.g. Private Repo)
-const doctorImgFallback = "https://images.unsplash.com/photo-1701463387028-3947648f1337?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBhc2lhbiUyMG1hbGUlMjBkb2N0b3IlMjBwb3J0cmFpdCUyMHN0dWRpbyUyMGFlc3RoZXRpY3xlbnwxfHx8fDE3NjgzMDc2OTB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
-const teamImgFallback = "https://images.unsplash.com/photo-1756699279701-99e1fd273517?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwdGVhbSUyMHByb2Zlc3Npb25hbCUyMGRpdmVyc2UlMjBhZXN0aGV0aWN8ZW58MXx8fHwxNzY4MzA3Njk4fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
+// Grid of 3 Doctors (Professional Clinic Specialists - High-End & Global Vibe)
+const medicalTeam = [
+  {
+    id: 1,
+    name: "Dr. Sarah Mitchell",
+    position: "Chief Dermatologist",
+    // Professional Female Doctor in Clinic Setting
+    image: "https://images.unsplash.com/photo-1759350075177-eeb89d507990?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmZW1hbGUlMjBkb2N0b3IlMjBhZXN0aGV0aWMlMjBjbGluaWMlMjBwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwxfHx8fDE3Njg2NDY4NDJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    description: "Specializing in advanced laser toning and personalized skin rejuvenation therapies for natural radiance."
+  },
+  {
+    id: 2,
+    name: "Dr. James Chen",
+    position: "Senior Surgeon",
+    // Professional Male Doctor with White Coat
+    image: "https://images.unsplash.com/photo-1679581356089-e65ea18c7f61?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBkZXJtYXRvbG9naXN0JTIwZG9jdG9yJTIwcG9ydHJhaXQlMjB3aGl0ZSUyMGNvYXQlMjBjbGluaWN8ZW58MXx8fHwxNzY4NjQ2ODQyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+    description: "Expert in minimally invasive lifting procedures and facial contouring with a focus on structural harmony."
+  },
+  {
+    id: 3,
+    name: "Dr. Emily Roberts",
+    position: "Aesthetic Specialist",
+    // Modern Aesthetic Clinic Vibe
+    image: "https://images.unsplash.com/photo-1659353887222-630895f23cc5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZXN0aGV0aWMlMjBtZWRpY2luZSUyMGRvY3RvciUyMHBvcnRyYWl0JTIwc3R1ZGlvJTIwcHJvZmVzc2lvbmFsfGVufDF8fHx8MTc2ODY0Njg0Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+    description: "Dedicated to non-surgical enhancements, filler artistry, and comprehensive anti-aging solutions."
+  }
+];
 
 // Social Icons Data (Matched with FloatingToolbar)
 const socialIcons = [
@@ -22,19 +45,19 @@ const socialIcons = [
 export function MedicalStaff() {
   const profileDetails = {
     positions: [
-        '현) ADO Clinic 대표원장',
-        '전) 청담 OO 피부과 원장',
-        '대한피부과의사회 정회원'
+        'Current) Representative Director, ADO',
+        'Former) Director, Cheongdam OO Dermatology',
+        'Member, Korean Dermatological Association'
     ],
     academic: [
-      '서울대학교 의과대학 졸업',
-      '서울대학교병원 피부과 전문의 취득',
-      '서울대학교병원 피부과 임상 자문의',
+      'Graduated from Seoul National University College of Medicine',
+      'Board Certified Dermatologist, SNU Hospital',
+      'Clinical Advisory Doctor, SNU Hospital Dermatology',
     ],
     global: [
         'Ulthera® Global Key Opinion Leader',
         'Juvederm® Global Faculty',
-        'Restylane® Master Course 수료'
+        'Completed Restylane® Master Course'
     ]
   };
 
@@ -56,7 +79,7 @@ export function MedicalStaff() {
                 transition={{ duration: 0.8 }}
             >
                 <span className="text-xs font-bold tracking-[0.4em] text-[#8C8C8C] uppercase mb-4 block">Medical Team</span>
-                <h2 className="text-4xl md:text-5xl font-serif text-[#1A1A1A]">전문 의료진</h2>
+                <h2 className="text-4xl md:text-5xl font-serif text-[#1A1A1A]">MEDICAL TEAM</h2>
             </motion.div>
         </div>
 
@@ -70,9 +93,8 @@ export function MedicalStaff() {
                     <div className="aspect-[3/4] w-full bg-[#E5E5E5] rounded-[2px] overflow-hidden relative">
                         <img 
                           src={doctorImg} 
-                          onError={(e) => { e.currentTarget.src = doctorImgFallback; }}
                           className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
-                          alt="Dr. Kim Ado"
+                          alt="Dr. Ki-Beom Park"
                         />
                         <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     </div>
@@ -80,8 +102,8 @@ export function MedicalStaff() {
                 
                 <div className="mt-8 text-center lg:text-left pl-2">
                      <p className="text-xs tracking-[0.2em] text-[#5F9EA0] uppercase mb-2 font-medium">Representative Director</p>
-                     <h3 className="text-4xl font-serif text-[#1A1A1A] mb-1">Dr. Kim Ado</h3>
-                     <p className="text-sm text-[#8C8C8C] font-light">박기범 대표원장</p>
+                     <h3 className="text-4xl font-serif text-[#1A1A1A] mb-1">Dr. Ki-Beom Park</h3>
+                     <p className="text-sm text-[#8C8C8C] font-light">Representative Director</p>
                 </div>
             </div>
           </div>
@@ -92,18 +114,16 @@ export function MedicalStaff() {
             {/* Philosophy Text */}
             <div className="mb-16 pl-2">
                 <h3 className="text-3xl md:text-4xl font-serif leading-tight mb-8 break-keep text-[#1A1A1A]">
-                    다른 사람이 되지 마세요.<br/>
+                    Don't try to be someone else.<br/>
                     <span className="relative inline-block">
-                        <span className="relative z-10 text-[#5F9EA0]">최선의 당신</span>
+                        <span className="relative z-10 text-[#5F9EA0]">Be the best version</span>
                         <span className="absolute bottom-2 left-0 w-full h-[10px] bg-[#5F9EA0]/10 -z-0"></span>
-                    </span>이 되세요.
+                    </span> of yourself.
                 </h3>
                 <div className="space-y-6 text-[#4A4A4A] font-light text-base leading-relaxed max-w-xl">
                     <p>
-                        사적인 아름다움 아도(ADO)는<br/>
-                        사회가 정의하는 획일화된 기준이 아닌<br/>
-                        개개인이 가진 고유의 드라마를 이어가는<br/>
-                        자연스러운 아름다움을 추구합니다.
+                        ADO pursues natural beauty that continues your unique drama,<br/>
+                        rather than standardized criteria defined by society.
                     </p>
                 </div>
             </div>
@@ -169,7 +189,7 @@ export function MedicalStaff() {
                         {socialIcons.map((icon, idx) => (
                             <motion.a
                                 key={idx}
-                                href="#" // Links would go here
+                                href="#"
                                 whileHover={{ y: -3, scale: 1.05 }}
                                 className="w-9 h-9 flex items-center justify-center rounded-full bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all group overflow-hidden"
                                 title={icon.name}
@@ -190,22 +210,49 @@ export function MedicalStaff() {
           </div>
         </div>
 
-        {/* 2. Professional Team Section */}
+        {/* 2. Professional Team Grid Section - Updated to 3 Members */}
         <div className="mb-32">
             <div className="flex flex-col items-center mb-12">
                 <span className="text-xs font-bold tracking-[0.3em] text-[#5F9EA0] uppercase mb-3">Our Professionals</span>
-                <h3 className="text-3xl md:text-4xl font-serif text-[#1A1A1A]">의료진 소개</h3>
+                <h3 className="text-3xl md:text-4xl font-serif text-[#1A1A1A]">MEDICAL TEAM</h3>
             </div>
             
-            <div className="w-full relative group">
-                <div className="p-4 md:p-6 bg-white rounded-[20px] shadow-[0_10px_40px_-10px_rgba(0,0,0,0.05)] border border-gray-100">
-                    <img 
-                        src={teamImg} 
-                        onError={(e) => { e.currentTarget.src = teamImgFallback; }}
-                        alt="ADO Clinic Professional Medical Team" 
-                        className="w-full h-auto rounded-[12px] object-cover"
-                    />
-                </div>
+            {/* Grid for 3 columns */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {medicalTeam.map((doctor) => (
+                    <motion.div 
+                        key={doctor.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                        transition={{ duration: 0.5, delay: doctor.id * 0.1 }}
+                        className="group flex flex-col h-full bg-white rounded-[16px] overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+                    >
+                        {/* Image Aspect Ratio adjusted for Portraits - High Resolution */}
+                        <div className="aspect-[4/5] overflow-hidden bg-gray-100 relative">
+                            <img 
+                                src={doctor.image} 
+                                alt={doctor.name}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            />
+                            {/* Overlay Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+
+                        <div className="p-6 flex flex-col flex-grow text-center">
+                            <h4 className="text-[#1A1A1A] font-serif text-xl mb-1">{doctor.name}</h4>
+                            <p className="text-[#5F9EA0] text-xs font-bold uppercase tracking-widest mb-4">{doctor.position}</p>
+                            
+                            {/* Divider */}
+                            <div className="w-8 h-[1px] bg-gray-200 mx-auto mb-4" />
+                            
+                            {/* Description */}
+                            <p className="text-[#666] text-sm font-light leading-relaxed line-clamp-3">
+                                {doctor.description}
+                            </p>
+                        </div>
+                    </motion.div>
+                ))}
             </div>
         </div>
 
@@ -221,11 +268,11 @@ export function MedicalStaff() {
                     Global Academic Insight
                     </p>
                 </div>
-                <h3 className="text-3xl md:text-4xl font-serif text-[#1A1A1A]">의료진 강의 이력</h3>
+                <h3 className="text-3xl md:text-4xl font-serif text-[#1A1A1A]">Academic History</h3>
               </div>
               <p className="text-[#888] text-sm md:text-base font-light text-right leading-relaxed">
-                 끊임없는 연구와 글로벌 강연 활동으로<br />
-                 K-Beauty의 새로운 기준을 제시합니다.
+                 Presenting a new standard for K-Beauty<br />
+                 through continuous research and global lectures.
               </p>
            </div>
            

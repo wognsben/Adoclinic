@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { MapPin, Copy, MessageCircle, Phone, ArrowUpRight, Instagram, Map as MapIcon, ArrowUp } from 'lucide-react';
+import { PremiumLogo } from "@/app/components/PremiumLogo";
 
 // Replaced figma:asset with Unsplash URLs for build compatibility
 const mapImage = "https://images.unsplash.com/photo-1712144250508-14ea3e3da8c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwbWFwJTIwbG9jYXRpb24lMjBncmVlbiUyMGJhY2tncm91bmR8ZW58MXx8fHwxNzY4MzA3NjY0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral";
@@ -12,8 +13,8 @@ interface FooterProps {
 
 export function Footer({ disableBackground = false }: FooterProps) {
   const handleCopyAddress = () => {
-    navigator.clipboard.writeText("서울특별시 강남구 도산대로 119, 5층 케이타워(K-Tower) (신사동)");
-    alert("주소가 복사되었습니다.");
+    navigator.clipboard.writeText("5F K-Tower, 119 Dosan-daero, Gangnam-gu, Seoul");
+    alert("Address copied.");
   };
 
   const scrollToTop = () => {
@@ -49,7 +50,7 @@ export function Footer({ disableBackground = false }: FooterProps) {
                 <div className="absolute top-8 left-8 bg-[#121C1A]/80 backdrop-blur-md px-5 py-3 rounded-full shadow-lg border border-white/10 pointer-events-none">
                     <div className="flex items-center gap-2">
                          <div className="w-2 h-2 rounded-full bg-[#738F86] animate-pulse"></div>
-                         <span className="text-[12px] font-bold tracking-widest text-white">오시는 길</span>
+                         <span className="text-[12px] font-bold tracking-widest text-white">LOCATION</span>
                     </div>
                 </div>
             </div>
@@ -81,16 +82,12 @@ export function Footer({ disableBackground = false }: FooterProps) {
                     <div className="flex flex-col md:flex-row justify-between items-start gap-10 mb-12 pr-12">
                     {/* Brand */}
                     <div>
-                         {/* Logo: Increased size to w-[250px], Removed Filter for original color */}
-                         <img 
-                            src={logoImage} 
-                            alt="ADO CLINIC" 
-                            className="w-[250px] object-contain mb-8 origin-left"
-                            // style={{ filter: 'brightness(0) invert(1) opacity(0.9)' }} 
-                         />
+                         {/* ADO Premium Logo (SVG) */}
+                         <PremiumLogo className="h-10 w-auto mb-8 text-white origin-left" />
+                         
                          <p className="text-sm font-light leading-relaxed text-[#8C8C8C] max-w-sm">
                             <span className="font-medium text-white">The Point of Beauty.</span><br/>
-                            본질에 집중하는 미드 하이엔드 클리닉, 에이도
+                            ADO, a mid-high-end clinic focusing on the essence.
                          </p>
                     </div>
 
@@ -105,9 +102,9 @@ export function Footer({ disableBackground = false }: FooterProps) {
                 {/* MIDDLE: Detailed Info */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 border-t border-white/10 pt-10 mb-12">
                     <div className="space-y-4">
-                        <InfoItem label="ADDRESS" value="서울 강남구 도산대로 119, 5층 케이타워" />
+                        <InfoItem label="ADDRESS" value="5F K-Tower, 119 Dosan-daero, Gangnam-gu, Seoul" />
                         <InfoItem label="CONTACT" value="02-543-7501" />
-                        <InfoItem label="KAKAO" value="@라도무드" />
+                        <InfoItem label="KAKAO" value="@adomood" />
                     </div>
                     <div className="space-y-4">
                          <div className="grid grid-cols-[80px_1fr] items-start gap-2 text-sm font-light">
@@ -124,16 +121,16 @@ export function Footer({ disableBackground = false }: FooterProps) {
                 {/* BOTTOM: Primary Actions & Copyright */}
                 <div className="space-y-8">
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <FooterActionButton icon={MapPin} label="오시는 길" />
-                        <FooterActionButton icon={Copy} label="주소복사" onClick={handleCopyAddress} />
-                        <FooterActionButton icon={MessageCircle} label="카톡상담" />
-                        <FooterActionButton icon={Phone} label="전화상담" />
+                        <FooterActionButton icon={MapPin} label="LOCATION" />
+                        <FooterActionButton icon={Copy} label="COPY ADDR" onClick={handleCopyAddress} />
+                        <FooterActionButton icon={MessageCircle} label="KAKAO TALK" />
+                        <FooterActionButton icon={Phone} label="CALL US" />
                     </div>
                 </div>
 
                 {/* Copyright */}
                 <div className="flex flex-col sm:flex-row justify-between items-center pt-8 border-t border-white/10 text-[10px] font-medium tracking-wider text-[#8C8C8C] uppercase">
-                    <span>© 2026 ADO CLINIC. All Rights Reserved.</span>
+                    <span>© 2026 ADO. All Rights Reserved.</span>
                     <div className="flex gap-6 mt-2 sm:mt-0">
                         <span className="cursor-pointer hover:text-white transition-colors">Privacy Policy</span>
                         <span className="cursor-pointer hover:text-white transition-colors">Terms of Use</span>

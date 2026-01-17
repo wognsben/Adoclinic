@@ -12,6 +12,8 @@ import {
   SheetClose
 } from "@/app/components/ui/sheet";
 
+import { PremiumLogo } from "@/app/components/PremiumLogo";
+
 // ----------------------------------------------------------------------
 // CURVED METEOR LINK
 // ----------------------------------------------------------------------
@@ -82,15 +84,9 @@ const MeteorLink = ({ text, isRed, to, onClick }: { text: string, isRed?: boolea
 // ----------------------------------------------------------------------
 const Logo = ({ isMobile = false }: { isMobile?: boolean }) => (
     <div className={`flex items-center ${isMobile ? '' : 'mr-10'} min-w-max relative`}>
-        {/* Use the provided logo image URL */}
-        <img 
-            src="https://drive.google.com/thumbnail?id=1HaiCyEQkF2vbt0iBRow1pwsHU9CAxFgm&sz=w1000" 
-            alt="ADO CLINIC" 
-            // Matched with Footer logo size: w-[250px]
-            className={`${isMobile ? 'w-[140px]' : 'w-[200px] lg:w-[250px]'} h-auto object-contain origin-left transition-all duration-300`}
-            // Removed filter to show original logo colors on white background
-            loading="eager"
-            decoding="sync"
+        {/* ADO Premium Logo (SVG) */}
+        <PremiumLogo 
+            className={`${isMobile ? 'h-6' : 'h-8'} w-auto text-[#2D7A7C] transition-all duration-300`} 
         />
     </div>
 );
@@ -102,7 +98,7 @@ const Utilities = ({ onOpenConsultation }: { onOpenConsultation?: () => void }) 
     <div className="flex items-center gap-6 min-w-max">
         {/* KR Button Restored */}
         <button className="flex items-center justify-center px-4 py-1.5 rounded-full border border-black/20 text-black text-[10px] font-bold tracking-widest hover:bg-black hover:text-white transition-colors">
-            KR
+            EN
         </button>
         <div className="flex items-center gap-3 text-[10px] font-bold tracking-widest text-black/90">
             <Link to="/login" className="hover:text-[#5E7A70] transition-colors">LOGIN</Link>
@@ -138,11 +134,11 @@ export function Header({ onOpenConsultation }: HeaderProps) {
   };
 
   const navItems = [
-    { text: '병원소개', path: '/' },
-    { text: '시술안내', path: '/treatments' },
-    { text: '이벤트/소식', path: '/events' },
-    { text: '칭찬/불만', path: '#' },
-    { text: '전후사진', path: '/before-after' }
+    { text: 'ABOUT', path: '/' },
+    { text: 'TREATMENTS', path: '/treatments' },
+    { text: 'EVENTS', path: '/events' },
+    { text: 'FEEDBACK', path: '#' },
+    { text: 'BEFORE & AFTER', path: '/before-after' }
   ];
 
   return (
@@ -254,7 +250,7 @@ export function Header({ onOpenConsultation }: HeaderProps) {
                  <MeteorLink 
                     key={item.text} 
                     text={item.text} 
-                    isRed={item.text === '병원소개'} 
+                    isRed={item.text === 'ABOUT'} 
                     to={item.path}
                  />
               ))}
@@ -290,7 +286,7 @@ export function Header({ onOpenConsultation }: HeaderProps) {
                                         onClick={() => setIsMobileMenuOpen(false)}
                                         className="group flex items-center justify-between py-2 border-b border-black/5 last:border-0"
                                     >
-                                        <span className={`text-lg font-medium tracking-wide ${item.text === '병원소개' ? 'text-[#991B1B]' : 'text-black/80'} group-hover:text-black transition-colors`}>
+                                        <span className={`text-lg font-medium tracking-wide ${item.text === 'ABOUT' ? 'text-[#991B1B]' : 'text-black/80'} group-hover:text-black transition-colors`}>
                                             {item.text}
                                         </span>
                                         <ChevronRight className="w-4 h-4 text-black/20 group-hover:text-black/50 group-hover:translate-x-1 transition-all" />
@@ -316,7 +312,7 @@ export function Header({ onOpenConsultation }: HeaderProps) {
 
                         {/* Mobile Menu Footer */}
                         <div className="p-6 bg-black/5 text-[10px] text-black/40 font-light tracking-wide text-center">
-                            © 2026 ADO CLINIC. All Rights Reserved.
+                            © 2026 ADO. All Rights Reserved.
                         </div>
                     </div>
                 </SheetContent>

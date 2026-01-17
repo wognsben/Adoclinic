@@ -59,7 +59,7 @@ export function BeforeAfterPage({ onHighlightBooking }: BeforeAfterPageProps) {
 
             <div className="mt-10 pt-8 border-t border-black/10 text-center">
               <p className="text-xs text-[#8C8C8C] tracking-wider">
-                ADO Clinic은 정확한 진단과 안전한 시술을 최우선으로 합니다.
+                ADO는 정확한 진단과 안전한 시술을 최우선으로 합니다.
               </p>
             </div>
           </div>

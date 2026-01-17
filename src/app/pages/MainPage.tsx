@@ -35,7 +35,7 @@ export function MainPage({ setIntroCompleted, onOpenConsultation }: MainPageProp
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[80px] bg-white/40 backdrop-blur-md rounded-full -z-10 blur-xl opacity-0 md:opacity-100" />
                     
                     <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2 font-medium">Object 01 : Smart Diagnosis</p>
-                    <p className="text-[#8C8C8C] font-serif italic text-lg">"당신의 피부를 읽다"</p>
+                    <p className="text-[#8C8C8C] font-serif italic text-lg">"Reading Your Skin"</p>
                  </div>
               </div>
            </div>

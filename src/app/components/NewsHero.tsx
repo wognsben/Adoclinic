@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { ScrambleTextPlugin } from 'gsap/ScrambleTextPlugin';
 import { motion } from 'motion/react';
+import { PremiumLogo } from "@/app/components/PremiumLogo";
 // Replaced figma:asset with Unsplash URL
 const logoImage = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/1.png?raw=true";
 
@@ -118,7 +119,7 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
             ease: [0.45, 0, 0.15, 1],
           }}
         >
-          {/* Front Side - 이벤트 · 소식 */}
+          {/* Front Side - Events News */}
           <div
             style={{
               backfaceVisibility: 'hidden',
@@ -153,25 +154,25 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
               }}
             >
               <span className="relative inline-block">
-                이벤트
+                EVENTS
                 {/* Ultra-premium multi-layer glow */}
                 <span 
                   className="absolute inset-0 blur-3xl opacity-85"
                   style={{ color: '#3D9B9E' }} // 청옥 mid
                 >
-                  이벤트
+                  EVENTS
                 </span>
                 <span 
                   className="absolute inset-0 blur-2xl opacity-65"
                   style={{ color: '#5FB5B8' }} // 청옥 main
                 >
-                  이벤트
+                  EVENTS
                 </span>
                 <span 
                   className="absolute inset-0 blur-xl opacity-45"
                   style={{ color: '#A8D5D7' }} // 청옥 light
                 >
-                  이벤트
+                  EVENTS
                 </span>
                 {/* Crisp outline */}
                 <span 
@@ -181,30 +182,30 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
                     WebkitTextStroke: '0.5px rgba(255, 255, 255, 0.98)',
                   }}
                 >
-                  이벤트
+                  EVENTS
                 </span>
               </span>
 
               <span className="relative inline-block">
-                소식
+                NEWS
                 {/* Ultra-premium multi-layer glow */}
                 <span 
                   className="absolute inset-0 blur-3xl opacity-85"
                   style={{ color: '#3D9B9E' }} // 청옥 mid
                 >
-                  소식
+                  NEWS
                 </span>
                 <span 
                   className="absolute inset-0 blur-2xl opacity-65"
                   style={{ color: '#5FB5B8' }} // 청옥 main
                 >
-                  소식
+                  NEWS
                 </span>
                 <span 
                   className="absolute inset-0 blur-xl opacity-45"
                   style={{ color: '#A8D5D7' }} // 청옥 light
                 >
-                  소식
+                  NEWS
                 </span>
                 {/* Crisp outline */}
                 <span 
@@ -214,7 +215,7 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
                     WebkitTextStroke: '0.5px rgba(255, 255, 255, 0.98)',
                   }}
                 >
-                  소식
+                  NEWS
                 </span>
               </span>
             </h1>
@@ -233,7 +234,7 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
             </motion.p>
           </div>
 
-          {/* Back Side - ADO CLINIC */}
+          {/* Back Side - ADO */}
           <div
             style={{
               backfaceVisibility: 'hidden',
@@ -264,25 +265,25 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
               }}
             >
               <span className="relative inline-block">
-                ADO CLINIC
+                ADO
                 {/* Ultra-premium multi-layer glow */}
                 <span 
                   className="absolute inset-0 blur-3xl opacity-85"
                   style={{ color: '#3D9B9E' }}
                 >
-                  ADO CLINIC
+                  ADO
                 </span>
                 <span 
                   className="absolute inset-0 blur-2xl opacity-65"
                   style={{ color: '#5FB5B8' }}
                 >
-                  ADO CLINIC
+                  ADO
                 </span>
                 <span 
                   className="absolute inset-0 blur-xl opacity-45"
                   style={{ color: '#A8D5D7' }}
                 >
-                  ADO CLINIC
+                  ADO
                 </span>
                 {/* Crisp outline */}
                 <span 
@@ -292,7 +293,7 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
                     WebkitTextStroke: '0.5px rgba(255, 255, 255, 0.98)',
                   }}
                 >
-                  ADO CLINIC
+                  ADO
                 </span>
               </span>
             </h1>
@@ -328,21 +329,17 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
           <div className="absolute inset-0 bg-gradient-to-br from-[#5FB5B8]/5 via-transparent to-[#3D9B9E]/5 pointer-events-none"></div>
           
           {/* Footer 브랜드 로고 (왼쪽) */}
-          <img 
-            src={logoImage} 
-            alt="ADO CLINIC" 
-            className="absolute left-5 top-1/2 -translate-y-1/2 h-8 object-contain"
-          />
+          <PremiumLogo className="absolute left-5 top-1/2 -translate-y-1/2 h-8 w-auto text-[#2D7A7C]" />
           
           {/* 상담 및 예약 버튼 (오른쪽) */}
           <button
             onClick={() => {
-              console.log('🎯 상담 및 예약 버튼 클릭!', { onHighlightBooking });
+              console.log('🎯 Consultation Button Clicked!', { onHighlightBooking });
               if (onHighlightBooking) {
                 onHighlightBooking();
-                console.log('✅ onHighlightBooking 호출 완료');
+                console.log('✅ onHighlightBooking called');
               } else {
-                console.error('❌ onHighlightBooking이 undefined입니다!');
+                console.error('❌ onHighlightBooking is undefined!');
               }
             }}
             className="absolute right-5 top-1/2 -translate-y-1/2 flex items-center gap-2 px-6 py-3 rounded-full bg-teal-400 hover:bg-teal-500 transition-all duration-300 hover:scale-105"
@@ -350,71 +347,71 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
               boxShadow: '0 4px 20px rgba(45, 212, 191, 0.4)',
             }}
           >
-            <span className="text-white text-xs font-bold tracking-wider whitespace-nowrap">상담 및 예약</span>
+            <span className="text-white text-xs font-bold tracking-wider whitespace-nowrap">Consultation</span>
           </button>
         </div>
       </div>
 
-      {/* 떠다니는 프로모션 텍스트들 */}
+      {/* Floating Promotion Texts */}
       <div className="promo-quote opacity-0 text-xs md:text-sm font-semibold text-[#5FB5B8]"
         style={{ textShadow: '0 2px 8px rgba(95, 181, 184, 0.4), 0 4px 16px rgba(95, 181, 184, 0.2)' }}
       >
-        신규 회원 환영 이벤트 20%
+        New Member Welcome Event 20%
       </div>
       <div className="promo-quote opacity-0 text-xs md:text-sm font-semibold text-[#3D9B9E]"
         style={{ textShadow: '0 2px 8px rgba(61, 155, 158, 0.4), 0 4px 16px rgba(61, 155, 158, 0.2)' }}
       >
-        피부 진단 무료 + 상담
+        Free Skin Diagnosis + Consultation
       </div>
       <div className="promo-quote opacity-0 text-xs md:text-sm font-semibold text-[#5FB5B8]"
         style={{ textShadow: '0 2px 8px rgba(95, 181, 184, 0.4), 0 4px 16px rgba(95, 181, 184, 0.2)' }}
       >
-        리프팅 특별가 진행중
+        Lifting Special Price in Progress
       </div>
       <div className="promo-quote opacity-0 text-xs md:text-sm font-semibold text-[#A8D5D7]"
         style={{ textShadow: '0 2px 8px rgba(168, 213, 215, 0.4), 0 4px 16px rgba(168, 213, 215, 0.2)' }}
       >
-        VIP 회원 전용 혜택
+        VIP Member Exclusive Benefits
       </div>
       <div className="promo-quote opacity-0 text-xs md:text-sm font-semibold text-[#2D7A7C]"
         style={{ textShadow: '0 2px 8px rgba(45, 122, 124, 0.4), 0 4px 16px rgba(45, 122, 124, 0.2)' }}
       >
-        봄 맞이 계절 한정 이벤트
+        Seasonal Spring Event
       </div>
       <div className="promo-quote opacity-0 text-xs md:text-sm font-semibold text-[#5FB5B8]"
         style={{ textShadow: '0 2px 8px rgba(95, 181, 184, 0.4), 0 4px 16px rgba(95, 181, 184, 0.2)' }}
       >
-        프리미엄 케어 체험단 모집
+        Premium Care Experience Group Recruitment
       </div>
       <div className="promo-quote opacity-0 text-xs md:text-sm font-semibold text-[#3D9B9E]"
         style={{ textShadow: '0 2px 8px rgba(61, 155, 158, 0.4), 0 4px 16px rgba(61, 155, 158, 0.2)' }}
       >
-        레이저 토닝 1+1 이벤트
+        Laser Toning 1+1 Event
       </div>
       <div className="promo-quote opacity-0 text-xs md:text-sm font-semibold text-[#A8D5D7]"
         style={{ textShadow: '0 2px 8px rgba(168, 213, 215, 0.4), 0 4px 16px rgba(168, 213, 215, 0.2)' }}
       >
-        첫 방문 고객 특별 할인
+        First Visit Special Discount
       </div>
       <div className="promo-quote opacity-0 text-xs md:text-sm font-semibold text-[#2D7A7C]"
         style={{ textShadow: '0 2px 8px rgba(45, 122, 124, 0.4), 0 4px 16px rgba(45, 122, 124, 0.2)' }}
       >
-        친구 추천 시 양쪽 혜택
+        Refer a Friend, Both Get Benefits
       </div>
       <div className="promo-quote opacity-0 text-xs md:text-sm font-semibold text-[#5FB5B8]"
         style={{ textShadow: '0 2px 8px rgba(95, 181, 184, 0.4), 0 4px 16px rgba(95, 181, 184, 0.2)' }}
       >
-        월간 베스트 시술 공개
+        Monthly Best Procedures Revealed
       </div>
       <div className="promo-quote opacity-0 text-xs md:text-sm font-semibold text-[#3D9B9E]"
         style={{ textShadow: '0 2px 8px rgba(61, 155, 158, 0.4), 0 4px 16px rgba(61, 155, 158, 0.2)' }}
       >
-        피부 타입 맞춤 패키지
+        Skin Type Custom Package
       </div>
       <div className="promo-quote opacity-0 text-xs md:text-sm font-semibold text-[#A8D5D7]"
         style={{ textShadow: '0 2px 8px rgba(168, 213, 215, 0.4), 0 4px 16px rgba(168, 213, 215, 0.2)' }}
       >
-        주말 특별 예약 이벤트
+        Weekend Special Reservation Event
       </div>
 
       {/* 하단 오브젝트 라벨 */}
@@ -440,7 +437,7 @@ export function NewsHero({ onHighlightBooking }: NewsHeroProps) {
             `,
           }}
         >
-          "가장 특별한 당신을 위한 순간"
+          "A Moment for the Most Special You"
         </p>
       </div>
     </section>

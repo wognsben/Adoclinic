@@ -48,8 +48,8 @@ export function Promotions() {
                     Happy<br/>Hour<span className="text-[#991B1B] text-2xl align-top">+</span>
                   </h3>
                   <p className="text-[#525252] text-sm md:text-base font-light max-w-xs">
-                    수, 목 타임어택 해피아워<br/>
-                    정해진 시간에 누리는 특별한 혜택
+                    Wed, Thu Time Attack Happy Hour<br/>
+                    Special benefits enjoyed at designated times
                   </p>
                </div>
             </div>
@@ -79,8 +79,8 @@ export function Promotions() {
                      New Standard
                    </h3>
                    <p className="text-white/70 text-sm md:text-base font-light">
-                     새해, 피부의 기준을 바꾸다<br/>
-                     프리미엄 리프팅 패키지
+                     New Year, Changing the Standard of Skin<br/>
+                     Premium Lifting Package
                    </p>
                 </div>
              </div>
@@ -93,7 +93,7 @@ export function Promotions() {
     {/* Gallery Caption for Promotions */}
     <div className="w-full bg-white py-16 text-center border-t border-[#1A1A1A]/10">
       <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2">Object 06 : Seasonal Benefits</p>
-      <p className="text-[#8C8C8C] font-serif italic text-lg">"특별한 혜택"</p>
+      <p className="text-[#8C8C8C] font-serif italic text-lg">"Special Benefits"</p>
     </div>
     </>
   );

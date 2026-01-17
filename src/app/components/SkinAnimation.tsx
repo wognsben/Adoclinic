@@ -97,7 +97,7 @@ export function SkinAnimation() {
               <Play className="w-4 h-4 fill-white" />
            </button>
            <div>
-              <p className="text-xs font-mono uppercase opacity-70 mb-1">ADO Clinical Movie</p>
+              <p className="text-xs font-mono uppercase opacity-70 mb-1">ADO Movie</p>
               <p className="text-lg font-serif italic">"Texture of Life"</p>
            </div>
         </div>

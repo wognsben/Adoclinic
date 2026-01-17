@@ -166,9 +166,9 @@ export const FloatingToolbar = forwardRef<FloatingToolbarRef, FloatingToolbarPro
     };
 
     const tools = [
-      { name: "카카오톡 채널 상담하기", icon: Icons.Kakao, customBg: "bg-white" },
-      { name: "네이버 예약하기", icon: Icons.NaverBooking, action: onOpenConsultation, customBg: "bg-white" },
-      { name: "네이버 블로그", icon: Icons.NaverBlog, customBg: "bg-white" },
+      { name: "Kakao Talk Consultation", icon: Icons.Kakao, customBg: "bg-white" },
+      { name: "Naver Booking", icon: Icons.NaverBooking, action: onOpenConsultation, customBg: "bg-white" },
+      { name: "Naver Blog", icon: Icons.NaverBlog, customBg: "bg-white" },
       { name: "Instagram", icon: Icons.Instagram, customBg: "bg-white" },
       { name: "Threads", icon: Icons.Threads, customBg: "bg-white" },
       { name: "Top", icon: Icons.Top, action: scrollToTop },

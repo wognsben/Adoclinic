@@ -6,26 +6,26 @@ export function ProcessInfo() {
     {
       step: "01",
       title: "Diagnosis",
-      korTitle: "본질의 발견",
-      desc: "Mark-Vu 정밀 진단을 통해 피부 깊은 곳의 문제와 가능성을 동시에 탐색합니다."
+      korTitle: "Discovery of Essence",
+      desc: "Exploring problems and possibilities deep within the skin through Mark-Vu precision diagnosis."
     },
     {
       step: "02",
       title: "Design",
-      korTitle: "미학적 설계",
-      desc: "단순한 시술이 아닌, 얼굴의 골격과 피부결을 고려한 ADO만의 화룡점정 포인트를 설계합니다."
+      korTitle: "Aesthetic Design",
+      desc: "Designing ADO's unique finishing touch points considering facial structure and skin texture, not just a simple procedure."
     },
     {
       step: "03",
       title: "Procedure",
-      korTitle: "정교한 시술",
-      desc: "대표원장의 집도 하에, 최소한의 개입으로 최대한의 변화를 이끌어냅니다."
+      korTitle: "Precise Procedure",
+      desc: "Performed by the representative director, inducing maximal change with minimal intervention."
     },
     {
       step: "04",
       title: "Maintenance",
-      korTitle: "지속의 미학",
-      desc: "시술 직후의 아름다움이 일상에서도 지속되도록 체계적인 애프터 케어를 제공합니다."
+      korTitle: "Aesthetics of Sustainability",
+      desc: "Providing systematic aftercare so that the beauty immediately after the procedure continues in daily life."
     }
   ];
 
@@ -86,7 +86,7 @@ export function ProcessInfo() {
       {/* Gallery Caption */}
       <div className="w-full bg-white py-16 text-center border-t border-[#1A1A1A]/10">
         <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2">Object 04.5 : The Process</p>
-        <p className="text-[#8C8C8C] font-serif italic text-lg">"본질에서 완성으로"</p>
+        <p className="text-[#8C8C8C] font-serif italic text-lg">"From Essence to Perfection"</p>
       </div>
     </section>
   );

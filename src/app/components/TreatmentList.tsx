@@ -11,129 +11,129 @@ import {
 
 // Process Steps Data
 const processSteps = [
-  { step: "01", title: "Diagnosis", korTitle: "본질의 발견", desc: "Mark-Vu 정밀 진단을 통해 피부 깊은 곳의 문제와 가능성을 동시에 탐색합니다." },
-  { step: "02", title: "Design", korTitle: "미학적 설계", desc: "단순한 시술이 아닌, 얼굴의 골격과 피부결을 고려한 ADO만의 화룡점정 포인트를 설계합니다." },
-  { step: "03", title: "Procedure", korTitle: "정교한 시술", desc: "대표원장의 집도 하에, 최소한의 개입으로 최대한의 변화를 이끌어냅니다." },
-  { step: "04", title: "Maintenance", korTitle: "지속의 미학", desc: "시술 직후의 아름다움이 일상에서도 지속되도록 체계적인 애프터 케어를 제공합니다." }
+  { step: "01", title: "Diagnosis", korTitle: "Discovery of Essence", desc: "Exploring problems and possibilities deep within the skin through Mark-Vu precision diagnosis." },
+  { step: "02", title: "Design", korTitle: "Aesthetic Design", desc: "Designing ADO's unique finishing touch points considering facial structure and skin texture, not just a simple procedure." },
+  { step: "03", title: "Procedure", korTitle: "Precise Procedure", desc: "Performed by the representative director, inducing maximal change with minimal intervention." },
+  { step: "04", title: "Maintenance", korTitle: "Aesthetics of Sustainability", desc: "Providing systematic aftercare so that the beauty immediately after the procedure continues in daily life." }
 ];
 
 // Enhanced Data Structure with Full Categories
 const categories = [
   {
     id: 'event',
-    title: '오픈 런칭 이벤트',
-    description: 'ADO Clinic의 시작을 함께하는 특별한 혜택',
+    title: 'Grand Opening Event',
+    description: 'Special benefits to celebrate the beginning of ADO',
     items: [
       { 
         id: 'ev-1',
-        name: '오픈 기념 풀페이스 패키지', 
+        name: 'Grand Opening Package', 
         enName: 'Grand Opening Package',
-        desc: '리프팅과 스킨부스터를 한 번에 경험하는 토탈 솔루션', 
-        duration: '90분',
-        downtime: '1-2일',
-        effect: '즉각적',
-        sessions: '1회 한정',
-        recommended: '첫 방문 고객',
+        desc: 'Total solution to experience lifting and skin boosters at once', 
+        duration: '90 mins',
+        downtime: '1-2 days',
+        effect: 'Immediate',
+        sessions: 'Limit 1',
+        recommended: 'First-time visitors',
         protocol: "Signature Welcome Protocol",
         options: [
-          { label: '풀페이스 토탈 케어 (50% OFF)', price: '990,000' }
+          { label: 'Full Face Total Care (50% OFF)', price: '990,000' }
         ]
       }
     ]
   },
   {
     id: 'stem',
-    title: '줄기세포',
-    description: '재생 의학의 정점, 근원적인 안티에이징',
+    title: 'Stem Cell',
+    description: 'The pinnacle of regenerative medicine, fundamental anti-aging',
     items: [
       { 
         id: 'stem-1',
-        name: 'SC-Max 줄기세포 테라피', 
+        name: 'SC-Max Stem Cell Therapy', 
         enName: 'Stem Cell Therapy',
-        desc: '고농축 줄기세포 배양액을 진피층 깊숙이 전달하여 세포 재생 유도', 
-        duration: '60분',
-        downtime: '당일 복귀',
-        effect: '6-12개월',
-        sessions: '3회 권장',
-        recommended: '노화 피부, 흉터',
+        desc: 'Delivering highly concentrated stem cell culture fluid deep into the dermis to induce cell regeneration', 
+        duration: '60 mins',
+        downtime: 'Same day',
+        effect: '6-12 months',
+        sessions: '3 sessions rec.',
+        recommended: 'Aging skin, scars',
         protocol: "Cellular Regeneration",
         options: [
-          { label: '1회 시술', price: '1,500,000' },
-          { label: '3회 패키지', price: '4,000,000' }
+          { label: '1 Session', price: '1,500,000' },
+          { label: '3 Sessions Package', price: '4,000,000' }
         ]
       }
     ]
   },
   {
     id: 'injection',
-    title: '보톡스/윤곽주사',
-    description: '자연스러운 라인을 위한 정교한 터치',
+    title: 'Botox/Contour',
+    description: 'Precise touch for natural lines',
     items: [
       { 
         id: 'botox-1',
-        name: '코어톡스 (내성없는 보톡스)', 
+        name: 'Coretox (Resistance-free)', 
         enName: 'Coretox',
-        desc: '복합 단백질을 제거하여 내성 걱정 없이 안전한 주름 개선', 
-        duration: '10분',
-        downtime: '즉시 복귀',
-        effect: '3-6개월',
-        sessions: '4-6개월 간격',
-        recommended: '표정 주름',
+        desc: 'Safe wrinkle improvement without worry of resistance by removing complex proteins', 
+        duration: '10 mins',
+        downtime: 'Immediate',
+        effect: '3-6 months',
+        sessions: 'Every 4-6 mos',
+        recommended: 'Expression lines',
         protocol: "Precision Targeting",
         options: [
-          { label: '이마/미간/눈가 (택1)', price: '79,000' },
-          { label: '턱 보톡스 (50u)', price: '120,000' }
+          { label: 'Forehead/Glabella/Eye corners (Choose 1)', price: '79,000' },
+          { label: 'Jaw Botox (50u)', price: '120,000' }
         ]
       },
       { 
         id: 'face-1',
-        name: 'ADO 캣주사 (윤곽)', 
+        name: 'ADO Cat Injection (Contour)', 
         enName: 'Contour Injection',
-        desc: '불필요한 지방을 분해하고 림프 순환을 촉진하여 날렵한 라인 완성', 
-        duration: '15분',
-        downtime: '즉시 복귀',
-        effect: '반영구적',
-        sessions: '3회 권장',
-        recommended: '이중턱, 심부볼',
+        desc: 'Decomposes unnecessary fat and promotes lymph circulation to complete a sharp line', 
+        duration: '15 mins',
+        downtime: 'Immediate',
+        effect: 'Semi-permanent',
+        sessions: '3 sessions rec.',
+        recommended: 'Double chin, jowls',
         protocol: "Fat Lysis System",
         options: [
-          { label: '1회 (10cc)', price: '99,000' },
-          { label: '3회 패키지', price: '270,000' }
+          { label: '1 Session (10cc)', price: '99,000' },
+          { label: '3 Sessions Package', price: '270,000' }
         ]
       }
     ]
   },
   {
     id: 'lifting',
-    title: '탄력/리프팅',
-    description: '중력을 거스르는 탄력의 과학',
+    title: 'Lifting',
+    description: 'Science of elasticity defying gravity',
     items: [
       { 
         id: 'sof',
-        name: '소프웨이브', 
+        name: 'Sofwave™', 
         enName: 'Sofwave™',
-        desc: '비수술적 리프팅의 새로운 기준, 진피 상부층 집중 타겟팅', 
-        duration: '45-60분',
-        downtime: '당일 복귀',
-        effect: '12-18개월',
-        sessions: '1회 또는 6개월 후 재시술',
-        recommended: '30-60대, 잔주름 개선',
+        desc: 'New standard for non-surgical lifting, intensive targeting of upper dermis', 
+        duration: '45-60 mins',
+        downtime: 'Same day',
+        effect: '12-18 months',
+        sessions: '1 session or 6 mos',
+        recommended: '30s-60s, fine wrinkles',
         protocol: "ADO 3-Layer Lifting Protocol™",
         options: [
-          { label: '풀페이스 (200 Shot)', price: '2,200,000' },
-          { label: '풀페이스 + 넥 (300 Shot)', price: '3,000,000' }
+          { label: 'Full Face (200 Shot)', price: '2,200,000' },
+          { label: 'Full Face + Neck (300 Shot)', price: '3,000,000' }
         ]
       },
       { 
         id: 'ulthera',
-        name: '울쎄라', 
+        name: 'Ultherapy', 
         enName: 'Ultherapy',
-        desc: '초음파 에너지를 이용해 근막층(SMAS)부터 끌어올리는 강력한 리프팅', 
-        duration: '60-90분',
-        downtime: '당일 복귀 가능',
-        effect: '12-24개월',
-        sessions: '1회 또는 12개월 후',
-        recommended: '40-60대, 심한 처짐',
+        desc: 'Powerful lifting pulling up from the SMAS layer using ultrasound energy', 
+        duration: '60-90 mins',
+        downtime: 'Same day',
+        effect: '12-24 months',
+        sessions: '1 session or 12 mos',
+        recommended: '40s-60s, sagging',
         protocol: "SMAS Targeting System",
         options: [
           { label: '300 Shot', price: '1,500,000' },
@@ -143,253 +143,253 @@ const categories = [
       },
       { 
         id: 'titanium',
-        name: '티타늄 리프팅', 
+        name: 'Titanium Lifting', 
         enName: 'Titanium Lifting',
-        desc: '세 가지 파장을 동시에 조사하여 즉각적인 브라이트닝과 타이트닝 효과', 
-        duration: '30-40분',
-        downtime: '즉시 복귀',
-        effect: '6-9개월',
-        sessions: '3회 패키지 권장',
-        recommended: '20-40대, 피부 결 개선',
+        desc: 'Immediate brightening and tightening effect by irradiating three wavelengths simultaneously', 
+        duration: '30-40 mins',
+        downtime: 'Immediate',
+        effect: '6-9 months',
+        sessions: '3 sessions rec.',
+        recommended: '20s-40s, skin texture',
         protocol: "Instant Brightening Protocol",
         options: [
-          { label: '1회 시술', price: '990,000' },
-          { label: '3회 패키지', price: '2,700,000' }
+          { label: '1 Session', price: '990,000' },
+          { label: '3 Sessions Package', price: '2,700,000' }
         ]
       }
     ]
   },
   {
     id: 'hair-w',
-    title: '여성 레이저 제모',
-    description: '매끄러운 피부를 위한 프리미엄 제모',
+    title: 'Hair Removal (W)',
+    description: 'Premium hair removal for smooth skin',
     items: [
       { 
         id: 'hw-1',
-        name: '아포지 엘리트 플러스', 
+        name: 'Apogee Elite Plus', 
         enName: 'Apogee Elite Plus',
-        desc: '비접촉식 공중타격 방식으로 위생적이고 통증이 적은 프리미엄 제모', 
-        duration: '10-30분',
-        downtime: '즉시 복귀',
-        effect: '반영구적',
-        sessions: '5-10회',
-        recommended: '모든 여성',
+        desc: 'Hygienic and less painful premium hair removal with non-contact air cooling', 
+        duration: '10-30 mins',
+        downtime: 'Immediate',
+        effect: 'Semi-permanent',
+        sessions: '5-10 sessions',
+        recommended: 'All women',
         protocol: "Air-Cooling System",
         options: [
-          { label: '겨드랑이 5회', price: '50,000' },
-          { label: '종아리 5회', price: '250,000' }
+          { label: 'Armpit 5 sessions', price: '50,000' },
+          { label: 'Calves 5 sessions', price: '250,000' }
         ]
       }
     ]
   },
   {
     id: 'hair-m',
-    title: '남성 레이저 제모',
-    description: '깔끔한 인상을 완성하는 남성 전용 제모',
+    title: 'Hair Removal (M)',
+    description: 'Men\'s dedicated hair removal',
     items: [
       { 
         id: 'hm-1',
-        name: '젠틀맥스 프로 플러스', 
+        name: 'GentleMax Pro Plus', 
         enName: 'GentleMax Pro Plus',
-        desc: '굵고 깊은 남성 털에 최적화된 강력한 듀얼 파장 레이저', 
-        duration: '20분',
-        downtime: '약간의 붉은기',
-        effect: '반영구적',
-        sessions: '5-10회',
-        recommended: '매일 면도가 번거로운 남성',
+        desc: 'Powerful dual wavelength laser optimized for thick and deep male hair', 
+        duration: '20 mins',
+        downtime: 'Slight redness',
+        effect: 'Semi-permanent',
+        sessions: '5-10 sessions',
+        recommended: 'Daily shaving hassle',
         protocol: "Dual Wavelength",
         options: [
-          { label: '인중+턱수염 5회', price: '350,000' },
-          { label: '얼굴 전체 5회', price: '550,000' }
+          { label: 'Philtrum + Beard 5 sessions', price: '350,000' },
+          { label: 'Full Face 5 sessions', price: '550,000' }
         ]
       }
     ]
   },
   {
     id: 'skin',
-    title: '콜라겐/스킨부스터',
-    description: '피부 본연의 빛을 깨우는 에너지',
+    title: 'Skin Booster',
+    description: 'Energy awakening skin\'s natural light',
     items: [
       { 
         id: 'rejuran',
-        name: '리쥬란 힐러', 
+        name: 'Rejuran Healer', 
         enName: 'Rejuran Healer',
-        desc: 'PN 성분으로 손상된 피부 내부의 생리적 조건을 개선하여 건강한 피부로', 
-        duration: '30분',
-        downtime: '2-3일 미세 붓기',
-        effect: '6-12개월',
-        sessions: '4주 간격 3-4회',
-        recommended: '전 연령, 피부 재생',
+        desc: 'improving physiological conditions inside damaged skin with PN ingredients', 
+        duration: '30 mins',
+        downtime: '2-3 days swelling',
+        effect: '6-12 months',
+        sessions: '3-4 sessions',
+        recommended: 'Skin regeneration',
         protocol: "Dermal Regeneration System",
         options: [
-          { label: '2cc (눈가/나비존)', price: '350,000' },
-          { label: '4cc (풀페이스)', price: '650,000' }
+          { label: '2cc (Eye/Butterfly)', price: '350,000' },
+          { label: '4cc (Full Face)', price: '650,000' }
         ]
       },
       { 
         id: 'juve-v',
-        name: '쥬베룩 볼륨', 
+        name: 'Juvelook Volume', 
         enName: 'Juvelook Volume',
-        desc: '자가 콜라겐 생성을 유도하여 자연스러운 볼륨감을 형성', 
-        duration: '45분',
-        downtime: '1-2일',
-        effect: '12-18개월',
-        sessions: '3회 패키지',
-        recommended: '볼륨 부족, 패인 흉터',
+        desc: 'Inducing self-collagen production to form natural volume', 
+        duration: '45 mins',
+        downtime: '1-2 days',
+        effect: '12-18 months',
+        sessions: '3 sessions',
+        recommended: 'Volume deficiency',
         protocol: "Volume Matrix",
         options: [
-          { label: '1병 (6cc)', price: '600,000' },
-          { label: '3회 패키지', price: '1,500,000' }
+          { label: '1 Vial (6cc)', price: '600,000' },
+          { label: '3 Sessions Package', price: '1,500,000' }
         ]
       },
     ]
   },
   {
     id: 'pore',
-    title: '모공/여드름/스킨케어',
-    description: '깨끗하고 매끄러운 피부결 완성',
+    title: 'Pore/Acne',
+    description: 'Completing clean and smooth skin',
     items: [
       { 
         id: 'secret',
-        name: '시크릿 RF', 
+        name: 'Secret RF', 
         enName: 'Secret RF',
-        desc: '미세 바늘 고주파로 모공 축소와 흉터 개선을 동시에', 
-        duration: '40분',
-        downtime: '1-2일 붉은기',
-        effect: '지속적 개선',
-        sessions: '3-5회',
-        recommended: '넓은 모공, 여드름 흉터',
+        desc: 'Simultaneous pore reduction and scar improvement with microneedle RF', 
+        duration: '40 mins',
+        downtime: '1-2 days redness',
+        effect: 'Continuous',
+        sessions: '3-5 sessions',
+        recommended: 'Pores, scars',
         protocol: "Fractional RF",
         options: [
-          { label: '나비존 집중 케어', price: '200,000' },
-          { label: '풀페이스', price: '350,000' }
+          { label: 'Butterfly Zone', price: '200,000' },
+          { label: 'Full Face', price: '350,000' }
         ]
       },
       { 
         id: 'ldm',
-        name: 'LDM 물방울 리프팅', 
+        name: 'LDM Triple', 
         enName: 'LDM Triple',
-        desc: '고밀도 초음파로 피부 속 수분을 끌어올려 트러블 진정', 
-        duration: '20분',
-        downtime: '없음',
-        effect: '즉각적 진정',
-        sessions: '주 1회',
-        recommended: '예민한 피부, 건조함',
+        desc: 'Calming troubles by pulling up moisture inside the skin with high-density ultrasound', 
+        duration: '20 mins',
+        downtime: 'None',
+        effect: 'Immediate',
+        sessions: 'Weekly',
+        recommended: 'Sensitive, dry',
         protocol: "Moisture Balance",
         options: [
-          { label: '1회 관리', price: '80,000' },
-          { label: '10회 패키지', price: '700,000' }
+          { label: '1 Session', price: '80,000' },
+          { label: '10 Sessions Package', price: '700,000' }
         ]
       }
     ]
   },
   {
     id: 'tone',
-    title: '기미/미백/홍조',
-    description: '티 없이 맑고 투명한 피부',
+    title: 'Whitening',
+    description: 'Clear and transparent skin',
     items: [
       { 
         id: 'pico',
-        name: '피코 슈어 토닝', 
+        name: 'PicoSure Toning', 
         enName: 'PicoSure Toning',
-        desc: '기존 레이저보다 1000배 빠른 조사 속도로 색소 입자를 잘게 파괴', 
-        duration: '15분',
-        downtime: '즉시 복귀',
-        effect: '점진적 개선',
-        sessions: '10회 권장',
-        recommended: '기미, 잡티, 칙칙함',
+        desc: 'Breaking pigment particles finely with 1000x faster speed than existing lasers', 
+        duration: '15 mins',
+        downtime: 'Immediate',
+        effect: 'Progressive',
+        sessions: '10 sessions rec.',
+        recommended: 'Blemishes, dullness',
         protocol: "Pico Second Tech",
         options: [
-          { label: '1회 체험', price: '99,000' },
-          { label: '10회 패키지', price: '890,000' }
+          { label: '1 Trial Session', price: '99,000' },
+          { label: '10 Sessions Package', price: '890,000' }
         ]
       }
     ]
   },
   {
     id: 'body',
-    title: '바디/체형관리',
-    description: '균형 잡힌 바디 라인 디자인',
+    title: 'Body Contouring',
+    description: 'Balanced body line design',
     items: [
       { 
         id: 'inmode-body',
-        name: '인모드 바디 FX', 
+        name: 'Inmode Body FX', 
         enName: 'Inmode Body FX',
-        desc: '고주파 열에너지와 전기자극으로 불필요한 지방 세포 사멸', 
-        duration: '30분/부위',
-        downtime: '멍 3-5일',
-        effect: '반영구적',
-        sessions: '3-5회',
-        recommended: '복부, 허벅지 지방',
+        desc: 'Apoptosis of unnecessary fat cells with RF heat energy and electrical stimulation', 
+        duration: '30 mins/area',
+        downtime: 'Bruising 3-5 days',
+        effect: 'Semi-permanent',
+        sessions: '3-5 sessions',
+        recommended: 'Abdomen, thigh fat',
         protocol: "Fat Apoptosis",
         options: [
-          { label: '1부위 1회', price: '150,000' },
-          { label: '복부 전체', price: '300,000' }
+          { label: '1 Area 1 Session', price: '150,000' },
+          { label: 'Full Abdomen', price: '300,000' }
         ]
       }
     ]
   },
   {
     id: 'filler',
-    title: '필러',
-    description: '입체감을 살려주는 볼륨 디자인',
+    title: 'Filler',
+    description: 'Volume design reviving 3D',
     items: [
       { 
         id: 'belotero',
-        name: '벨로테로 (독일산)', 
+        name: 'Belotero (Germany)', 
         enName: 'Belotero',
-        desc: '피부 밀착력이 우수하여 이물감 없이 자연스러운 프리미엄 필러', 
-        duration: '20분',
-        downtime: '약간의 붓기',
-        effect: '12-18개월',
-        sessions: '필요 시 리터치',
-        recommended: '팔자주름, 앞볼',
+        desc: 'Premium filler that is natural without foreign body sensation due to excellent skin adhesion', 
+        duration: '20 mins',
+        downtime: 'Slight swelling',
+        effect: '12-18 months',
+        sessions: 'Retouch if needed',
+        recommended: 'Nasolabial, cheeks',
         protocol: "CPM Technology",
         options: [
           { label: '1cc', price: '350,000' },
-          { label: '3cc 패키지', price: '990,000' }
+          { label: '3cc Package', price: '990,000' }
         ]
       }
     ]
   },
   {
     id: 'iv',
-    title: '영양주사',
-    description: '내면에서 차오르는 활력',
+    title: 'IV Therapy',
+    description: 'Vitality filling up from within',
     items: [
       { 
         id: 'white',
-        name: '백옥주사 (글루타치온)', 
+        name: 'Glutathione IV', 
         enName: 'Glutathione IV',
-        desc: '강력한 항산화 성분으로 멜라닌 생성을 억제하고 간 해독 도움', 
-        duration: '20-30분',
-        downtime: '없음',
-        effect: '피부 톤 개선',
-        sessions: '주 1-2회',
-        recommended: '피로 회복, 미백',
+        desc: 'Inhibiting melanin production and helping liver detoxification with powerful antioxidants', 
+        duration: '20-30 mins',
+        downtime: 'None',
+        effect: 'Tone improvement',
+        sessions: '1-2/week',
+        recommended: 'Fatigue, whitening',
         protocol: "Antioxidant Boost",
         options: [
-          { label: '1회', price: '50,000' },
-          { label: '10회 패키지', price: '450,000' }
+          { label: '1 Session', price: '50,000' },
+          { label: '10 Sessions Package', price: '450,000' }
         ]
       }
     ]
   },
   {
     id: 'director',
-    title: '대표원장 시술',
-    description: 'ADO Clinic만의 시그니처, 장인 정신의 정수',
+    title: 'Director\'s Choice',
+    description: 'ADO Signature, Essence of Craft',
     items: [
       { 
         id: 'sign-lift',
-        name: 'ADO 시그니처 풀페이스 리프팅', 
+        name: 'ADO Signature Full-Face Lifting', 
         enName: 'Signature Full-Face Lifting',
-        desc: '울쎄라 + 써마지 + 스킨부스터를 결합한 대표원장 1:1 맞춤 설계', 
-        duration: '120분',
-        downtime: '1-2일',
-        effect: '1년 이상',
-        sessions: '연 1회',
-        recommended: '토탈 안티에이징',
+        desc: 'Representative director 1:1 custom design combining Ulthera + Thermage + Skin Booster', 
+        duration: '120 mins',
+        downtime: '1-2 days',
+        effect: '1 year+',
+        sessions: 'Annually',
+        recommended: 'Total anti-aging',
         protocol: "Masterpiece Protocol",
         options: [
           { label: 'Signature Standard', price: '3,500,000' },
@@ -433,8 +433,8 @@ export function TreatmentList({ onHighlightBooking }: { onHighlightBooking?: () 
              Treatment Menu
            </h2>
            <p className="text-[#57534E] text-sm md:text-base font-light tracking-wide max-w-xl mx-auto leading-relaxed">
-             당신의 고유한 아름다움을 위한 맞춤형 솔루션.<br/>
-             가장 부드럽고 섬세한 터치로 완성합니다.
+             Customized solutions for your unique beauty.<br/>
+             Completed with the softest and most delicate touch.
            </p>
         </div>
 

@@ -4,141 +4,112 @@ import { motion, AnimatePresence } from 'motion/react';
 export function SkinAnalysis() {
   const [isScanning, setIsScanning] = useState(true);
 
-  // Cycle the animation: Scan (6s) -> Show Result (10s) -> Reset
+  // Cycle the animation: Scan (5s) -> Show Result (10s) -> Reset
   useEffect(() => {
     const cycle = () => {
       setIsScanning(true);
-      setTimeout(() => setIsScanning(false), 6000); // Stop scanning after 6s
+      setTimeout(() => setIsScanning(false), 5000); 
     };
     
-    cycle(); // Start immediately
-    const interval = setInterval(cycle, 16000); // Full cycle every 16s
+    cycle(); 
+    const interval = setInterval(cycle, 15000); 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="relative w-full max-w-[500px] aspect-[3/4] mx-auto">
+    // Main Container
+    <div className="relative w-full max-w-[900px] mx-auto flex items-center justify-center py-20 lg:py-10">
       
       {/* ---------------------------------------------------------- */}
-      {/* LAYER 1: The Tablet Device (Clipped Content)               */}
+      {/* LAYER 1: The Tablet Device (Centered)                      */}
       {/* ---------------------------------------------------------- */}
-      <div className="absolute inset-0 bg-black rounded-[32px] shadow-2xl overflow-hidden border border-white/20 z-10 ring-1 ring-black/50">
+      <div className="relative w-[340px] md:w-[380px] aspect-[3/4] rounded-[32px] shadow-[0_30px_60px_-10px_rgba(0,0,0,0.6)] overflow-hidden border border-white/20 z-10 ring-4 ring-black/80 transform-gpu bg-black">
         
-        {/* Top Camera Unit */}
-        <div className="absolute top-4 left-1/2 -translate-x-1/2 flex gap-3 z-40 p-2 bg-black/20 backdrop-blur-md rounded-full border border-white/5">
-            <div className="w-2 h-2 rounded-full bg-[#1a1b26] ring-1 ring-white/20"></div>
-            <div className="w-2 h-2 rounded-full bg-[#1a1b26] ring-1 ring-white/20"></div>
+        {/* Dynamic Island Camera */}
+        <div className="absolute top-5 left-1/2 -translate-x-1/2 flex items-center justify-center gap-3 z-40 px-4 py-1.5 bg-black rounded-full ring-1 ring-white/10 shadow-lg">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#222] ring-1 ring-white/20 animate-pulse"></div>
+            <div className="w-10 h-1.5 bg-gray-800 rounded-full flex items-center px-1">
+                 <div className="w-1 h-1 bg-green-500 rounded-full animate-ping" />
+            </div>
         </div>
 
-        {/* Screen Content (Video & Internal UI) */}
+        {/* Screen Content */}
         <div className="relative w-full h-full bg-gray-900 overflow-hidden">
           
-          {/* Vimeo Video Layer */}
-          <div className="absolute inset-0 w-full h-full z-0 pointer-events-none bg-gray-900"> 
+          {/* Video Layer */}
+          <div className="absolute inset-0 w-full h-full z-0 pointer-events-none bg-gray-950"> 
             <iframe 
                 src="https://player.vimeo.com/video/1153326185?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1" 
                 frameBorder="0" 
                 allow="autoplay; fullscreen; picture-in-picture; encrypted-media" 
-                className="absolute inset-0 w-[150%] h-[150%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 object-cover opacity-90"
+                className="absolute inset-0 w-[170%] h-[170%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 object-cover opacity-90 mix-blend-screen" 
                 title="Skin Analysis Video"
                 style={{ pointerEvents: 'none' }}
             ></iframe>
-            {/* Dark Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70 z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40 z-10" />
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-15 mix-blend-overlay z-10"></div>
           </div>
 
-          {/* Internal UI Layer (Text, Buttons - inside screen) */}
-          <div className="absolute inset-0 z-20 flex flex-col items-center justify-between py-10 px-8">
-             
-             {/* Header Status */}
-             <div className="mt-6 text-center w-full relative z-30">
+          {/* Internal Screen UI */}
+          <div className="absolute inset-0 z-20 flex flex-col justify-between p-6">
+             <div className="mt-8 text-center w-full relative z-30">
                 <AnimatePresence mode='wait'>
                     {isScanning ? (
                         <motion.div
-                            key="scanning-text"
-                            initial={{ opacity: 0, filter: "blur(10px)" }}
-                            animate={{ opacity: 1, filter: "blur(0px)" }}
-                            exit={{ opacity: 0, filter: "blur(10px)" }}
-                            className="flex flex-col items-center"
+                            key="scanning"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0, filter: "blur(5px)" }}
                         >
-                            <div className="flex items-center gap-2 mb-3">
-                                <span className="relative flex h-2 w-2">
-                                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                                  <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
-                                </span>
-                                <p className="text-teal-400/90 text-[10px] font-bold tracking-[0.2em] uppercase">Mark-Vu Analysis</p>
+                            <div className="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-black/40 border border-teal-500/30 backdrop-blur-md">
+                                <div className="w-1.5 h-1.5 bg-teal-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(45,212,191,1)]" />
+                                <span className="text-teal-300 text-[9px] font-bold tracking-[0.2em]">SCANNING</span>
                             </div>
-                            <h3 className="text-2xl font-light text-white leading-tight">
-                                피부 깊은 곳의<br/>
-                                <span className="font-serif italic">본질을 탐색합니다</span>
-                            </h3>
                         </motion.div>
                     ) : (
                         <motion.div
-                            key="result-text"
-                            initial={{ opacity: 0, y: 10, filter: "blur(5px)" }}
-                            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                            exit={{ opacity: 0, y: -10, filter: "blur(5px)" }}
+                            key="complete"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0 }}
                         >
-                             <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-teal-950/40 border border-teal-500/30 text-teal-300 mb-3 backdrop-blur-md">
-                                <span className="text-[10px] font-bold tracking-widest">SKIN ID COMPLETE</span>
+                             <div className="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-full bg-teal-500/20 border border-teal-400/30 backdrop-blur-md">
+                                <svg className="w-3 h-3 text-teal-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                                <span className="text-white text-[9px] font-bold tracking-[0.2em]">COMPLETE</span>
                              </div>
-                             <h3 className="text-2xl font-light text-white leading-tight">
-                                당신만의 고유한<br/>
-                                <span className="font-serif italic">미학적 설계 완료</span>
-                             </h3>
                         </motion.div>
                     )}
                 </AnimatePresence>
              </div>
 
-             {/* Bottom Interface */}
              <div className="w-full relative z-30">
-                 <div className="flex justify-between items-end mb-4 px-2">
-                    <div className="flex flex-col">
-                        <span className="text-[9px] text-white/40 font-mono uppercase tracking-wider">Client ID</span>
-                        <span className="text-xs text-white/90 font-mono">ADO-8829</span>
+                 <div className="flex justify-between items-end border-t border-white/10 pt-4">
+                    <div>
+                        <div className="text-[9px] text-white/50 uppercase tracking-wider mb-1">Subject</div>
+                        <div className="text-xs text-white font-mono">ADO-8829</div>
                     </div>
-                    <div className="flex flex-col items-end">
-                        <span className="text-[9px] text-white/40 font-mono uppercase tracking-wider">AI Status</span>
-                        <span className="text-xs text-teal-400 font-mono flex items-center gap-1">
-                            OPTIMIZED
-                            <span className="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
-                        </span>
+                    <div className="text-right">
+                        <div className="text-[9px] text-white/50 uppercase tracking-wider mb-1">Accuracy</div>
+                        <div className="text-xs text-teal-400 font-mono">99.9%</div>
                     </div>
-                 </div>
-                 
-                 <div 
-                    onClick={() => {
-                        window.dispatchEvent(new CustomEvent('highlight-consultation'));
-                    }}
-                    className="w-full h-14 bg-white/5 backdrop-blur-2xl rounded-2xl flex items-center px-4 gap-4 border border-white/10 shadow-2xl ring-1 ring-white/5 group hover:bg-white/10 transition-colors duration-500 cursor-pointer">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-teal-400 to-emerald-500 flex items-center justify-center opacity-90 shrink-0 group-hover:scale-110 transition-transform">
-                         <div className="w-4 h-4 text-black">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M12 2a4 4 0 0 0-4 4v8a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4z"></path></svg>
-                         </div>
-                    </div>
-                    <div className="w-full text-white/50 text-sm font-light tracking-wide group-hover:text-white/80 transition-colors">1:1 프라이빗 상담 연결</div>
                  </div>
              </div>
           </div>
 
-          {/* Scan Line Effect (Inside Screen) */}
+          {/* Grid Scanner */}
           <AnimatePresence>
             {isScanning && (
                 <motion.div 
-                    key="scan-line-effect"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                    key="scanner"
                     className="absolute inset-0 z-20 pointer-events-none"
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                 >
                     <motion.div 
-                        className="w-full h-[1px] bg-gradient-to-r from-transparent via-teal-300 to-transparent shadow-[0_0_25px_3px_rgba(45,212,191,0.4)] absolute top-0"
-                        animate={{ top: ["10%", "90%", "10%"] }}
-                        transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}
+                        className="w-full h-[2px] bg-teal-400 shadow-[0_0_20px_2px_rgba(45,212,191,0.6)] absolute top-0"
+                        animate={{ top: ["0%", "100%"] }}
+                        transition={{ duration: 2, ease: "linear", repeat: Infinity }}
                     />
-                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10 mix-blend-overlay"></div>
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(45,212,191,0.15)_1px,transparent_1px),linear-gradient(90deg,rgba(45,212,191,0.15)_1px,transparent_1px)] bg-[size:30px_30px] [mask-image:radial-gradient(circle_at_center,black_40%,transparent_100%)]"></div>
                 </motion.div>
             )}
           </AnimatePresence>
@@ -146,135 +117,207 @@ export function SkinAnalysis() {
       </div>
       
       {/* ---------------------------------------------------------- */}
-      {/* LAYER 2: Floating Cards (Outside the Tablet)               */}
+      {/* LAYER 2: Floating AR Cards (Connected)                     */}
       {/* ---------------------------------------------------------- */}
-      {/* This layer sits ON TOP of the tablet and has NO overflow-hidden */}
-      <div className="absolute inset-0 z-50 pointer-events-none">
-          <AnimatePresence mode="wait">
-            {!isScanning && (
-                <motion.div 
-                    key="results-container"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="absolute inset-0"
-                >
-                    {/* Card 1: Diagnosis (Cheek - Skin Texture Analysis) */}
-                    <PremiumCard 
-                        x={32} y={48} 
-                        title="Diagnosis" 
-                        subtitle="본질의 발견"
-                        desc="피부 깊은 곳의 문제 탐색"
-                        align="right"
-                        delay={0.1}
-                    />
+      <div className="absolute inset-0 z-50 pointer-events-none flex items-center justify-center">
+          <div className="relative w-[340px] md:w-[380px] aspect-[3/4]"> 
+            <AnimatePresence mode="wait">
+                {!isScanning && (
+                    <motion.div 
+                        key="ar-results"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="absolute inset-0"
+                    >
+                        {/* 
+                           Geometry Strategy:
+                           - Target Point: % on screen
+                           - Elbow Point: Fixed offset from Target
+                           - Card Anchor: Fixed offset from Elbow
+                           - This ensures lines are perfectly horizontal/diagonal connected
+                        */}
 
-                    {/* Card 2: Design (Apple Zone - Volume & Contour) */}
-                    <PremiumCard 
-                        x={72} y={42} 
-                        title="Design" 
-                        subtitle="미학적 설계"
-                        desc="골격과 피부결을 고려한 포인트"
-                        align="left"
-                        delay={0.3}
-                    />
+                        {/* Card 1: Top Left (Pore) */}
+                        <ConnectedCard 
+                            targetX={30} targetY={40}
+                            cardOffsetX={-220} cardOffsetY={-30}
+                            title="PORE & TEXTURE"
+                            subtitle="Surface Analysis"
+                            desc="Micro-texture mapping."
+                            score="82"
+                            position="left"
+                            delay={0.1}
+                        />
 
-                    {/* Card 3: Procedure (Jawline - Lifting Point) */}
-                    <PremiumCard 
-                        x={28} y={78} 
-                        title="Procedure" 
-                        subtitle="정교한 시술"
-                        desc="최소한의 개입, 최대한의 변화"
-                        align="right"
-                        delay={0.5}
-                    />
-                </motion.div>
-            )}
-          </AnimatePresence>
+                        {/* Card 2: Top Right (Elasticity) */}
+                        <ConnectedCard 
+                            targetX={70} targetY={35}
+                            cardOffsetX={220} cardOffsetY={-40}
+                            title="ELASTICITY"
+                            subtitle="Volume Density"
+                            desc="Structural integrity check."
+                            score="94"
+                            position="right"
+                            delay={0.3}
+                        />
+
+                        {/* Card 3: Bottom Left (Contour) */}
+                        <ConnectedCard 
+                            targetX={25} targetY={75}
+                            cardOffsetX={-200} cardOffsetY={30}
+                            title="CONTOUR"
+                            subtitle="V-Line Logic"
+                            desc="Mandibular angle analysis."
+                            score="88"
+                            position="left"
+                            delay={0.5}
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+          </div>
       </div>
-
-      {/* Phone Glow Effect */}
-      <div className="absolute inset-0 bg-teal-500/5 blur-3xl -z-10 rounded-full" />
     </div>
   );
 }
 
-// Wrap with React.memo to prevent unnecessary re-renders
-const PremiumCard = React.memo(function PremiumCard({ x, y, title, subtitle, desc, align = 'left', delay }) {
+// ------------------------------------------------------------------
+// Sub-Component: Connected Card with Perfect SVG Lines
+// ------------------------------------------------------------------
+const ConnectedCard = React.memo(function ConnectedCard({ 
+    targetX, targetY, cardOffsetX, cardOffsetY, 
+    title, subtitle, desc, score, position, delay 
+}) {
+    const isLeft = position === 'left';
+    
+    // Calculate the 'Knee' or 'Elbow' of the line
+    // The line goes: Start -> Diagonal -> Horizontal -> Card
+    const elbowX = isLeft ? -50 : 50;
+    const elbowY = cardOffsetY; // Align vertically with the card immediately
+
+    // Card Position Style
+    const cardStyle = {
+        top: 0,
+        left: 0,
+        transform: `translate(${cardOffsetX}px, ${cardOffsetY}px)`
+    };
+    
+    // To center the card div on the line end point:
+    // If Left: Line ends at (cardOffsetX, cardOffsetY). Card right edge should be there.
+    // If Right: Line ends at (cardOffsetX, cardOffsetY). Card left edge should be there.
+    
+    const cardContainerClass = isLeft 
+        ? "absolute -translate-y-1/2 right-0 pr-4" 
+        : "absolute -translate-y-1/2 left-0 pl-4";
+
     return (
-        <div className="absolute" style={{ top: `${y}%`, left: `${x}%`, zIndex: 50 }}>
-            {/* 1. The Dot (Must be exactly on the face position) */}
-            <motion.div 
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0 }}
-                transition={{ delay: delay, type: "spring", stiffness: 300, damping: 20 }}
-                className="relative flex items-center justify-center w-4 h-4 -translate-x-1/2 -translate-y-1/2"
-                style={{ willChange: 'transform' }} // Optimization: Hardware acceleration
-            >
-                <div className="w-1.5 h-1.5 bg-white rounded-full z-10 box-content border border-teal-500/50 shadow-[0_0_10px_rgba(255,255,255,1)]"></div>
-                <div className="absolute inset-0 bg-teal-400/30 rounded-full animate-ping"></div>
-                <div className="absolute inset-0 bg-teal-400/20 rounded-full"></div>
-            </motion.div>
+        <div className="absolute" style={{ top: `${targetY}%`, left: `${targetX}%` }}>
             
-            {/* 2. The Card (Offset from the dot) */}
-            <motion.div
-                initial={{ opacity: 0, x: align === 'left' ? 30 : -30, scale: 0.9 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ delay: delay + 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }} 
-                className={`absolute top-0 flex items-center ${align === 'left' ? 'left-8' : 'right-8 flex-row-reverse'}`}
-                style={{ 
-                    transform: 'translateY(-50%)', // Vertically center relative to the dot
-                    willChange: 'transform, opacity', // Optimization: Hardware acceleration
-                    backfaceVisibility: 'hidden' // Optimization: Prevent flickering
-                }} 
+            {/* 1. Target Point (Face) */}
+            <div className="absolute -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-teal-400 rounded-full shadow-[0_0_15px_rgba(45,212,191,0.8)] z-10">
+                 <div className="absolute inset-0 bg-white rounded-full animate-ping opacity-75"></div>
+            </div>
+
+            {/* 2. Seamless SVG Line */}
+            <svg 
+                className="absolute overflow-visible pointer-events-none"
+                style={{ top: 0, left: 0 }}
             >
-                {/* Connecting Line */}
-                <svg 
-                    className={`w-12 h-2 ${align === 'left' ? '-ml-2' : '-mr-2'}`} 
-                    viewBox="0 0 48 2"
+                <defs>
+                    <filter id="glow-line" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                    <linearGradient id={`grad-${position}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="rgba(45,212,191,0.2)" />
+                        <stop offset="50%" stopColor="rgba(45,212,191,1)" />
+                        <stop offset="100%" stopColor="rgba(255,255,255,1)" />
+                    </linearGradient>
+                </defs>
+                
+                <motion.path
+                    d={`M 0 0 L ${elbowX} ${elbowY} L ${cardOffsetX} ${cardOffsetY}`}
                     fill="none"
-                    style={{ transform: align === 'left' ? 'none' : 'rotate(180deg)' }}
-                >
-                    <motion.path 
-                        d="M0 1H48" 
-                        stroke={`url(#lineGradient-${title})`} 
-                        strokeWidth="1"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                        transition={{ delay: delay + 0.1, duration: 0.4 }}
-                    />
-                    <defs>
-                        <linearGradient id={`lineGradient-${title}`} x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
-                            <stop offset="100%" stopColor="rgba(255,255,255,0.6)" />
-                        </linearGradient>
-                    </defs>
-                </svg>
+                    stroke="white"
+                    strokeWidth="1.5"
+                    strokeOpacity="0.8"
+                    filter="url(#glow-line)"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ delay: delay, duration: 0.8, ease: "easeOut" }}
+                />
+                
+                {/* Connection Dot at Card End */}
+                <motion.circle 
+                    cx={cardOffsetX} 
+                    cy={cardOffsetY} 
+                    r="3" 
+                    fill="white"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: delay + 0.8 }}
+                />
+            </svg>
 
-                {/* Glass Card Content */}
-                <div className={`
-                    relative 
-                    bg-[#1a1a1a]/90 backdrop-blur-xl 
-                    border border-white/10 
-                    rounded-xl p-5 min-w-[220px]
-                    shadow-[0_8px_32px_0_rgba(0,0,0,0.8)]
-                    ${align === 'right' ? 'text-right' : 'text-left'}
-                    group hover:bg-[#1a1a1a] transition-colors duration-300
-                `}
+            {/* 3. The Card */}
+            <div 
+                className="absolute w-[240px] flex items-center"
                 style={{ 
-                    transform: 'translateZ(0)', // Force GPU layer creation
-                }}>
-                    {/* Shimmer */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] animate-[shimmer_3s_infinite]"></div>
+                    transform: `translate(${cardOffsetX}px, ${cardOffsetY}px)`,
+                    // Move card body relative to the anchor point (0,0 of this div)
+                    // If left, we want the card to be to the LEFT of (0,0)
+                    left: isLeft ? '-240px' : '0px',
+                    top: '-70px' // Adjust to center vertically roughly
+                }}
+            >
+                <motion.div
+                    initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: delay + 0.6, duration: 0.5 }}
+                    className={`
+                        w-full
+                        backdrop-blur-xl bg-white/70 
+                        border border-white/50
+                        rounded-xl overflow-hidden
+                        shadow-2xl
+                        p-4
+                        text-left
+                        relative
+                    `}
+                >
+                    {/* Connection Node Indicator */}
+                    <div className={`
+                        absolute top-1/2 -translate-y-1/2 w-1.5 h-8 bg-teal-400
+                        ${isLeft ? '-right-[1px] rounded-l-sm' : '-left-[1px] rounded-r-sm'}
+                    `}></div>
 
-                    <p className="text-teal-400 text-[10px] uppercase tracking-widest font-bold mb-1">{title}</p>
-                    <h4 className="text-white text-xl font-serif mb-2 leading-none">{subtitle}</h4>
-                    <p className="text-white/80 text-xs font-light leading-snug whitespace-pre-wrap">{desc}</p>
-                </div>
-            </motion.div>
+                    <div className="flex justify-between items-start border-b border-gray-200 pb-2 mb-2">
+                        <div>
+                            <span className="text-[10px] font-bold text-teal-700 tracking-widest uppercase">{title}</span>
+                            <h4 className="text-sm font-serif font-bold text-gray-900">{subtitle}</h4>
+                        </div>
+                        <span className="text-xl font-bold text-teal-600">{score}</span>
+                    </div>
+                    
+                    <p className="text-[11px] text-gray-600 leading-tight mb-2">
+                        {desc}
+                    </p>
+                    
+                    {/* Mini Graph */}
+                    <div className="flex items-end gap-1 h-6 mt-2 opacity-50">
+                        <div className="w-1/5 bg-teal-200 h-[40%] rounded-t-sm"></div>
+                        <div className="w-1/5 bg-teal-300 h-[70%] rounded-t-sm"></div>
+                        <div className="w-1/5 bg-teal-400 h-[50%] rounded-t-sm"></div>
+                        <div className="w-1/5 bg-teal-500 h-[90%] rounded-t-sm"></div>
+                        <div className="w-1/5 bg-teal-600 h-[60%] rounded-t-sm"></div>
+                    </div>
+
+                </motion.div>
+            </div>
         </div>
     );
 });

@@ -11,37 +11,38 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  
 } from "../components/ui/select";
 import { ArrowUpRight, Clock, Mail, MapPin, Phone } from 'lucide-react';
 // Replaced figma:asset with Unsplash URL
 const bgImage = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/CONTACT.png?raw=true";
 
 const SKIN_TYPES = [
-  { value: 'dry', label: '건성' },
-  { value: 'oily', label: '지성' },
-  { value: 'combination', label: '복합성' },
-  { value: 'sensitive', label: '민감성' },
-  { value: 'normal', label: '중성' },
+  { value: 'dry', label: 'Dry' },
+  { value: 'oily', label: 'Oily' },
+  { value: 'combination', label: 'Combination' },
+  { value: 'sensitive', label: 'Sensitive' },
+  { value: 'normal', label: 'Normal' },
 ];
 
 const AGE_RANGES = [
-  { value: '20s', label: '20대' },
-  { value: '30s', label: '30대' },
-  { value: '40s', label: '40대' },
-  { value: '50s', label: '50대' },
-  { value: '60plus', label: '60대 이상' },
+  { value: '20s', label: '20s' },
+  { value: '30s', label: '30s' },
+  { value: '40s', label: '40s' },
+  { value: '50s', label: '50s' },
+  { value: '60plus', label: '60s+' },
 ];
 
 const CONCERNS = [
-  { id: 'wrinkles', label: '주름 / 잔주름' },
-  { id: 'sagging', label: '처짐 / 턱선' },
-  { id: 'pigmentation', label: '기미 / 색소' },
-  { id: 'pores', label: '모공 / 흉터' },
-  { id: 'dryness', label: '건조 / 수분 부족' },
-  { id: 'acne', label: '여드름 / 홍조' },
-  { id: 'volume', label: '볼륨 손실' },
-  { id: 'contour', label: '윤곽 개선' },
-  { id: 'overall', label: '전반적 안티에이징' },
+  { id: 'wrinkles', label: 'Wrinkles / Fine Lines' },
+  { id: 'sagging', label: 'Sagging / Jawline' },
+  { id: 'pigmentation', label: 'Blemishes / Pigmentation' },
+  { id: 'pores', label: 'Pores / Scars' },
+  { id: 'dryness', label: 'Dryness / Dehydration' },
+  { id: 'acne', label: 'Acne / Redness' },
+  { id: 'volume', label: 'Volume Loss' },
+  { id: 'contour', label: 'Contour Improvement' },
+  { id: 'overall', label: 'General Anti-aging' },
 ];
 
 export function ContactPage() {
@@ -86,7 +87,7 @@ export function ContactPage() {
                     transition={{ delay: 0.1 }}
                     className="text-4xl md:text-5xl font-serif text-[#1A1A1A] mb-6 leading-tight word-keep"
                 >
-                    아름다움을 향한<br/> 여정의 시작
+                    Beginning of the Journey<br/> Towards Beauty
                 </motion.h1>
                 <motion.p 
                     initial={{ opacity: 0 }}
@@ -94,7 +95,7 @@ export function ContactPage() {
                     transition={{ delay: 0.2 }}
                     className="text-[#8C8C8C] text-lg font-light leading-relaxed max-w-md"
                 >
-                    아도 클리닉은 100% 예약제로 운영되며, 한 분 한 분 깊이 있는 상담을 통해 최적의 솔루션을 제안합니다.
+                    ADO operates on a 100% reservation basis, proposing optimal solutions through in-depth consultation with each person.
                 </motion.p>
             </div>
 
@@ -111,7 +112,7 @@ export function ContactPage() {
                     </div>
                     <div>
                         <p className="text-xl font-medium text-[#1A1A1A]">02-540-8829</p>
-                        <p className="text-sm text-[#8C8C8C] mt-0.5">상담 가능 시간: 10:00 - 20:00</p>
+                        <p className="text-sm text-[#8C8C8C] mt-0.5">Consultation Hours: 10:00 - 20:00</p>
                     </div>
                 </div>
 
@@ -121,7 +122,7 @@ export function ContactPage() {
                     </div>
                     <div>
                         <p className="text-xl font-medium text-[#1A1A1A]">info@adoclinic.com</p>
-                        <p className="text-sm text-[#8C8C8C] mt-0.5">언제든 문의주세요</p>
+                        <p className="text-sm text-[#8C8C8C] mt-0.5">Contact us anytime</p>
                     </div>
                 </div>
 
@@ -131,7 +132,7 @@ export function ContactPage() {
                     </div>
                     <div>
                         <p className="text-lg font-medium text-[#1A1A1A] leading-tight">
-                            서울특별시 강남구 도산대로 45길 12, <br/>아도빌딩 3, 4F
+                            3, 4F ADO Building,<br/> 12 Dosan-daero 45-gil, Gangnam-gu, Seoul
                         </p>
                     </div>
                 </div>
@@ -162,14 +163,14 @@ export function ContactPage() {
                             <div className="space-y-2">
                                 <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider pl-1">Name</Label>
                                 <Input 
-                                    placeholder="성함" 
+                                    placeholder="Name" 
                                     className="bg-white/70 border-white/50 focus:bg-white focus:border-[#738F86]/50 rounded-xl h-12 shadow-sm text-base placeholder:text-gray-400"
                                 />
                             </div>
                             <div className="space-y-2">
                                 <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider pl-1">Contact</Label>
                                 <Input 
-                                    placeholder="연락처" 
+                                    placeholder="Phone Number" 
                                     className="bg-white/70 border-white/50 focus:bg-white focus:border-[#738F86]/50 rounded-xl h-12 shadow-sm text-base placeholder:text-gray-400"
                                 />
                             </div>
@@ -181,7 +182,7 @@ export function ContactPage() {
                                 <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider pl-1">Skin Type</Label>
                                 <Select>
                                     <SelectTrigger className="bg-white/70 border-white/50 focus:bg-white focus:ring-0 focus:border-[#738F86]/50 rounded-xl h-12 shadow-sm">
-                                        <SelectValue placeholder="피부 타입" />
+                                        <SelectValue placeholder="Skin Type" />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white/90 backdrop-blur-xl border-white/50">
                                         {SKIN_TYPES.map(type => (
@@ -194,7 +195,7 @@ export function ContactPage() {
                                 <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider pl-1">Age Range</Label>
                                 <Select>
                                     <SelectTrigger className="bg-white/70 border-white/50 focus:bg-white focus:ring-0 focus:border-[#738F86]/50 rounded-xl h-12 shadow-sm">
-                                        <SelectValue placeholder="연령대" />
+                                        <SelectValue placeholder="Age Group" />
                                     </SelectTrigger>
                                     <SelectContent className="bg-white/90 backdrop-blur-xl border-white/50">
                                         {AGE_RANGES.map(age => (
@@ -207,7 +208,7 @@ export function ContactPage() {
 
                         {/* Concerns (Glass Box) */}
                         <div className="bg-white/40 rounded-2xl p-6 border border-white/50 shadow-inner">
-                            <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider mb-4 block">주요 고민 부위</Label>
+                            <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider mb-4 block">Main Concerns</Label>
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                                 {CONCERNS.map(concern => (
                                     <div key={concern.id} className="flex items-center space-x-2">
@@ -232,7 +233,7 @@ export function ContactPage() {
                         <div className="space-y-2">
                             <Label className="text-xs font-bold text-[#5E7A70] uppercase tracking-wider pl-1">Message</Label>
                             <Textarea 
-                                placeholder="문의 내용을 자유롭게 적어주세요." 
+                                placeholder="Please write your inquiry freely." 
                                 className="bg-white/70 border-white/50 focus:bg-white focus:border-[#738F86]/50 rounded-xl min-h-[120px] shadow-sm resize-none p-4 text-base placeholder:text-gray-400"
                             />
                         </div>
@@ -243,7 +244,7 @@ export function ContactPage() {
                         </Button>
 
                         <p className="text-center text-xs text-[#8C8C8C]">
-                            개인정보 수집 및 이용에 동의하는 것으로 간주합니다.
+                            By submitting, you agree to the collection and use of personal information.
                         </p>
                     </form>
                 </div>

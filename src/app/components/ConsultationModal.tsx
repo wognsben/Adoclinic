@@ -27,7 +27,7 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Mock submission
-    alert("상담 신청이 접수되었습니다. 곧 연락드리겠습니다.");
+    alert("Consultation request received. We will contact you soon.");
     onClose();
   };
 
@@ -38,7 +38,7 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
           <DialogHeader className="mb-6">
             <DialogTitle className="text-2xl font-serif text-[#1c1917]">Consultation</DialogTitle>
             <DialogDescription className="text-[#57534E]">
-              1:1 맞춤 상담을 위해 아래 정보를 입력해 주세요.
+              Please enter your information for a personalized 1:1 consultation.
             </DialogDescription>
           </DialogHeader>
           
@@ -46,7 +46,7 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-xs font-bold tracking-widest text-[#1c1917]">NAME</Label>
-                <Input id="name" required placeholder="이름" className="bg-white border-[#E7E5E4] focus:border-[#738F86] rounded-xl" />
+                <Input id="name" required placeholder="Name" className="bg-white border-[#E7E5E4] focus:border-[#738F86] rounded-xl" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone" className="text-xs font-bold tracking-widest text-[#1c1917]">CONTACT</Label>
@@ -58,13 +58,13 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
               <Label htmlFor="category" className="text-xs font-bold tracking-widest text-[#1c1917]">TREATMENT</Label>
               <Select>
                 <SelectTrigger className="bg-white border-[#E7E5E4] focus:border-[#738F86] rounded-xl">
-                  <SelectValue placeholder="관심 시술 선택" />
+                  <SelectValue placeholder="Select Treatment" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="lifting">리프팅 (울쎄라/티타늄)</SelectItem>
-                  <SelectItem value="skin">스킨부스터 (리쥬란/쥬베룩)</SelectItem>
-                  <SelectItem value="body">바디 컨투어링</SelectItem>
-                  <SelectItem value="other">기타 문의</SelectItem>
+                  <SelectItem value="lifting">Lifting (Ulthera/Titanium)</SelectItem>
+                  <SelectItem value="skin">Skin Booster (Rejuran/Juvelook)</SelectItem>
+                  <SelectItem value="body">Body Contouring</SelectItem>
+                  <SelectItem value="other">Other Inquiries</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -73,7 +73,7 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
               <Label htmlFor="message" className="text-xs font-bold tracking-widest text-[#1c1917]">MESSAGE</Label>
               <Textarea 
                 id="message" 
-                placeholder="고민 부위나 원하시는 상담 내용을 적어주세요." 
+                placeholder="Please describe your concerns or desired consultation topic." 
                 className="bg-white border-[#E7E5E4] focus:border-[#738F86] min-h-[100px] resize-none rounded-xl"
               />
             </div>

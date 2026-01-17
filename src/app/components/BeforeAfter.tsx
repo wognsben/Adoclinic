@@ -9,42 +9,42 @@ const cases = [
     id: "01",
     title: "Elsco Lifting", 
     category: "Lifting", 
-    desc: "처진 턱선을 끌어올리는 가장 강력한 비수술적 해법.",
+    desc: "The most powerful non-surgical solution to lift sagging jawlines.",
     img: "https://images.unsplash.com/photo-1729337531424-198f880cb6c7?q=80&w=1600&auto=format&fit=crop" 
   },
   { 
     id: "02",
     title: "Eye Correction", 
     category: "Filler", 
-    desc: "인위적이지 않은 눈매 교정, 맑은 인상을 완성하다.",
+    desc: "Natural eye correction, completing a clear impression.",
     img: "https://images.unsplash.com/photo-1758598304384-1f678eabdd4f?q=80&w=1600&auto=format&fit=crop" 
   },
   { 
     id: "03",
     title: "V-Line Filler", 
     category: "Filler", 
-    desc: "무너진 턱 끝의 볼륨을 채워 완성하는 우아한 프로필.",
+    desc: "Elegant profile completed by filling the volume of the collapsed chin tip.",
     img: "https://images.unsplash.com/photo-1576015054964-5223bf014dbe?q=80&w=1600&auto=format&fit=crop" 
   },
   { 
     id: "04",
     title: "Ulthera 600", 
     category: "Lifting", 
-    desc: "피부 깊은 곳부터 차오르는 탄력, 시간을 되돌리다.",
+    desc: "Elasticity rising from deep within the skin, turning back time.",
     img: "https://images.unsplash.com/photo-1663691222849-92b8eb09fda5?q=80&w=1600&auto=format&fit=crop" 
   },
   { 
     id: "05",
     title: "Volume Lip", 
     category: "Filler", 
-    desc: "과하지 않은 볼륨감, 본연의 아름다움을 살린 입술.",
+    desc: "Not excessive volume, lips that revive natural beauty.",
     img: "https://images.unsplash.com/photo-1605553700972-5b6ba4447850?q=80&w=1600&auto=format&fit=crop" 
   },
   { 
     id: "06",
     title: "Sofwave", 
     category: "Lifting", 
-    desc: "잔주름 없는 매끈한 이마, 하이엔드 리프팅의 정점.",
+    desc: "Smooth forehead without fine wrinkles, the pinnacle of high-end lifting.",
     img: "https://images.unsplash.com/photo-1599683064250-4f96e6b1379b?q=80&w=1600&auto=format&fit=crop" 
   },
 ];

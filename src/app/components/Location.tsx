@@ -11,10 +11,10 @@ export function Location() {
           {/* Info Column */}
           <div className="space-y-12">
             <div>
-              <h2 className="text-4xl md:text-5xl font-serif mb-8">ADO CLINIC</h2>
+              <h2 className="text-4xl md:text-5xl font-serif mb-8">ADO</h2>
               <p className="font-light opacity-80 max-w-md leading-relaxed">
-                서울시 강남구 테헤란로 123, 아도타워 10F<br/>
-                (강남역 1번 출구 도보 3분, 주차 가능)
+                10F ADO Tower, 123 Teheran-ro, Gangnam-gu, Seoul<br/>
+                (3 min walk from Gangnam Station Exit 1, Parking Available)
               </p>
             </div>
 
@@ -68,7 +68,7 @@ export function Location() {
         </div>
 
         <div className="pt-12 flex flex-col md:flex-row justify-between items-center text-[10px] text-[#E8EFED]/30 uppercase tracking-widest">
-           <p>© 2024 ADO CLINIC. All Rights Reserved.</p>
+           <p>© 2024 ADO. All Rights Reserved.</p>
            <div className="flex gap-6 mt-4 md:mt-0">
               <span className="hover:text-white cursor-pointer">Privacy Policy</span>
               <span className="hover:text-white cursor-pointer">Terms of Use</span>

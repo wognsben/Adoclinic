@@ -639,25 +639,25 @@ export function TreatmentMirrorHero() {
               }}
             >
               <span className="relative inline-block">
-                시술 안내
+                TREATMENT
                 {/* Ultra-premium multi-layer glow */}
                 <span 
                   className="absolute inset-0 blur-3xl opacity-85"
                   style={{ color: '#9DB5AC' }}
                 >
-                  시술 안내
+                  TREATMENT
                 </span>
                 <span 
                   className="absolute inset-0 blur-2xl opacity-65"
                   style={{ color: '#B5C9C0' }}
                 >
-                  시술 안내
+                  TREATMENT
                 </span>
                 <span 
                   className="absolute inset-0 blur-xl opacity-45"
                   style={{ color: '#DCE8E4' }}
                 >
-                  시술 안내
+                  TREATMENT
                 </span>
                 {/* Crisp outline */}
                 <span 
@@ -667,7 +667,7 @@ export function TreatmentMirrorHero() {
                     WebkitTextStroke: '0.5px rgba(255, 255, 255, 0.98)',
                   }}
                 >
-                  시술 안내
+                  TREATMENT
                 </span>
               </span>
             </h1>
@@ -686,7 +686,7 @@ export function TreatmentMirrorHero() {
             </motion.p>
           </div>
 
-          {/* Back Side - ADO CLINIC */}
+          {/* Back Side - ADO */}
           <div
             style={{
               backfaceVisibility: 'hidden',
@@ -717,25 +717,25 @@ export function TreatmentMirrorHero() {
               }}
             >
               <span className="relative inline-block">
-                ADO CLINIC
+                ADO
                 {/* Ultra-premium multi-layer glow */}
                 <span 
                   className="absolute inset-0 blur-3xl opacity-85"
                   style={{ color: '#9DB5AC' }}
                 >
-                  ADO CLINIC
+                  ADO
                 </span>
                 <span 
                   className="absolute inset-0 blur-2xl opacity-65"
                   style={{ color: '#B5C9C0' }}
                 >
-                  ADO CLINIC
+                  ADO
                 </span>
                 <span 
                   className="absolute inset-0 blur-xl opacity-45"
                   style={{ color: '#DCE8E4' }}
                 >
-                  ADO CLINIC
+                  ADO
                 </span>
                 {/* Crisp outline */}
                 <span 
@@ -745,7 +745,7 @@ export function TreatmentMirrorHero() {
                     WebkitTextStroke: '0.5px rgba(255, 255, 255, 0.98)',
                   }}
                 >
-                  ADO CLINIC
+                  ADO
                 </span>
               </span>
             </h1>

@@ -10,7 +10,7 @@ const detailImage = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/WASHR
 const jadeTexture = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/FOOTER.png?raw=true";
 
 /**
- * ADO Clinic Interior Section
+ * ADO Interior Section
  * 듀얼 슬라이더 방식 - 화면을 좌우로 나눠서 프리미엄 인테리어 이미지 표시
  * 성능 최적화: 좌/우 배타적 호버 처리 (한 번에 한쪽만 애니메이션)
  */
@@ -28,14 +28,14 @@ const leftSlides: Slide[] = [
     id: 1,
     image: waitingImage,
     title: 'Waiting',
-    subtitle: '여유로운 기다림',
+    subtitle: 'Relaxed Waiting',
     number: '01'
   },
   {
     id: 2,
     image: treatmentImage,
     title: 'Treatment',
-    subtitle: '프라이빗 공간',
+    subtitle: 'Private Space',
     number: '02'
   }
 ];
@@ -45,14 +45,14 @@ const rightSlides: Slide[] = [
     id: 3,
     image: recoveryImage,
     title: 'Recovery',
-    subtitle: '회복의 시간',
+    subtitle: 'Time for Recovery',
     number: '03'
   },
   {
     id: 4,
     image: detailImage,
     title: 'Details',
-    subtitle: '디테일의 완성',
+    subtitle: 'Perfection in Details',
     number: '04'
   }
 ];
@@ -385,7 +385,7 @@ export function InteriorSection({ disableBackground = false }: InteriorSectionPr
           Interior Space
         </span>
         <h2 className="text-4xl md:text-5xl font-serif text-white/90" style={{ fontFamily: "'Gowun Batang', serif" }}>
-          공간
+          SPACE
         </h2>
       </motion.div>
 
@@ -396,7 +396,7 @@ export function InteriorSection({ disableBackground = false }: InteriorSectionPr
         transition={{ duration: 0.5 }}
       >
         <p className="text-[10px] text-white/40 font-light italic tracking-wide" style={{ fontFamily: "'Gowun Batang', serif" }}>
-          "본질을 담는 공간"
+          "Space Containing Essence"
         </p>
       </motion.div>
     </section>

@@ -233,8 +233,8 @@ export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroComple
                 {/* Description Text */}
                 <div className="bg-white/40 backdrop-blur-md p-8 rounded-3xl border border-white/40 max-w-2xl shadow-lg mt-32">
                     <p className="text-[#121C1A] text-lg md:text-2xl font-light leading-relaxed">
-                        모든 아름다움은<br/>
-                        <span className="font-semibold">마지막 한 점</span>, 아도에서 더해질때 비로소 완성됩니다.
+                        All beauty is completed only when<br/>
+                        <span className="font-semibold">the final touch</span> is added at ADO.
                     </p>
                 </div>
             </div>
@@ -246,7 +246,7 @@ export function Hero({ setIntroCompleted, onOpenConsultation }: { setIntroComple
                 >
                     <span className="relative z-10 flex items-center gap-3">
                         CONTACT US
-                        <span className="opacity-70 font-normal border-l border-white/30 pl-3">상담신청</span>
+                        <span className="opacity-70 font-normal border-l border-white/30 pl-3">CONSULTATION</span>
                         <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                     </span>
                     <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300 rounded-full" />

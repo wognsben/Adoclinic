@@ -16,8 +16,8 @@ export function EditorialSection() {
           <div className="md:col-span-4">
              <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-[#B91C1C] mb-4">Origin of ADO</h4>
              <h2 className="text-4xl md:text-5xl font-serif font-medium leading-tight mb-8">
-               전신사조,<br/>
-               <span className="text-[#666] italic">정신을 담다.</span>
+               Jeonshin-sajo,<br/>
+               <span className="text-[#666] italic">Containing the Spirit.</span>
              </h2>
           </div>
 
@@ -41,12 +41,12 @@ export function EditorialSection() {
           {/* Right: Narrative */}
           <div className="md:col-span-4 flex flex-col justify-end pb-12">
              <p className="text-lg font-light leading-loose text-[#333] mb-8 text-balance">
-               "형태를 흉내 내는 것은 쉽지만,<br/> 
-               그 안에 담긴 정신을 표현하는 것은 어렵다."<br/><br/>
-               고개지는 그 핵심을 <strong>'아도(阿堵)'</strong>,<br/>
-               즉 눈동자에 두었습니다.<br/>
-               ADO는 당신의 고유한 아름다움에<br/>
-               생명력을 불어넣는 마지막 한 점을 지향합니다.
+               "It is easy to imitate the form,<br/> 
+               but difficult to express the spirit contained within."<br/><br/>
+               Gu Kaizhi placed the core in <strong>'ADO'</strong>,<br/>
+               (pupils).<br/>
+               ADO aims for the final dot that breathes life<br/>
+               into your unique beauty.
              </p>
              <div className="flex items-center gap-2 text-[#1A3C34] text-sm font-medium cursor-pointer hover:underline underline-offset-4">
                 View Philosophy <ArrowUpRight className="w-4 h-4" />
@@ -80,9 +80,9 @@ export function EditorialSection() {
              <div className="w-2 h-2 bg-[#B91C1C] rounded-full mb-6" /> {/* Red Dot Point */}
              <h3 className="text-sm font-bold tracking-[0.2em] uppercase mb-6 text-[#1A3C34]">Recovery & Rhythm</h3>
              <p className="text-lg leading-relaxed font-light text-[#444]">
-               피부는 스스로 회복하는 힘을 가지고 있습니다. 
-               우리는 그 힘이 온전히 발휘될 수 있도록 
-               가장 편안하고 안전한 환경을 설계합니다.
+               The skin has the power to heal itself. 
+               We design the most comfortable and safe environment 
+               so that power can be fully exerted.
              </p>
           </div>
 
@@ -117,9 +117,9 @@ export function EditorialSection() {
               </h2>
               <div className="w-12 h-[1px] bg-[#B91C1C] mb-6" />
               <p className="text-sm text-[#666] leading-relaxed max-w-xs">
-                 최첨단 장비와 전통적인 미학의 조화.
-                 보이지 않는 곳까지 완벽하게 관리되는 
-                 ADO만의 멸균 시스템과 프라이빗 룸.
+                 Harmony of cutting-edge equipment and traditional aesthetics.
+                 ADO's sterilization system and private rooms 
+                 managed perfectly even in unseen places.
               </p>
            </div>
 
@@ -131,6 +131,7 @@ export function EditorialSection() {
                    src="https://images.unsplash.com/photo-1664902265139-934219cee42f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoaWdoJTIwdGVjaCUyMG1lZGljYWwlMjBlcXVpcG1lbnQlMjBtaW5pbWFsJTIwYWVzdGhldGljfGVufDF8fHx8MTc2ODExNzM1MHww&ixlib=rb-4.1.0&q=80&w=1080"
                    alt="Medical Tech"
                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80"
+                   loading="lazy"
                  />
                  <div className="absolute top-4 left-4 text-white/50 text-[10px] tracking-widest border border-white/20 px-2 py-1">TECH-SPEC</div>
               </div>
@@ -141,6 +142,7 @@ export function EditorialSection() {
                     src="https://images.unsplash.com/photo-1600363329465-3399ad66732d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGJlZCUyMGxhc2VyJTIwbGlnaHQlMjBsaW5lJTIwZGFyayUyMGJhY2tncm91bmR8ZW58MXx8fHwxNzY4MTE3MzQ3fDA&ixlib=rb-4.1.0&q=80&w=1080"
                     alt="Laser Line"
                     className="w-full h-full object-cover"
+                    loading="lazy"
                  />
                  <div className="absolute inset-0 bg-[#B91C1C]/20 mix-blend-overlay" />
               </div>

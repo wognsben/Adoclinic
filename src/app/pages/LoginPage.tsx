@@ -5,16 +5,16 @@ import { CheckCircle2 } from 'lucide-react';
 export function LoginPage() {
   const memberBenefits = [
     {
-      title: '시술 이력 관리',
-      desc: 'Mark-Vu 진단 결과 및 시술 기록 열람'
+      title: 'Treatment History Management',
+      desc: 'View Mark-Vu diagnosis results and treatment records'
     },
     {
-      title: '맞춤형 홈케어',
-      desc: '개인별 피부 분석 기반 루틴 제공'
+      title: 'Personalized Home Care',
+      desc: 'Providing routines based on individual skin analysis'
     },
     {
-      title: '우선 예약 혜택',
-      desc: '회원 전용 이벤트 및 신규 시술 우선 예약'
+      title: 'Priority Booking Benefits',
+      desc: 'Member-exclusive events and priority booking for new procedures'
     }
   ];
 
@@ -68,7 +68,7 @@ export function LoginPage() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="space-y-6"
               >
-                <h3 className="text-xl font-serif mb-8 text-white/90">회원 전용 혜택</h3>
+                <h3 className="text-xl font-serif mb-8 text-white/90">Member Exclusive Benefits</h3>
                 {memberBenefits.map((benefit, idx) => (
                   <motion.div
                     key={idx}
@@ -97,8 +97,8 @@ export function LoginPage() {
               className="relative z-10 border-t border-white/10 pt-8"
             >
               <p className="text-sm text-white/50 font-light italic">
-                "정확한 진단과 체계적인 관리,<br/>
-                당신만을 위한 프리미엄 서비스"
+                "Precise diagnosis and systematic management,<br/>
+                Premium service just for you"
               </p>
             </motion.div>
           </div>
@@ -112,7 +112,7 @@ export function LoginPage() {
             >
               <div className="mb-12">
                 <h2 className="text-4xl md:text-5xl font-serif text-[#1A1A1A] mb-4">Login</h2>
-                <p className="text-[#8C8C8C] text-sm tracking-wider uppercase font-medium">Welcome to ADO Clinic</p>
+                <p className="text-[#8C8C8C] text-sm tracking-wider uppercase font-medium">Welcome to ADO</p>
               </div>
 
               <form className="space-y-8">
@@ -187,7 +187,7 @@ export function LoginPage() {
             Object 08 : Members Portal
           </p>
           <p className="text-[#8C8C8C] font-serif italic text-lg">
-            "프리미엄 경험의 시작"
+            "The Beginning of a Premium Experience"
           </p>
         </motion.div>
       </div>

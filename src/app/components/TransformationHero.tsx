@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
+import { PremiumLogo } from "@/app/components/PremiumLogo";
 // Replaced figma:asset with Unsplash URL
 const logoImage = "https://github.com/wognsben/jjtest/blob/main/NEW%20IG/1.png?raw=true";
 
@@ -185,7 +186,7 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
             </motion.p>
           </div>
 
-          {/* Back Side - ADO CLINIC */}
+          {/* Back Side - ADO */}
           <div
             style={{
               backfaceVisibility: 'hidden',
@@ -216,25 +217,25 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
               }}
             >
               <span className="relative inline-block">
-                ADO CLINIC
+                ADO
                 {/* Ultra-premium multi-layer glow */}
                 <span 
                   className="absolute inset-0 blur-3xl opacity-85"
                   style={{ color: '#3D9B9E' }}
                 >
-                  ADO CLINIC
+                  ADO
                 </span>
                 <span 
                   className="absolute inset-0 blur-2xl opacity-65"
                   style={{ color: '#5FB5B8' }}
                 >
-                  ADO CLINIC
+                  ADO
                 </span>
                 <span 
                   className="absolute inset-0 blur-xl opacity-45"
                   style={{ color: '#A8D5D7' }}
                 >
-                  ADO CLINIC
+                  ADO
                 </span>
                 {/* Crisp outline */}
                 <span 
@@ -244,7 +245,7 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
                     WebkitTextStroke: '0.5px rgba(255, 255, 255, 0.98)',
                   }}
                 >
-                  ADO CLINIC
+                  ADO
                 </span>
               </span>
             </h1>
@@ -280,11 +281,7 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
           <div className="absolute inset-0 bg-gradient-to-br from-[#5FB5B8]/5 via-transparent to-[#3D9B9E]/5 pointer-events-none"></div>
           
           {/* Footer 브랜드 로고 (왼쪽) */}
-          <img 
-            src={logoImage} 
-            alt="ADO CLINIC" 
-            className="absolute left-5 top-1/2 -translate-y-1/2 h-8 object-contain"
-          />
+          <PremiumLogo className="absolute left-5 top-1/2 -translate-y-1/2 h-8 w-auto text-[#2D7A7C]" />
           
           {/* 상담 및 예약 버튼 (오른쪽) */}
           <button
