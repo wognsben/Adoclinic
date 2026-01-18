@@ -16,51 +16,66 @@ export function BeforeAfterPage({ onHighlightBooking }: BeforeAfterPageProps) {
       <BeforeAfter />
 
       {/* Medical Disclaimer Section */}
-      <section className="w-full bg-white py-20 px-6">
-        <div className="max-w-[1200px] mx-auto">
-          <div className="border border-black/5 rounded-[32px] p-12 md:p-16 bg-[#F9F9F9]">
-            <h3 className="text-2xl md:text-3xl font-serif text-[#1A1A1A] mb-8 text-center">
-              Important Notice
-            </h3>
+      <section className="w-full bg-white py-20 px-6 relative overflow-hidden">
+        {/* Background Decor */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-gray-100 to-transparent" />
+        
+        <div className="max-w-[1200px] mx-auto relative z-10">
+          <div className="relative overflow-hidden rounded-[40px] p-12 md:p-16 bg-white/60 backdrop-blur-xl border border-white/50 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)]">
             
-            <div className="space-y-6 text-[#4A4A4A] text-sm md:text-base leading-relaxed">
-              <div className="flex items-start gap-4">
-                <span className="text-[#2D7A7C] font-bold text-xs mt-1 min-w-[24px]">01</span>
-                <p>
-                  <span className="text-[#1A1A1A] font-semibold">시술 전 의료진 상담 필수:</span> 
-                  {" "}모든 시술은 반드시 대표원장과의 1:1 상담 후 개인별 피부 상태, 골격 구조, 생활 패턴을 종합적으로 분석하여 진행됩니다.
-                </p>
-              </div>
+            {/* Glass Sheen */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-transparent to-white/40 pointer-events-none" />
 
-              <div className="flex items-start gap-4">
-                <span className="text-[#2D7A7C] font-bold text-xs mt-1 min-w-[24px]">02</span>
-                <p>
-                  <span className="text-[#1A1A1A] font-semibold">개인차에 따른 결과 차이:</span> 
-                  {" "}시술 결과는 개인의 피부 타입, 나이, 생활 습관, 관리 상태에 따라 다를 수 있으며, 사진은 실제 시술 사례이나 모든 환자에게 동일한 결과를 보장하지 않습니다.
-                </p>
-              </div>
+            <div className="relative z-10">
+                <h3 className="text-2xl md:text-3xl font-serif text-[#1A1A1A] mb-10 text-center flex items-center justify-center gap-4">
+                  <span className="h-[1px] w-12 bg-[#1A1A1A]/20"></span>
+                  Important Notice
+                  <span className="h-[1px] w-12 bg-[#1A1A1A]/20"></span>
+                </h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                  <div className="space-y-6">
+                      <div className="flex gap-4 group">
+                        <span className="text-[#738F86] font-serif italic text-xl opacity-60 group-hover:opacity-100 transition-opacity">01</span>
+                        <p className="text-[#4A4A4A] text-sm leading-relaxed font-light">
+                          <span className="text-[#1A1A1A] font-medium block mb-1">Consultation Required</span> 
+                          All procedures are conducted after a 1:1 consultation with the head doctor, thoroughly analyzing individual skin condition, skeletal structure, and lifestyle patterns.
+                        </p>
+                      </div>
 
-              <div className="flex items-start gap-4">
-                <span className="text-[#2D7A7C] font-bold text-xs mt-1 min-w-[24px]">03</span>
-                <p>
-                  <span className="text-[#1A1A1A] font-semibold">부작용 가능성 고지:</span> 
-                  {" "}시술 부위의 일시적인 붓기, 멍, 발적 등이 나타날 수 있으며, 드물게 감염, 색소침착 등의 부작용이 발생할 수 있습니다. 시술 전 충분한 설명을 드립니다.
-                </p>
-              </div>
+                      <div className="flex gap-4 group">
+                        <span className="text-[#738F86] font-serif italic text-xl opacity-60 group-hover:opacity-100 transition-opacity">02</span>
+                        <p className="text-[#4A4A4A] text-sm leading-relaxed font-light">
+                          <span className="text-[#1A1A1A] font-medium block mb-1">Individual Results Vary</span> 
+                          Results may vary depending on individual skin type, age, lifestyle, and care status. Photos shown are actual cases but do not guarantee identical results for all patients.
+                        </p>
+                      </div>
+                  </div>
 
-              <div className="flex items-start gap-4">
-                <span className="text-[#2D7A7C] font-bold text-xs mt-1 min-w-[24px]">04</span>
-                <p>
-                  <span className="text-[#1A1A1A] font-semibold">의료법 준수:</span> 
-                  {" "}본 웹사이트의 모든 Before/After 사진은 의료법에 따라 환자 동의 하에 촬영되었으며, 과장 또는 허위 광고를 하지 않습니다.
-                </p>
-              </div>
-            </div>
+                  <div className="space-y-6">
+                      <div className="flex gap-4 group">
+                        <span className="text-[#738F86] font-serif italic text-xl opacity-60 group-hover:opacity-100 transition-opacity">03</span>
+                        <p className="text-[#4A4A4A] text-sm leading-relaxed font-light">
+                          <span className="text-[#1A1A1A] font-medium block mb-1">Possible Side Effects</span> 
+                          Temporary swelling, bruising, or redness may occur at the treatment site. Rarely, side effects such as infection or pigmentation may occur. Sufficient explanation will be provided before the procedure.
+                        </p>
+                      </div>
 
-            <div className="mt-10 pt-8 border-t border-black/10 text-center">
-              <p className="text-xs text-[#8C8C8C] tracking-wider">
-                ADO는 정확한 진단과 안전한 시술을 최우선으로 합니다.
-              </p>
+                      <div className="flex gap-4 group">
+                        <span className="text-[#738F86] font-serif italic text-xl opacity-60 group-hover:opacity-100 transition-opacity">04</span>
+                        <p className="text-[#4A4A4A] text-sm leading-relaxed font-light">
+                          <span className="text-[#1A1A1A] font-medium block mb-1">Medical Law Compliance</span> 
+                          All Before/After photos on this website were taken with patient consent in accordance with medical laws and do not constitute exaggerated or false advertising.
+                        </p>
+                      </div>
+                  </div>
+                </div>
+
+                <div className="mt-12 pt-8 border-t border-[#1A1A1A]/5 text-center">
+                  <p className="text-[10px] text-[#8C8C8C] tracking-[0.2em] uppercase font-medium">
+                    ADO prioritizes accurate diagnosis and safe procedures
+                  </p>
+                </div>
             </div>
           </div>
         </div>
@@ -72,7 +87,7 @@ export function BeforeAfterPage({ onHighlightBooking }: BeforeAfterPageProps) {
           Object 04 : Transformation Archive
         </p>
         <p className="text-[#8C8C8C] font-serif italic text-lg">
-          "변화의 기록, 정확한 판단의 결과"
+          "Record of Change, Result of Precise Judgment"
         </p>
       </section>
     </div>

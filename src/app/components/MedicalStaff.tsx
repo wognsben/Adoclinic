@@ -89,8 +89,8 @@ export function MedicalStaff() {
           {/* Left Column: Doctor Image (5 Columns) */}
           <div className="lg:col-span-5 relative group perspective-1000">
             <div className="sticky top-32">
-                <div className="relative p-2 rounded-[6px] bg-gradient-to-br from-white via-gray-50 to-white shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] border border-white/50">
-                    <div className="aspect-[3/4] w-full bg-[#E5E5E5] rounded-[2px] overflow-hidden relative">
+                <div className="relative p-2 rounded-[40px] bg-gradient-to-br from-white via-gray-50 to-white shadow-[0_10px_40px_-10px_rgba(0,0,0,0.08)] border border-white/50">
+                    <div className="aspect-[3/4] w-full bg-[#E5E5E5] rounded-[32px] overflow-hidden relative">
                         <img 
                           src={doctorImg} 
                           className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 

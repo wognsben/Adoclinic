@@ -57,7 +57,7 @@ function AppContent() {
         } />
         <Route path="/before-after" element={<BeforeAfterPage onHighlightBooking={handleHighlightBooking} />} />
         <Route path="/treatments" element={<TreatmentPage onHighlightBooking={handleHighlightBooking} />} />
-        <Route path="/events" element={<EventsPage onHighlightBooking={handleHighlightBooking} />} />
+        <Route path="/promotions" element={<EventsPage onHighlightBooking={handleHighlightBooking} />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>

@@ -136,7 +136,7 @@ export function Header({ onOpenConsultation }: HeaderProps) {
   const navItems = [
     { text: 'ABOUT', path: '/' },
     { text: 'TREATMENTS', path: '/treatments' },
-    { text: 'EVENTS', path: '/events' },
+    { text: 'PROMOTIONS', path: '/promotions' },
     { text: 'FEEDBACK', path: '#' },
     { text: 'BEFORE & AFTER', path: '/before-after' }
   ];

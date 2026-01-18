@@ -33,34 +33,48 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[500px] bg-[#F4F3F0] border-[#D6D3D1] p-0 overflow-hidden rounded-[32px]">
-        <div className="p-6 md:p-8">
-          <DialogHeader className="mb-6">
-            <DialogTitle className="text-2xl font-serif text-[#1c1917]">Consultation</DialogTitle>
-            <DialogDescription className="text-[#57534E]">
-              Please enter your information for a personalized 1:1 consultation.
+      <DialogContent className="sm:max-w-[500px] bg-white/80 backdrop-blur-2xl border-white/40 shadow-[0_40px_80px_rgba(0,0,0,0.12)] p-0 overflow-hidden rounded-[40px]">
+        {/* Subtle Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />
+        
+        <div className="relative z-10 p-8 md:p-10">
+          <DialogHeader className="mb-8 text-center">
+            <span className="text-[#738F86] text-[10px] font-bold tracking-[0.3em] uppercase mb-3 block">Reservation</span>
+            <DialogTitle className="text-3xl font-serif text-[#1c1917] mb-2">Consultation</DialogTitle>
+            <DialogDescription className="text-[#888] font-light text-sm">
+              Experience the beginning of your beauty journey.
             </DialogDescription>
           </DialogHeader>
           
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="name" className="text-xs font-bold tracking-widest text-[#1c1917]">NAME</Label>
-                <Input id="name" required placeholder="Name" className="bg-white border-[#E7E5E4] focus:border-[#738F86] rounded-xl" />
+              <div className="space-y-1.5">
+                <Label htmlFor="name" className="text-[10px] font-bold tracking-widest text-[#5E7A70] pl-1">NAME</Label>
+                <Input 
+                    id="name" 
+                    required 
+                    placeholder="Name" 
+                    className="bg-white/50 border-white/60 focus:bg-white focus:border-[#738F86] rounded-2xl h-11 text-sm shadow-sm transition-all duration-300 placeholder:text-gray-400" 
+                />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="phone" className="text-xs font-bold tracking-widest text-[#1c1917]">CONTACT</Label>
-                <Input id="phone" required placeholder="010-0000-0000" className="bg-white border-[#E7E5E4] focus:border-[#738F86] rounded-xl" />
+              <div className="space-y-1.5">
+                <Label htmlFor="phone" className="text-[10px] font-bold tracking-widest text-[#5E7A70] pl-1">CONTACT</Label>
+                <Input 
+                    id="phone" 
+                    required 
+                    placeholder="010-0000-0000" 
+                    className="bg-white/50 border-white/60 focus:bg-white focus:border-[#738F86] rounded-2xl h-11 text-sm shadow-sm transition-all duration-300 placeholder:text-gray-400" 
+                />
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="category" className="text-xs font-bold tracking-widest text-[#1c1917]">TREATMENT</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="category" className="text-[10px] font-bold tracking-widest text-[#5E7A70] pl-1">TREATMENT</Label>
               <Select>
-                <SelectTrigger className="bg-white border-[#E7E5E4] focus:border-[#738F86] rounded-xl">
-                  <SelectValue placeholder="Select Treatment" />
+                <SelectTrigger className="bg-white/50 border-white/60 focus:bg-white focus:border-[#738F86] rounded-2xl h-11 text-sm shadow-sm transition-all duration-300 text-gray-600">
+                  <SelectValue placeholder="Select Treatment Category" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white/90 backdrop-blur-xl border-white/60 rounded-xl shadow-xl">
                   <SelectItem value="lifting">Lifting (Ulthera/Titanium)</SelectItem>
                   <SelectItem value="skin">Skin Booster (Rejuran/Juvelook)</SelectItem>
                   <SelectItem value="body">Body Contouring</SelectItem>
@@ -69,25 +83,22 @@ export function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
               </Select>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="message" className="text-xs font-bold tracking-widest text-[#1c1917]">MESSAGE</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="message" className="text-[10px] font-bold tracking-widest text-[#5E7A70] pl-1">MESSAGE</Label>
               <Textarea 
                 id="message" 
                 placeholder="Please describe your concerns or desired consultation topic." 
-                className="bg-white border-[#E7E5E4] focus:border-[#738F86] min-h-[100px] resize-none rounded-xl"
+                className="bg-white/50 border-white/60 focus:bg-white focus:border-[#738F86] min-h-[100px] resize-none rounded-2xl p-4 text-sm shadow-sm transition-all duration-300 placeholder:text-gray-400"
               />
             </div>
 
             <div className="pt-4">
-              <Button type="submit" className="w-full bg-[#1c1917] hover:bg-[#738F86] text-white py-6 rounded-xl text-sm font-bold tracking-wider transition-colors">
-                SUBMIT REQUEST
+              <Button type="submit" className="w-full bg-[#1c1917] hover:bg-[#738F86] text-white h-14 rounded-full text-xs font-bold tracking-[0.2em] shadow-lg hover:shadow-xl transition-all duration-500 uppercase">
+                Submit Request
               </Button>
             </div>
           </form>
         </div>
-        
-        {/* Decorative bottom bar */}
-        <div className="h-2 bg-[#738F86] w-full" />
       </DialogContent>
     </Dialog>
   );

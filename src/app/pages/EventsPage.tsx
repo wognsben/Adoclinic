@@ -12,17 +12,17 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
   const youtubeContent = [
     {
       thumbnail: 'https://images.unsplash.com/photo-1748407408885-9b62df0e2527?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkZXJtYXRvbG9neSUyMGxhc2VyJTIwdHJlYXRtZW50JTIwY2xvc2UlMjB1cHxlbnwxfHx8fDE3NjgzMDA5MzV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      title: '피부과 전문의가 말하는',
-      subtitle: '안티에이징의 과학',
+      title: 'Dermatologist Perspective',
+      subtitle: 'The Science of Anti-Aging',
       duration: '15:42',
       views: '24K',
       category: 'Interview',
-      videoId: 'dQw4w9WgXcQ' // 예시
+      videoId: 'dQw4w9WgXcQ' 
     },
     {
       thumbnail: 'https://images.unsplash.com/photo-1722350766824-f8520e9676ac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYWNpYWwlMjBsaWZ0aW5nJTIwdHJlYXRtZW50fGVufDF8fHx8MTc2ODIwMzA5Nnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      title: '리프팅 시술 전후',
-      subtitle: '실제 고객 인터뷰',
+      title: 'Lifting Before & After',
+      subtitle: 'Real Client Interviews',
       duration: '12:30',
       views: '18K',
       category: 'Testimonial',
@@ -31,7 +31,7 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
     {
       thumbnail: 'https://images.unsplash.com/photo-1584800526920-35d8a0409deb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZWRpY2FsJTIwZGVybWF0b2xvZ3klMjBjb25mZXJlbmNlJTIwc2tpbiUyMHNjaWVuY2V8ZW58MXx8fHwxNzY4MzAwOTM2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
       title: 'IMCAS Paris 2025',
-      subtitle: '초청 연사 발표 현장',
+      subtitle: 'Invited Speaker Presentation',
       duration: '8:15',
       views: '32K',
       category: 'Conference',
@@ -39,8 +39,8 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
     },
     {
       thumbnail: 'https://images.unsplash.com/photo-1614159102369-effd79eadadd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxza2luY2FyZSUyMHJvdXRpbmUlMjBiZWF1dHl8ZW58MXx8fHwxNzY4MjAzMDk3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      title: '홈케어 완벽 가이드',
-      subtitle: '피부 타입별 맞춤 케어',
+      title: 'Homecare Guide',
+      subtitle: 'Custom Care by Skin Type',
       duration: '20:05',
       views: '15K',
       category: 'Education',
@@ -48,8 +48,8 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
     },
     {
       thumbnail: 'https://images.unsplash.com/photo-1620423855978-e5d74a7bef30?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZXN0aGV0aWMlMjBtZWRpY2luZSUyMHRlY2hub2xvZ3klMjBkZXZpY2V8ZW58MXx8fHwxNzY4MzAwOTQwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      title: '글로벌 트렌드',
-      subtitle: '2025 미용의학 전망',
+      title: 'Global Trends',
+      subtitle: '2025 Aesthetic Medicine Outlook',
       duration: '18:22',
       views: '28K',
       category: 'Insights',
@@ -57,8 +57,8 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
     },
     {
       thumbnail: 'https://images.unsplash.com/photo-1735448213858-6bdfdf78967a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBkZXJtYXRvbG9neSUyMGNsaW5pYyUyMGludGVyaW9yJTIwbW9kZXJuJTIwd2hpdGV8ZW58MXx8fHwxNzY4MzAwOTM2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-      title: 'ADO 클리닉 투어',
-      subtitle: '프리미엄 시설 소개',
+      title: 'ADO Clinic Tour',
+      subtitle: 'Premium Facility Intro',
       duration: '6:48',
       views: '42K',
       category: 'Tour',
@@ -95,7 +95,7 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
                 transition={{ delay: 0.1 }}
                 className="text-5xl md:text-7xl font-serif text-[#1A1A1A] mb-6"
               >
-                시술, 그 이상의 가치
+                Value Beyond Procedure
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}
@@ -104,8 +104,8 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
                 transition={{ delay: 0.2 }}
                 className="text-[#666] text-lg font-light max-w-2xl mx-auto"
               >
-                끊임없는 연구와 교육을 통해<br/>
-                미용 의학의 새로운 기준을 제시합니다.
+                Through continuous research and education,<br/>
+                we present a new standard for aesthetic medicine.
               </motion.p>
             </div>
 
@@ -170,7 +170,7 @@ export function EventsPage({ onHighlightBooking }: EventsPageProps) {
             {/* Gallery Caption */}
             <div className="mt-24 text-center">
               <p className="text-xs tracking-[0.3em] uppercase text-[#1A1A1A] mb-2">Object 07 : Academic Journey</p>
-              <p className="text-[#8C8C8C] font-serif italic text-lg">"끊임없는 연구와 교육"</p>
+              <p className="text-[#8C8C8C] font-serif italic text-lg">"Continuous Research and Education"</p>
             </div>
 
           </div>

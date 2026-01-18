@@ -24,7 +24,7 @@ export function Promotions() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           
           {/* Card 1: Happy Hour (Light Luxury) */}
-          <div className="group relative aspect-[4/3] md:aspect-[16/9] overflow-hidden cursor-pointer">
+          <div className="group relative aspect-[4/3] md:aspect-[16/9] overflow-hidden cursor-pointer rounded-[40px]">
             <div className="absolute inset-0 bg-[#E8EFED] transition-transform duration-700 group-hover:scale-105">
                {/* Background Image */}
                <img 
@@ -56,9 +56,9 @@ export function Promotions() {
           </div>
 
           {/* Card 2: New Year Event (Dark Luxury) */}
-          <div className="group relative aspect-[4/3] md:aspect-[16/9] overflow-hidden cursor-pointer">
+          <div className="group relative aspect-[4/3] md:aspect-[16/9] overflow-hidden cursor-pointer rounded-[40px]">
              <div className="absolute inset-0 bg-[#0F172A] transition-transform duration-700 group-hover:scale-105">
-                <img 
+                <img  
                   src="https://images.unsplash.com/photo-1758568938040-fb8b7275ca5f?q=80&w=1080&auto=format&fit=crop" 
                   alt="Dark Fluid" 
                   className="w-full h-full object-cover opacity-60 mix-blend-screen"

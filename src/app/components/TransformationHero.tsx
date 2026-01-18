@@ -283,7 +283,7 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
           {/* Footer 브랜드 로고 (왼쪽) */}
           <PremiumLogo className="absolute left-5 top-1/2 -translate-y-1/2 h-8 w-auto text-[#2D7A7C]" />
           
-          {/* 상담 및 예약 버튼 (오른쪽) */}
+          {/* Reservation Button (Right) */}
           <button
             onClick={() => {
               if (onHighlightBooking) {
@@ -295,7 +295,7 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
               boxShadow: '0 4px 20px rgba(45, 212, 191, 0.4)',
             }}
           >
-            <span className="text-white text-xs font-bold tracking-wider whitespace-nowrap">상담 및 예약</span>
+            <span className="text-white text-xs font-bold tracking-wider whitespace-nowrap">Reservation</span>
           </button>
         </div>
       </div>
@@ -323,7 +323,7 @@ export function TransformationHero({ onHighlightBooking }: TransformationHeroPro
             `,
           }}
         >
-          "진실은 결과로 증명됩니다"
+          "Truth is Proven by Results"
         </p>
       </div>
     </section>
